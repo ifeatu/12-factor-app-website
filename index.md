@@ -1,3 +1,9 @@
+---
+layout: default
+title: "The Modern 17-Factor App"
+description: "An evolution of the twelve-factor methodology for modern cloud-native applications"
+---
+
 # The Modern 17-Factor App
 
 ## Building Cloud-Native Applications in 2025
