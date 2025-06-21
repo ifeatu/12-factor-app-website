@@ -29,61 +29,100 @@ The original factor assumed one repository per application, but modern practices
 - Atomic commits across services
 - Simplified dependency management
 - Consistent tooling and standards
-- Examples: Google, Facebook, Microsoft
+- Examples: Google, Facebook, Twitter
 
 **Polyrepo Advantages:**
-- Clear ownership boundaries
-- Independent release cycles
-- Smaller blast radius for changes
-- Team autonomy
+- Clear service boundaries
+- Independent deployment cycles
+- Distributed team ownership
+- Natural fit for microservices
 
-#### Modern Implementation
+The key insight: **one codebase per deployable unit**, whether that's a monolithic application or an individual microservice.
+
+#### Branching Strategies
+
+Modern development has standardized on Git Flow or GitHub Flow:
+- **Main/Master branch** represents production
+- **Feature branches** for development
+- **Pull requests** for code review
+- **Protected branches** enforce quality gates
+
+### Implementation Guidelines
+
+1. **Choose Your Strategy**
+   - Monorepo for tight coupling and shared standards
+   - Polyrepo for team autonomy and service isolation
+
+2. **Establish Git Conventions**
+   - Meaningful commit messages (Conventional Commits)
+   - Branch naming standards
+   - Pull request templates
+   - Automated checks (linting, tests, security scans)
+
+3. **Implement GitOps**
+   - Declarative infrastructure in Git
+   - Automated synchronization to environments
+   - Rollback through Git revert
+   - Audit trail through Git history
+
+4. **Version Everything**
+   - Application code
+   - Infrastructure definitions
+   - Configuration templates
+   - Documentation
+   - CI/CD pipelines
+
+### Anti-Patterns to Avoid
+
+- **Code duplication** across repositories
+- **Binary artifacts** in version control
+- **Secrets** committed to repositories
+- **Generated code** checked into Git
+- **Large files** without Git LFS
+
+### Modern Tools and Services
+
+- **Version Control**: GitHub, GitLab, Bitbucket
+- **GitOps**: ArgoCD, Flux, Jenkins X
+- **Monorepo Tools**: Bazel, Nx, Lerna, Rush
+- **Git Workflows**: GitHub Actions, GitLab CI, Bitbucket Pipelines
+
+### Example Implementation
 
 ```yaml
-# .github/workflows/deploy.yml
-name: Deploy to GitHub Pages
+# .github/workflows/gitops.yml
+name: GitOps Workflow
 on:
   push:
-    branches: [ main ]
+    branches: [main]
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-    - name: Build
-      run: npm run build
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+      - uses: actions/checkout@v3
+      - name: Update Kubernetes Manifests
+        run: |
+          kubectl apply -f k8s/
+      - name: Sync with ArgoCD
+        run: |
+          argocd app sync my-app
 ```
 
-### Key Practices
+### Key Takeaways
 
-1. **Single Source of Truth**: Everything needed to build and deploy your application should be in version control
-2. **Immutable Artifacts**: Build once, deploy many times with the same artifact
-3. **Traceability**: Every deployment should be traceable to a specific commit
-4. **Rollback Capability**: Previous versions should always be available for rollback
-
-### Anti-Patterns to Avoid
-
-- Manual changes to production environments
-- Shared code without proper versioning
-- Configuration drift between environments
-- Deploying from developer machines
-
-### Tools and Technologies
-
-- **Version Control**: Git (GitHub, GitLab, Bitbucket)
-- **GitOps**: ArgoCD, Flux, Jenkins X
-- **CI/CD**: GitHub Actions, GitLab CI, Jenkins
-- **Infrastructure as Code**: Terraform, Pulumi, CloudFormation
+1. Git remains the foundation of modern development
+2. GitOps extends version control to operations
+3. Choose monorepo vs polyrepo based on organizational needs
+4. Version everything, not just code
+5. Automation and tooling are essential for scale
 
 ---
 
-[← Back to Overview](./index.md) | [Next: Dependencies →](./factor-02-dependencies.md)
+### Sources
+
+- `https://12factor.net/codebase`
+- `https://www.weave.works/technologies/gitops/`
+- `https://github.com/joelparkerhenderson/monorepo-vs-polyrepo`
+- `https://argo-cd.readthedocs.io/`
+- `https://cacm.acm.org/magazines/2016/7/204032-why-google-stores-billions-of-lines-of-code-in-a-single-repository/fulltext`
