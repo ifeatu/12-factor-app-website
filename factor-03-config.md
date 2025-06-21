@@ -112,7 +112,134 @@ spec:
    - Production: Vault/AWS Parameter Store
 
 2. **Implement Validation**
+   ```
+
+### Best Practices
+
+1. **Hierarchical Configuration**
    ```python
+   # Order of precedence
+   # 1. Environment variables
+   # 2. Configuration service
+   # 3. Config files
+   # 4. Defaults
+   
+   config = ChainMap(
+       os.environ,
+       load_from_vault(),
+       load_from_file('config.yaml'),
+       DEFAULTS
+   )
+   ```
+
+2. **Configuration Templates**
+   ```yaml
+   # config-template.yaml
+   database:
+     url: {{ .Values.database.url }}
+     pool_size: {{ .Values.database.poolSize | default 10 }}
+   
+   redis:
+     url: {{ required "Redis URL required" .Values.redis.url }}
+   ```
+
+3. **Audit and Compliance**
+   ```bash
+   # Track configuration changes
+   vault audit enable file file_path=/var/log/vault_audit.log
+   
+   # Policy as code
+   path "secret/data/myapp/*" {
+     capabilities = ["read", "list"]
+   }
+   ```
+
+### Anti-Patterns to Avoid
+
+- **Hardcoded values** in code
+- **Configuration in containers** - Use mounted configs
+- **Unencrypted secrets** in version control
+- **Manual configuration** updates
+- **Missing validation** of configuration values
+
+### Modern Tools and Services
+
+- **Secret Management**: HashiCorp Vault, AWS Secrets Manager, Azure Key Vault
+- **Configuration Services**: Consul, etcd, AWS Parameter Store
+- **Kubernetes Tools**: Helm, Kustomize, Sealed Secrets
+- **Feature Flags**: LaunchDarkly, Split.io, Unleash
+
+### Example: Complete Configuration Setup
+
+```python
+# config.py
+import os
+from dataclasses import dataclass
+from typing import Optional
+import yaml
+import hvac
+
+@dataclass
+class Config:
+    # Required configuration
+    database_url: str
+    redis_url: str
+    api_key: str
+    
+    # Optional with defaults
+    port: int = 8080
+    workers: int = 4
+    debug: bool = False
+    
+    @classmethod
+    def from_environment(cls) -> 'Config':
+        """Load configuration with fallback hierarchy"""
+        # 1. Try Vault first
+        config = cls._load_from_vault()
+        
+        # 2. Override with environment variables
+        config.update(cls._load_from_env())
+        
+        # 3. Validate and return
+        return cls(**config)
+    
+    @staticmethod
+    def _load_from_vault() -> dict:
+        """Load secrets from Vault"""
+        if vault_addr := os.getenv('VAULT_ADDR'):
+            client = hvac.Client(url=vault_addr)
+            client.token = os.environ['VAULT_TOKEN']
+            return client.read('secret/myapp')['data']
+        return {}
+    
+    @staticmethod
+    def _load_from_env() -> dict:
+        """Load from environment variables"""
+        return {
+            k.lower(): v
+            for k, v in os.environ.items()
+            if k.startswith('MYAPP_')
+        }
+```
+
+### Key Takeaways
+
+1. Environment variables alone are insufficient for modern apps
+2. Use dedicated configuration services for complex deployments
+3. Treat configuration as code with version control
+4. Implement validation and type safety
+5. Separate secrets from general configuration
+6. Audit all configuration access and changes
+
+---
+
+### Sources
+
+- `https://12factor.net/config`
+- `https://kubernetes.io/docs/concepts/configuration/`
+- `https://www.vaultproject.io/docs/concepts/seal`
+- `https://www.cncf.io/blog/2023/01/10/kubernetes-configuration-management-101/`
+- `https://cloud.google.com/appengine/docs/standard/python/config`python
    from pydantic import BaseSettings, validator
    
    class Settings(BaseSettings):
