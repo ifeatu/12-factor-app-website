@@ -88,7 +88,137 @@ def publish_event(event_type, data):
 ### Implementation Guidelines
 
 1. **Service Discovery**
+   ```
+
+### Modern Patterns
+
+1. **Sidecar Proxy Pattern**
    ```yaml
+   # Envoy sidecar configuration
+   apiVersion: v1
+   kind: Pod
+   spec:
+     containers:
+     - name: app
+       image: myapp:latest
+     - name: envoy
+       image: envoyproxy/envoy:latest
+       volumeMounts:
+       - name: envoy-config
+         mountPath: /etc/envoy
+   ```
+
+2. **Service Virtualization**
+   ```javascript
+   // Mock external services for testing
+   const nock = require('nock');
+   
+   // Virtualize payment service
+   nock('https://payment.example.com')
+     .post('/charge')
+     .reply(200, {
+       transaction_id: 'mock-12345',
+       status: 'success'
+     });
+   ```
+
+3. **Distributed Tracing**
+   ```python
+   from opentelemetry import trace
+   from opentelemetry.exporter.jaeger import JaegerExporter
+   
+   tracer = trace.get_tracer(__name__)
+   
+   def call_backing_service(service_name, operation):
+       with tracer.start_as_current_span(f"{service_name}.{operation}"):
+           # Service call logic here
+           pass
+   ```
+
+### Best Practices
+
+1. **Health Checks**
+   ```python
+   # Standardized health check endpoint
+   @app.route('/health')
+   def health_check():
+       checks = {
+           'database': check_database(),
+           'redis': check_redis(),
+           'kafka': check_kafka()
+       }
+       
+       status = 'healthy' if all(checks.values()) else 'unhealthy'
+       return jsonify({
+           'status': status,
+           'checks': checks,
+           'timestamp': datetime.utcnow().isoformat()
+       }), 200 if status == 'healthy' else 503
+   ```
+
+2. **Timeout Management**
+   ```python
+   # Hierarchical timeout budget
+   TOTAL_TIMEOUT = 30  # seconds
+   
+   timeouts = {
+       'database': TOTAL_TIMEOUT * 0.5,  # 50% of budget
+       'cache': TOTAL_TIMEOUT * 0.1,     # 10% of budget
+       'external_api': TOTAL_TIMEOUT * 0.4  # 40% of budget
+   }
+   ```
+
+3. **Graceful Degradation**
+   ```python
+   async def get_user_with_recommendations(user_id):
+       user = await user_service.get_user(user_id)
+       
+       # Non-critical service - degrade gracefully
+       try:
+           recommendations = await recommendation_service.get_recommendations(user_id)
+       except ServiceUnavailable:
+           recommendations = []  # Empty recommendations better than error
+       
+       return {
+           'user': user,
+           'recommendations': recommendations
+       }
+   ```
+
+### Anti-Patterns to Avoid
+
+- **Hardcoded service locations**
+- **Missing timeouts** on service calls
+- **Synchronous calls** for non-critical data
+- **Tight coupling** to service implementations
+- **Missing circuit breakers** for external services
+
+### Modern Tools and Services
+
+- **Service Mesh**: Istio, Linkerd, Consul Connect
+- **API Gateways**: Kong, Zuul, AWS API Gateway
+- **Event Streaming**: Apache Kafka, AWS Kinesis, Google Pub/Sub
+- **Service Discovery**: Consul, Eureka, Kubernetes DNS
+- **Contract Testing**: Pact, Spring Cloud Contract
+
+### Key Takeaways
+
+1. Service mesh handles cross-cutting concerns at infrastructure level
+2. Event-driven patterns reduce coupling between services
+3. Circuit breakers prevent cascade failures
+4. Service contracts ensure compatibility
+5. Health checks and timeouts are non-negotiable
+6. Design for graceful degradation
+
+---
+
+### Sources
+
+- `https://12factor.net/backing-services`
+- `https://istio.io/latest/docs/concepts/what-is-istio/`
+- `https://martinfowler.com/articles/microservices.html`
+- `https://netflixtechblog.com/making-the-netflix-api-more-resilient-a8ec62159c2d`
+- `https://landscape.cncf.io/card-mode?category=service-mesh`yaml
    # Kubernetes Service for discovery
    apiVersion: v1
    kind: Service
