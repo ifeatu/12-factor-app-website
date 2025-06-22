@@ -1,10 +1,10 @@
-# The Modern 17-Factor App Website
+# The Modern 18-Factor App Website
 
 A comprehensive guide to building cloud-native applications in 2025, evolving the original twelve-factor methodology with five additional factors essential for modern distributed systems.
 
 ## About
 
-This site presents **The Modern 17-Factor App** - an evolution of the original twelve factors plus five critical new factors that address today's cloud-native realities including:
+This site presents **The Modern 18-Factor App** - an evolution of the original twelve factors plus six critical new factors that address today's cloud-native realities including:
 
 - Security threats and supply chain compromises
 - Microservices architectures and service meshes
@@ -14,7 +14,7 @@ This site presents **The Modern 17-Factor App** - an evolution of the original t
 
 ## Structure
 
-- `index.md` - Homepage with overview of all 17 factors
+- `index.md` - Homepage with overview of all 18 factors
 - `factor-*.md` - Individual factor pages with detailed explanations
 - `_config.yml` - Jekyll configuration for GitHub Pages
 

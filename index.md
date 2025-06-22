@@ -28,10 +28,10 @@ description: "An evolution of the twelve-factor methodology for modern cloud-nat
   </div>
 </section>
 
-<!-- Why 17 Factors Section -->
+<!-- Why 18 Factors Section -->
 <section class="container" style="padding: 2rem 0;">
   <div style="max-width: 1000px; margin: 0 auto;">
-    <h3 style="text-align: center; margin-bottom: 2rem;">Why 17 Factors?</h3>
+    <h3 style="text-align: center; margin-bottom: 2rem;">Why 18 Factors?</h3>
     
     <p style="margin-bottom: 2rem;">The original twelve factors emerged from Heroku's experience running hundreds of apps on one of the first Platform-as-a-Service offerings. While these principles remain foundational, modern applications face challenges that didn't exist in 2011:</p>
     
@@ -66,7 +66,7 @@ description: "An evolution of the twelve-factor methodology for modern cloud-nat
 
 <!-- Factors Section -->
 <section id="factors" class="container" style="padding: 3rem 0;">
-  <h3 style="text-align: center; margin-bottom: 3rem;">The 17 Factors</h3>
+  <h3 style="text-align: center; margin-bottom: 3rem;">The 18 Factors</h3>
   
   <!-- Original Twelve - Evolved -->
   <div style="margin-bottom: 4rem;">
@@ -235,5 +235,5 @@ description: "An evolution of the twelve-factor methodology for modern cloud-nat
 
 <!-- Footer Attribution -->
 <section class="container" style="padding: 2rem 0; text-align: center; border-top: 1px solid var(--gray-200); margin-top: 3rem;">
-  <p style="color: var(--gray-600); font-style: italic;">The Modern 17-Factor App is an evolution of <a href="https://12factor.net/" target="_blank" style="color: var(--primary-color);">The Twelve-Factor App</a> methodology, updated for the realities of cloud-native development in 2025.</p>
+  <p style="color: var(--gray-600); font-style: italic;">The Modern 18-Factor App is an evolution of <a href="https://12factor.net/" target="_blank" style="color: var(--primary-color);">The Twelve-Factor App</a> methodology, updated for the realities of cloud-native development in 2025.</p>
 </section>
