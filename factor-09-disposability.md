@@ -35,3 +35,71 @@ spec:
         - name: FORCE
           value: 'false'
 ```
+
+#### Graceful Shutdown Implementation
+
+```python
+import signal
+import sys
+import time
+from contextlib import contextmanager
+
+class GracefulShutdown:
+    def __init__(self):
+        self.shutdown = False
+        signal.signal(signal.SIGTERM, self._handle_signal)
+        signal.signal(signal.SIGINT, self._handle_signal)
+    
+    def _handle_signal(self, signum, frame):
+        print(f"Received signal {signum}, starting graceful shutdown...")
+        self.shutdown = True
+    
+    @contextmanager
+    def lifecycle(self):
+        yield
+        # Cleanup code here
+        print("Cleanup complete")
+
+app = GracefulShutdown()
+
+with app.lifecycle():
+    while not app.shutdown:
+        # Process work
+        process_message()
+        time.sleep(0.1)
+```
+
+### Best Practices
+
+1. **Fast Startup**
+    
+    - Lazy loading of non-critical components
+    - Pre-warmed container images
+    - Readiness probes before receiving traffic
+2. **Graceful Shutdown**
+    
+    - Stop accepting new work
+    - Complete in-flight requests
+    - Close connections cleanly
+    - Deregister from service discovery
+3. **Timeout Management**
+    
+    - SIGTERM grace period alignment
+    - Connection draining timeouts
+    - Background job completion windows
+
+### Key Takeaways
+
+- Design for sudden termination
+- Test disposability with chaos engineering
+- Fast startup enables rapid scaling
+- Graceful shutdown prevents data loss
+- Health checks ensure traffic safety
+
+---
+
+### Sources
+
+- `https://12factor.net/disposability`
+- `https://netflixtechblog.com/the-netflix-simian-army-16e57fbab116`
+- `https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/`
