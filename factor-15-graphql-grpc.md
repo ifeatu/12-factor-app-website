@@ -1,8 +1,8 @@
 ---
 layout: factor
 title: "Factor 15: GraphQL & gRPC"
-number: 15
-name: "GraphQL & gRPC"
+factor_number: 15
+factor_name: "GraphQL & gRPC"
 description: "Modern API protocols for efficient communication"
 prev_factor:
   number: 14

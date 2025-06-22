@@ -1,8 +1,8 @@
 ---
 layout: factor
 title: "Factor 16: Auth"
-number: 16
-name: "Auth"
+factor_number: 16
+factor_name: "Auth"
 description: "Authentication and authorization as a service"
 prev_factor:
   number: 15

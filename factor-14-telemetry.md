@@ -1,8 +1,8 @@
 ---
 layout: factor
 title: "Factor 14: Telemetry"
-number: 14
-name: "Telemetry"
+factor_number: 14
+factor_name: "Telemetry"
 description: "Comprehensive observability with metrics, logs, and traces"
 prev_factor:
   number: 13

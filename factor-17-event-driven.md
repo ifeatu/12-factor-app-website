@@ -1,8 +1,8 @@
 ---
 layout: factor
 title: "Factor 17: Event-Driven"
-number: 17
-name: "Event-Driven"
+factor_number: 17
+factor_name: "Event-Driven"
 description: "Asynchronous communication and event sourcing"
 prev_factor:
   number: 16

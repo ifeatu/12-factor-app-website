@@ -1,8 +1,8 @@
 ---
 layout: factor
 title: "Factor 18: Failure Isolation"
-number: 18
-name: "Failure Isolation"
+factor_number: 18
+factor_name: "Failure Isolation"
 description: "Contain failures and maintain system resilience"
 prev_factor:
   number: 17
