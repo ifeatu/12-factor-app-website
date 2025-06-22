@@ -286,7 +286,6 @@ pre code {
   min-width: 400px;
   display: none;
   z-index: 1000;
-  display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
@@ -296,10 +295,6 @@ pre code {
     background-color: var(--dark-surface);
     border-color: var(--dark-border);
   }
-}
-
-.nav-dropdown:hover .dropdown-content {
-  display: grid;
 }
 
 .dropdown-section h4 {

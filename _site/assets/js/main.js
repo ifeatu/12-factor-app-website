@@ -3,6 +3,7 @@
 // DOM Content Loaded
 document.addEventListener('DOMContentLoaded', function() {
     initMobileNavigation();
+    initDropdownAutohide();
     initTableOfContents();
     initScrollProgress();
     initSmoothScrolling();
@@ -60,6 +61,43 @@ function initMobileNavigation() {
                     bar.style.opacity = '1';
                 });
             }
+        });
+    }
+}
+
+// ===== DROPDOWN AUTOHIDE =====
+function initDropdownAutohide() {
+    const dropdown = document.querySelector('.nav-dropdown');
+    const dropdownContent = document.querySelector('.dropdown-content');
+    
+    if (dropdown && dropdownContent) {
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!dropdown.contains(event.target)) {
+                dropdownContent.style.display = 'none';
+            }
+        });
+        
+        // Show dropdown on hover
+        dropdown.addEventListener('mouseenter', function() {
+            dropdownContent.style.display = 'grid';
+        });
+        
+        // Hide dropdown when mouse leaves (with small delay for better UX)
+        dropdown.addEventListener('mouseleave', function() {
+            setTimeout(function() {
+                if (!dropdown.matches(':hover')) {
+                    dropdownContent.style.display = 'none';
+                }
+            }, 100);
+        });
+        
+        // Close dropdown when clicking on a dropdown link
+        const dropdownLinks = dropdownContent.querySelectorAll('a');
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                dropdownContent.style.display = 'none';
+            });
         });
     }
 }
