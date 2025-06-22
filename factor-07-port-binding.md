@@ -216,3 +216,54 @@ process.on('SIGTERM', () => {
     app.run(host='0.0.0.0', port=8080)  # Correct
     # app.run(host='127.0.0.1', port=8080)  # Wrong for containers
     ```
+    
+2. **Graceful Shutdown**
+    
+    ```javascript
+    const server = app.listen(PORT);
+    
+    // Handle shutdown signals
+    ['SIGINT', 'SIGTERM'].forEach(signal => {
+      process.on(signal, () => {
+        console.log(`${signal} received, closing server`);
+        server.close(() => {
+          console.log('Server closed');
+          process.exit(0);
+        });
+      });
+    });
+    ```
+    
+
+### Anti-Patterns to Avoid
+
+- **Hardcoded ports** in application code
+- **Binding to localhost** in containers
+- **Missing graceful shutdown** handlers
+- **Port conflicts** from poor planning
+- **Ignoring health check** endpoints
+
+### Modern Tools and Services
+
+- **Container Runtimes**: Docker, containerd, CRI-O
+- **Orchestration**: Kubernetes, Docker Swarm, Nomad
+- **Service Mesh**: Istio, Linkerd, Consul Connect
+- **Ingress Controllers**: NGINX, Traefik, HAProxy
+
+### Key Takeaways
+
+1. Self-contained applications simplify deployment
+2. Dynamic port configuration enables flexibility
+3. Container orchestration abstracts networking complexity
+4. Service discovery replaces hardcoded endpoints
+5. Multiple protocols can coexist on different ports
+6. Graceful shutdown is essential for reliability
+
+---
+
+### Sources
+
+- `https://12factor.net/port-binding`
+- `https://kubernetes.io/docs/concepts/services-networking/service/`
+- `https://docs.docker.com/network/`
+- `https://www.cncf.io/blog/2023/10/18/ingress-controllers-in-kubernetes/`
