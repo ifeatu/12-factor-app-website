@@ -162,9 +162,23 @@ body {
 }
 
 /* ===== DARK MODE UTILITIES ===== */
-.dark-mode,
+/* Dark mode class-based styles */
+body.dark-mode {
+  --surface-primary: var(--dark-bg);
+  --surface-secondary: var(--dark-surface);
+  --surface-elevated: var(--dark-surface-elevated);
+  --text-primary: var(--dark-text);
+  --text-secondary: var(--dark-text-secondary);
+  --text-muted: var(--dark-text-muted);
+  --border-color: var(--dark-border);
+  
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+/* System dark mode preference */
 @media (prefers-color-scheme: dark) {
-  :root {
+  body:not(.dark-mode):not(.light-mode) {
     --surface-primary: var(--dark-bg);
     --surface-secondary: var(--dark-surface);
     --surface-elevated: var(--dark-surface-elevated);
@@ -172,15 +186,9 @@ body {
     --text-secondary: var(--dark-text-secondary);
     --text-muted: var(--dark-text-muted);
     --border-color: var(--dark-border);
-  }
-}
-
-/* Dark mode application */
-body.dark-mode,
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: var(--surface-primary, var(--dark-bg));
-    color: var(--text-primary, var(--dark-text));
+    
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
   }
 }
 

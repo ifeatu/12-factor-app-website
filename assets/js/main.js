@@ -304,7 +304,7 @@ function initAnimations() {
     // Intersection Observer for fade-in animations
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: `0px 0px -${getComputedStyle(document.documentElement).getPropertyValue('--space-12')} 0px`
+        rootMargin: '0px 0px -48px 0px'
     };
     
     const observer = new IntersectionObserver((entries) => {
