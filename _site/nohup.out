@@ -1,0 +1,16 @@
+Configuration file: /Users/pierre/12-factor-app-website/_config.yml
+            Source: /Users/pierre/12-factor-app-website
+       Destination: /Users/pierre/12-factor-app-website/_site
+ Incremental build: disabled. Enable with --incremental
+      Generating... 
+       Jekyll Feed: Generating feed for posts
+[33m    Liquid Warning: Liquid syntax error (line 134): [:dot, "."] is not a valid expression in "{{ .Values.database.url }}" in factor-03-config.md[0m
+[33m    Liquid Warning: Liquid syntax error (line 135): [:dot, "."] is not a valid expression in "{{ .Values.database.poolSize | default 10 }}" in factor-03-config.md[0m
+[33m    Liquid Warning: Liquid syntax error (line 138): Expected end_of_string but found string in "{{ required "Redis URL required" .Values.redis.url }}" in factor-03-config.md[0m
+[33m    Liquid Warning: Liquid syntax error (line 112): Unexpected character $ in "{{ $labels.service }}" in factor-14-telemetry.md[0m
+[33m    Liquid Warning: Liquid syntax error (line 112): Unexpected character $ in "{{ $value }}" in factor-14-telemetry.md[0m
+                    done in 0.444 seconds.
+ Auto-regeneration: enabled for '/Users/pierre/12-factor-app-website'
+    Server address: http://127.0.0.1:4000/12-factor-app-website/
+  Server running... press ctrl-c to stop.
+[2025-06-21 19:35:24] ERROR '/' not found.

@@ -1,1 +1,1 @@
-Sitemap: https://pierrebrunelle.github.io/12-factor-app-website/sitemap.xml
+Sitemap: http://localhost:4000/12-factor-app-website/sitemap.xml
