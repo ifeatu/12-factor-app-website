@@ -7,23 +7,23 @@ layout: default
     <div class="factor-header">
         <div class="container">
             <div class="factor-nav">
-                <a href="{{ '/' | relative_url }}" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to Overview
+                <a href="{{ '/' | relative_url }}" class="back-link" aria-label="Back to overview page">
+                    <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Overview
                 </a>
                 
-                <div class="factor-navigation">
+                <nav class="factor-navigation" aria-label="Factor navigation">
                     {% if page.prev_factor %}
-                        <a href="{{ page.prev_factor.url | relative_url }}" class="nav-btn prev-btn">
-                            <i class="fas fa-chevron-left"></i> Previous
+                        <a href="{{ page.prev_factor.url | relative_url }}" class="nav-btn prev-btn" aria-label="Previous factor: {{ page.prev_factor.name }}">
+                            <i class="fas fa-chevron-left" aria-hidden="true"></i> Previous
                         </a>
                     {% endif %}
                     
                     {% if page.next_factor %}
-                        <a href="{{ page.next_factor.url | relative_url }}" class="nav-btn next-btn">
-                            Next <i class="fas fa-chevron-right"></i>
+                        <a href="{{ page.next_factor.url | relative_url }}" class="nav-btn next-btn" aria-label="Next factor: {{ page.next_factor.name }}">
+                            Next <i class="fas fa-chevron-right" aria-hidden="true"></i>
                         </a>
                     {% endif %}
-                </div>
+                </nav>
             </div>
             
             <div class="factor-title">
@@ -47,7 +47,7 @@ layout: default
         <div class="container">
             <div class="content-wrapper">
                 <!-- Table of Contents -->
-                <aside class="toc-sidebar">
+                <aside class="toc-sidebar" role="complementary" aria-label="Table of contents">
                     <div class="toc-container">
                         <h3>Table of Contents</h3>
                         <div id="toc"></div>
@@ -55,14 +55,14 @@ layout: default
                 </aside>
                 
                 <!-- Main Content -->
-                <article class="factor-article">
+                <article class="factor-article" role="main">
                     {{ content }}
                     
                     <!-- Factor Navigation Footer -->
-                    <div class="factor-footer-nav">
+                    <nav class="factor-footer-nav" aria-label="Factor pagination">
                         {% if page.prev_factor %}
                             {% if page.prev_factor.url %}
-                                <a href="{{ page.prev_factor.url | relative_url }}" class="footer-nav-btn prev">
+                                <a href="{{ page.prev_factor.url | relative_url }}" class="footer-nav-btn prev" aria-label="Previous: Factor {{ page.prev_factor.number }} - {{ page.prev_factor.name }}">
                                     <div class="nav-direction">Previous Factor</div>
                                     <div class="nav-title">Factor {{ page.prev_factor.number }}: {{ page.prev_factor.name }}</div>
                                 </a>
@@ -71,13 +71,13 @@ layout: default
                         
                         {% if page.next_factor %}
                             {% if page.next_factor.url %}
-                                <a href="{{ page.next_factor.url | relative_url }}" class="footer-nav-btn next">
+                                <a href="{{ page.next_factor.url | relative_url }}" class="footer-nav-btn next" aria-label="Next: Factor {{ page.next_factor.number }} - {{ page.next_factor.name }}">
                                     <div class="nav-direction">Next Factor</div>
                                     <div class="nav-title">Factor {{ page.next_factor.number }}: {{ page.next_factor.name }}</div>
                                 </a>
                             {% endif %}
                         {% endif %}
-                    </div>
+                    </nav>
                 </article>
             </div>
         </div>

@@ -7,11 +7,11 @@ description: "Run admin/management tasks as one-off processes"
 prev_factor:
   number: 11
   name: "Logs"
-  url: "/factor-11-logs"
+  url: "factor-11-logs"
 next_factor:
   number: 13
   name: "API First"
-  url: "/factor-13-api-first"
+  url: "factor-13-api-first"
 ---
 
 # Factor 12: Admin Processes

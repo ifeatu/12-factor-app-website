@@ -7,11 +7,11 @@ description: "Execute the app as one or more stateless processes"
 prev_factor:
   number: 5
   name: "Build, Release, Run"
-  url: "/factor-05-build-release-run"
+  url: "factor-05-build-release-run"
 next_factor:
   number: 7
   name: "Port Binding"
-  url: "/factor-07-port-binding"
+  url: "factor-07-port-binding"
 ---
 
 # Factor 6: Processes

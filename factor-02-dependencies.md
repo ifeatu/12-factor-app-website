@@ -7,11 +7,11 @@ description: "Explicitly declare and isolate dependencies"
 prev_factor:
   number: 1
   name: "Codebase"
-  url: "/factor-01-codebase"
+  url: "factor-01-codebase"
 next_factor:
   number: 3
   name: "Config"
-  url: "/factor-03-config"
+  url: "factor-03-config"
 ---
 
 # Factor 2: Dependencies

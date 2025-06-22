@@ -7,11 +7,11 @@ description: "Design and document APIs before implementation"
 prev_factor:
   number: 12
   name: "Admin Processes"
-  url: "/factor-12-admin-processes"
+  url: "factor-12-admin-processes"
 next_factor:
   number: 14
-  name: "GraphQL & gRPC"
-  url: "/factor-14-graphql-grpc"
+  name: "Telemetry"
+  url: "factor-14-telemetry"
 ---
 
 # Factor 13: API First

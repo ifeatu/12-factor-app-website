@@ -7,11 +7,11 @@ description: "Treat backing services as attached resources"
 prev_factor:
   number: 3
   name: "Config"
-  url: "/factor-03-config"
+  url: "factor-03-config"
 next_factor:
   number: 5
   name: "Build, Release, Run"
-  url: "/factor-05-build-release-run"
+  url: "factor-05-build-release-run"
 ---
 
 # Factor 4: Backing Services

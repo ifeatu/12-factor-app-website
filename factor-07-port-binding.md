@@ -7,11 +7,11 @@ description: "Export services via port binding"
 prev_factor:
   number: 6
   name: "Processes"
-  url: "/factor-06-processes"
+  url: "factor-06-processes"
 next_factor:
   number: 8
   name: "Concurrency"
-  url: "/factor-08-concurrency"
+  url: "factor-08-concurrency"
 ---
 
 # Factor 7: Port Binding

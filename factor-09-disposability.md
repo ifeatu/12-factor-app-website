@@ -7,11 +7,11 @@ description: "Maximize robustness with fast startup and graceful shutdown"
 prev_factor:
   number: 8
   name: "Concurrency"
-  url: "/factor-08-concurrency"
+  url: "factor-08-concurrency"
 next_factor:
   number: 10
   name: "Dev/Prod Parity"
-  url: "/factor-10-dev-prod-parity"
+  url: "factor-10-dev-prod-parity"
 ---
 
 # Factor 9: Disposability

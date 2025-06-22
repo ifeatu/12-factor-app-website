@@ -26,103 +26,106 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Run admin/management tasks as one-off processes" />
 <meta property="og:description" content="Run admin/management tasks as one-off processes" />
-<link rel="canonical" href="http://0.0.0.0:4000/12-factor-app-website/factor-12-admin-processes.html" />
-<meta property="og:url" content="http://0.0.0.0:4000/12-factor-app-website/factor-12-admin-processes.html" />
+<link rel="canonical" href="https://pierrebrunelle.github.io/12-factor-app-website/factor-12-admin-processes.html" />
+<meta property="og:url" content="https://pierrebrunelle.github.io/12-factor-app-website/factor-12-admin-processes.html" />
 <meta property="og:site_name" content="The Modern 17-Factor App" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Factor 12: Admin Processes" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"Run admin/management tasks as one-off processes","headline":"Factor 12: Admin Processes","url":"http://0.0.0.0:4000/12-factor-app-website/factor-12-admin-processes.html"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"Run admin/management tasks as one-off processes","headline":"Factor 12: Admin Processes","url":"https://pierrebrunelle.github.io/12-factor-app-website/factor-12-admin-processes.html"}</script>
 <!-- End Jekyll SEO tag -->
 
     
     <!-- Feed -->
-    <link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
+    <link type="application/atom+xml" rel="alternate" href="https://pierrebrunelle.github.io/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <div class="nav-brand">
-                <a href="/12-factor-app-website/" class="brand-link">
-                    <i class="fas fa-cube brand-icon"></i>
+                <a href="/12-factor-app-website/" class="brand-link" aria-label="The Modern 17-Factor App - Home">
+                    <i class="fas fa-cube brand-icon" aria-hidden="true"></i>
                     <span class="brand-text">The Modern 17-Factor App</span>
                 </a>
             </div>
             
-            <div class="nav-menu" id="nav-menu">
-                <a href="/12-factor-app-website/" class="nav-link ">
-                    <i class="fas fa-home"></i> Home
+            <div class="nav-menu" id="nav-menu" role="menubar">
+                <a href="/12-factor-app-website/" class="nav-link " role="menuitem" aria-current="">
+                    <i class="fas fa-home" aria-hidden="true"></i> Home
                 </a>
-                <div class="nav-dropdown">
-                    <a href="#" class="nav-link dropdown-toggle">
-                        <i class="fas fa-list"></i> Factors <i class="fas fa-chevron-down"></i>
+                <div class="nav-dropdown" role="menuitem">
+                    <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true" role="button" aria-label="Factors menu">
+                        <i class="fas fa-list" aria-hidden="true"></i> Factors <i class="fas fa-chevron-down" aria-hidden="true"></i>
                     </a>
-                    <div class="dropdown-content">
+                    <div class="dropdown-content" role="menu" aria-label="Factors submenu">
                         <div class="dropdown-section">
-                            <h4>Original 12 Factors</h4>
-                            <a href="/12-factor-app-website/factor-01-codebase">1. Codebase</a>
-                            <a href="/12-factor-app-website/factor-02-dependencies">2. Dependencies</a>
-                            <a href="/12-factor-app-website/factor-03-config">3. Config</a>
-                            <a href="/12-factor-app-website/factor-04-backing-services">4. Backing Services</a>
-                            <a href="/12-factor-app-website/factor-05-build-release-run">5. Build, Release, Run</a>
-                            <a href="/12-factor-app-website/factor-06-processes">6. Processes</a>
-                            <a href="/12-factor-app-website/factor-07-port-binding">7. Port Binding</a>
-                            <a href="/12-factor-app-website/factor-08-concurrency">8. Concurrency</a>
-                            <a href="/12-factor-app-website/factor-09-disposability">9. Disposability</a>
-                            <a href="/12-factor-app-website/factor-10-dev-prod-parity">10. Dev/Prod Parity</a>
-                            <a href="/12-factor-app-website/factor-11-logs">11. Logs</a>
-                            <a href="/12-factor-app-website/factor-12-admin-processes">12. Admin Processes</a>
+                            <h4 role="presentation">Original 12 Factors</h4>
+                            <a href="/12-factor-app-website/factor-01-codebase" role="menuitem">1. Codebase</a>
+                            <a href="/12-factor-app-website/factor-02-dependencies" role="menuitem">2. Dependencies</a>
+                            <a href="/12-factor-app-website/factor-03-config" role="menuitem">3. Config</a>
+                            <a href="/12-factor-app-website/factor-04-backing-services" role="menuitem">4. Backing Services</a>
+                            <a href="/12-factor-app-website/factor-05-build-release-run" role="menuitem">5. Build, Release, Run</a>
+                            <a href="/12-factor-app-website/factor-06-processes" role="menuitem">6. Processes</a>
+                            <a href="/12-factor-app-website/factor-07-port-binding" role="menuitem">7. Port Binding</a>
+                            <a href="/12-factor-app-website/factor-08-concurrency" role="menuitem">8. Concurrency</a>
+                            <a href="/12-factor-app-website/factor-09-disposability" role="menuitem">9. Disposability</a>
+                            <a href="/12-factor-app-website/factor-10-dev-prod-parity" role="menuitem">10. Dev/Prod Parity</a>
+                            <a href="/12-factor-app-website/factor-11-logs" role="menuitem">11. Logs</a>
+                            <a href="/12-factor-app-website/factor-12-admin-processes" role="menuitem">12. Admin Processes</a>
                         </div>
                         <div class="dropdown-section">
-                            <h4>New 6 Factors</h4>
-                            <a href="/12-factor-app-website/factor-13-api-first">13. API First</a>
-                            <a href="/12-factor-app-website/factor-14-telemetry">14. Telemetry</a>
-                            <a href="/12-factor-app-website/factor-15-graphql-grpc">15. GraphQL & gRPC</a>
-                            <a href="/12-factor-app-website/factor-16-auth">16. Authentication & Authorization</a>
-                            <a href="/12-factor-app-website/factor-17-event-driven">17. Event-Driven Architecture</a>
-                            <a href="/12-factor-app-website/factor-18-failure-isolation">18. Failure Isolation</a>
+                            <h4 role="presentation">New 6 Factors</h4>
+                            <a href="/12-factor-app-website/factor-13-api-first" role="menuitem">13. API First</a>
+                            <a href="/12-factor-app-website/factor-14-telemetry" role="menuitem">14. Telemetry</a>
+                            <a href="/12-factor-app-website/factor-15-graphql-grpc" role="menuitem">15. GraphQL & gRPC</a>
+                            <a href="/12-factor-app-website/factor-16-auth" role="menuitem">16. Authentication & Authorization</a>
+                            <a href="/12-factor-app-website/factor-17-event-driven" role="menuitem">17. Event-Driven Architecture</a>
+                            <a href="/12-factor-app-website/factor-18-failure-isolation" role="menuitem">18. Failure Isolation</a>
                         </div>
                     </div>
                 </div>
-                <a href="https://github.com/ifeatu/12-factor-app-website" target="_blank" class="nav-link">
-                    <i class="fab fa-github"></i> GitHub
+                <a href="https://github.com/ifeatu/12-factor-app-website" target="_blank" class="nav-link" role="menuitem" aria-label="GitHub repository (opens in new tab)">
+                    <i class="fab fa-github" aria-hidden="true"></i> GitHub
                 </a>
             </div>
             
-            <div class="nav-toggle" id="nav-toggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+            </button>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="main-content" id="main-content">
         <div class="factor-page">
     <!-- Factor Header -->
     <div class="factor-header">
         <div class="container">
             <div class="factor-nav">
-                <a href="/12-factor-app-website/" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to Overview
+                <a href="/12-factor-app-website/" class="back-link" aria-label="Back to overview page">
+                    <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Overview
                 </a>
                 
-                <div class="factor-navigation">
+                <nav class="factor-navigation" aria-label="Factor navigation">
                     
-                        <a href="/12-factor-app-website/factor-11-logs" class="nav-btn prev-btn">
-                            <i class="fas fa-chevron-left"></i> Previous
+                        <a href="/12-factor-app-website/factor-11-logs" class="nav-btn prev-btn" aria-label="Previous factor: Logs">
+                            <i class="fas fa-chevron-left" aria-hidden="true"></i> Previous
                         </a>
                     
                     
                     
-                        <a href="/12-factor-app-website/factor-13-api-first" class="nav-btn next-btn">
-                            Next <i class="fas fa-chevron-right"></i>
+                        <a href="/12-factor-app-website/factor-13-api-first" class="nav-btn next-btn" aria-label="Next factor: API First">
+                            Next <i class="fas fa-chevron-right" aria-hidden="true"></i>
                         </a>
                     
-                </div>
+                </nav>
             </div>
             
             <div class="factor-title">
@@ -144,7 +147,7 @@
         <div class="container">
             <div class="content-wrapper">
                 <!-- Table of Contents -->
-                <aside class="toc-sidebar">
+                <aside class="toc-sidebar" role="complementary" aria-label="Table of contents">
                     <div class="toc-container">
                         <h3>Table of Contents</h3>
                         <div id="toc"></div>
@@ -152,7 +155,7 @@
                 </aside>
                 
                 <!-- Main Content -->
-                <article class="factor-article">
+                <article class="factor-article" role="main">
                     <h1 id="factor-12-admin-processes">Factor 12: Admin Processes</h1>
 
 <h2 id="run-adminmanagement-tasks-as-one-off-processes">Run admin/management tasks as one-off processes</h2>
@@ -266,10 +269,10 @@
 
                     
                     <!-- Factor Navigation Footer -->
-                    <div class="factor-footer-nav">
+                    <nav class="factor-footer-nav" aria-label="Factor pagination">
                         
                             
-                                <a href="/12-factor-app-website/factor-11-logs" class="footer-nav-btn prev">
+                                <a href="/12-factor-app-website/factor-11-logs" class="footer-nav-btn prev" aria-label="Previous: Factor 11 - Logs">
                                     <div class="nav-direction">Previous Factor</div>
                                     <div class="nav-title">Factor 11: Logs</div>
                                 </a>
@@ -278,13 +281,13 @@
                         
                         
                             
-                                <a href="/12-factor-app-website/factor-13-api-first" class="footer-nav-btn next">
+                                <a href="/12-factor-app-website/factor-13-api-first" class="footer-nav-btn next" aria-label="Next: Factor 13 - API First">
                                     <div class="nav-direction">Next Factor</div>
                                     <div class="nav-title">Factor 13: API First</div>
                                 </a>
                             
                         
-                    </div>
+                    </nav>
                 </article>
             </div>
         </div>
@@ -310,14 +313,14 @@
                     <ul>
                         <li><a href="/12-factor-app-website/">Home</a></li>
                         <li><a href="/12-factor-app-website/factor-01-codebase">Original 12 Factors</a></li>
-                        <li><a href="/12-factor-app-website/factor-13-api-first">New 5 Factors</a></li>
+                        <li><a href="/12-factor-app-website/factor-13-api-first">New 6 Factors</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Resources</h4>
                     <ul>
-                        <li><a href="https://12factor.net" target="_blank">Original 12-Factor App</a></li>
-                        <li><a href="https://github.com/ifeatu/12-factor-app-website" target="_blank">GitHub Repository</a></li>
+                        <li><a href="https://12factor.net" target="_blank" aria-label="Original 12-Factor App (opens in new tab)">Original 12-Factor App</a></li>
+                        <li><a href="https://github.com/ifeatu/12-factor-app-website" target="_blank" aria-label="GitHub Repository (opens in new tab)">GitHub Repository</a></li>
                     </ul>
                 </div>
             </div>

@@ -7,11 +7,11 @@ description: "Store config in the environment"
 prev_factor:
   number: 2
   name: "Dependencies"
-  url: "/factor-02-dependencies"
+  url: "factor-02-dependencies"
 next_factor:
   number: 4
   name: "Backing Services"
-  url: "/factor-04-backing-services"
+  url: "factor-04-backing-services"
 ---
 
 # Factor 3: Config

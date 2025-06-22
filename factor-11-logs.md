@@ -7,11 +7,11 @@ description: "Treat logs as event streams"
 prev_factor:
   number: 10
   name: "Dev/Prod Parity"
-  url: "/factor-10-dev-prod-parity"
+  url: "factor-10-dev-prod-parity"
 next_factor:
   number: 12
   name: "Admin Processes"
-  url: "/factor-12-admin-processes"
+  url: "factor-12-admin-processes"
 ---
 
 # Factor 11: Logs

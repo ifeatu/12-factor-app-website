@@ -10,8 +10,8 @@ prev_factor:
   url: "factor-13-api-first"
 next_factor:
   number: 15
-  name: "Auth"
-  url: "factor-15-auth"
+  name: "GraphQL & gRPC"
+  url: "factor-15-graphql-grpc"
 ---
 
 # Factor 14: Telemetry

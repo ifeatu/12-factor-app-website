@@ -8,7 +8,7 @@ prev_factor: null
 next_factor:
   number: 2
   name: "Dependencies"
-  url: "/factor-02-dependencies"
+  url: "factor-02-dependencies"
 ---
 
 # Factor 1: Codebase

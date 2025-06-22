@@ -10,8 +10,8 @@ prev_factor:
   url: "factor-14-telemetry"
 next_factor:
   number: 16
-  name: "Event-Driven"
-  url: "factor-16-event-driven"
+  name: "Auth"
+  url: "factor-16-auth"
 ---
 
 # Factor 15: GraphQL & gRPC

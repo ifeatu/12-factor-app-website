@@ -7,11 +7,11 @@ description: "Keep development, staging, and production as similar as possible"
 prev_factor:
   number: 9
   name: "Disposability"
-  url: "/factor-09-disposability"
+  url: "factor-09-disposability"
 next_factor:
   number: 11
   name: "Logs"
-  url: "/factor-11-logs"
+  url: "factor-11-logs"
 ---
 
 # Factor 10: Dev/Prod Parity
