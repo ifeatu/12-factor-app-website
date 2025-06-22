@@ -69,25 +69,36 @@ function initMobileNavigation() {
 function initDropdownAutohide() {
     const dropdown = document.querySelector('.nav-dropdown');
     const dropdownContent = document.querySelector('.dropdown-content');
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
     
-    if (dropdown && dropdownContent) {
+    if (dropdown && dropdownContent && dropdownToggle) {
+        // Toggle dropdown on click
+        dropdownToggle.addEventListener('click', function(event) {
+            event.preventDefault();
+            dropdownContent.classList.toggle('show');
+            dropdownToggle.setAttribute('aria-expanded', dropdownContent.classList.contains('show'));
+        });
+        
         // Close dropdown when clicking outside
         document.addEventListener('click', function(event) {
             if (!dropdown.contains(event.target)) {
-                dropdownContent.style.display = 'none';
+                dropdownContent.classList.remove('show');
+                dropdownToggle.setAttribute('aria-expanded', 'false');
             }
         });
         
         // Show dropdown on hover
         dropdown.addEventListener('mouseenter', function() {
-            dropdownContent.style.display = 'grid';
+            dropdownContent.classList.add('show');
+            dropdownToggle.setAttribute('aria-expanded', 'true');
         });
         
         // Hide dropdown when mouse leaves (with small delay for better UX)
         dropdown.addEventListener('mouseleave', function() {
             setTimeout(function() {
                 if (!dropdown.matches(':hover')) {
-                    dropdownContent.style.display = 'none';
+                    dropdownContent.classList.remove('show');
+                    dropdownToggle.setAttribute('aria-expanded', 'false');
                 }
             }, 100);
         });
@@ -96,7 +107,8 @@ function initDropdownAutohide() {
         const dropdownLinks = dropdownContent.querySelectorAll('a');
         dropdownLinks.forEach(link => {
             link.addEventListener('click', function() {
-                dropdownContent.style.display = 'none';
+                dropdownContent.classList.remove('show');
+                dropdownToggle.setAttribute('aria-expanded', 'false');
             });
         });
     }
