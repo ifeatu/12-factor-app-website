@@ -1,0 +1,86 @@
+---
+layout: default
+---
+
+<div class="factor-page">
+    <!-- Factor Header -->
+    <div class="factor-header">
+        <div class="container">
+            <div class="factor-nav">
+                <a href="{{ '/' | relative_url }}" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </a>
+                
+                <div class="factor-navigation">
+                    {% if page.prev_factor %}
+                        <a href="{{ page.prev_factor.url | relative_url }}" class="nav-btn prev-btn">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </a>
+                    {% endif %}
+                    
+                    {% if page.next_factor %}
+                        <a href="{{ page.next_factor.url | relative_url }}" class="nav-btn next-btn">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="factor-title">
+                {% assign title_parts = page.title | split: ':' %}
+                {% if title_parts.size > 1 %}
+                    <span class="factor-number">{{ title_parts[0] }}</span>
+                    <h1 class="factor-name">{{ title_parts[1] | strip }}</h1>
+                {% else %}
+                    <h1 class="factor-name">{{ page.title }}</h1>
+                {% endif %}
+                
+                {% if page.description %}
+                    <p class="factor-description">{{ page.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Factor Content -->
+    <div class="factor-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Table of Contents -->
+                <aside class="toc-sidebar">
+                    <div class="toc-container">
+                        <h3>Table of Contents</h3>
+                        <div id="toc"></div>
+                    </div>
+                </aside>
+                
+                <!-- Main Content -->
+                <article class="factor-article">
+                    {{ content }}
+                    
+                    <!-- Factor Navigation Footer -->
+                    <div class="factor-footer-nav">
+                        {% if prev_num > 0 %}
+                            <a href="{{ '/factor-' | append: prev_factor | append: '-' | relative_url }}" class="footer-nav-btn prev">
+                                <div class="nav-direction">Previous Factor</div>
+                                <div class="nav-title">Factor {{ prev_num }}</div>
+                            </a>
+                        {% endif %}
+                        
+                        {% if next_num <= 17 %}
+                            <a href="{{ '/factor-' | append: next_factor | append: '-' | relative_url }}" class="footer-nav-btn next">
+                                <div class="nav-direction">Next Factor</div>
+                                <div class="nav-title">Factor {{ next_num }}</div>
+                            </a>
+                        {% endif %}
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Progress Indicator -->
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+</div>

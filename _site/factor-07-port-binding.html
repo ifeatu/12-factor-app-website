@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factor 7: Port Binding | The Modern 17-Factor App</title>
+    <meta name="description" content="Export services via port binding">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/12-factor-app-website/assets/css/main.css">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SEO -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Factor 7: Port Binding | The Modern 17-Factor App</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Factor 7: Port Binding" />
+<meta name="author" content="Pierre Brunelle" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Export services via port binding" />
+<meta property="og:description" content="Export services via port binding" />
+<link rel="canonical" href="http://0.0.0.0:4000/12-factor-app-website/factor-07-port-binding.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/12-factor-app-website/factor-07-port-binding.html" />
+<meta property="og:site_name" content="The Modern 17-Factor App" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Factor 7: Port Binding" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"Export services via port binding","headline":"Factor 7: Port Binding","url":"http://0.0.0.0:4000/12-factor-app-website/factor-07-port-binding.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    <!-- Feed -->
+    <link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/12-factor-app-website/" class="brand-link">
+                    <i class="fas fa-cube brand-icon"></i>
+                    <span class="brand-text">The Modern 17-Factor App</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="/12-factor-app-website/" class="nav-link ">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-list"></i> Factors <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-section">
+                            <h4>Original 12 Factors</h4>
+                            <a href="/12-factor-app-website/factor-01-codebase">1. Codebase</a>
+                            <a href="/12-factor-app-website/factor-02-dependencies">2. Dependencies</a>
+                            <a href="/12-factor-app-website/factor-03-config">3. Config</a>
+                            <a href="/12-factor-app-website/factor-04-backing-services">4. Backing Services</a>
+                            <a href="/12-factor-app-website/factor-05-build-release-run">5. Build, Release, Run</a>
+                            <a href="/12-factor-app-website/factor-06-processes">6. Processes</a>
+                            <a href="/12-factor-app-website/factor-07-port-binding">7. Port Binding</a>
+                            <a href="/12-factor-app-website/factor-08-concurrency">8. Concurrency</a>
+                            <a href="/12-factor-app-website/factor-09-disposability">9. Disposability</a>
+                            <a href="/12-factor-app-website/factor-10-dev-prod-parity">10. Dev/Prod Parity</a>
+                            <a href="/12-factor-app-website/factor-11-logs">11. Logs</a>
+                            <a href="/12-factor-app-website/factor-12-admin-processes">12. Admin Processes</a>
+                        </div>
+                        <div class="dropdown-section">
+                            <h4>New 5 Factors</h4>
+                            <a href="/12-factor-app-website/factor-13-api-first">13. API First</a>
+                            <a href="/12-factor-app-website/factor-14-graphql-grpc">14. GraphQL & gRPC</a>
+                            <a href="/12-factor-app-website/factor-15-auth">15. Authentication & Authorization</a>
+                            <a href="/12-factor-app-website/factor-16-event-driven">16. Event-Driven Architecture</a>
+                            <a href="/12-factor-app-website/factor-17-failure-isolation">17. Failure Isolation</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://github.com/ifeatu/12-factor-app-website" target="_blank" class="nav-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="factor-page">
+    <!-- Factor Header -->
+    <div class="factor-header">
+        <div class="container">
+            <div class="factor-nav">
+                <a href="/12-factor-app-website/" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </a>
+                
+                <div class="factor-navigation">
+                    
+                        <a href="/12-factor-app-website/factor-06-processes" class="nav-btn prev-btn">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </a>
+                    
+                    
+                    
+                        <a href="/12-factor-app-website/factor-08-concurrency" class="nav-btn next-btn">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </a>
+                    
+                </div>
+            </div>
+            
+            <div class="factor-title">
+                
+                
+                    <span class="factor-number">Factor 7</span>
+                    <h1 class="factor-name">Port Binding</h1>
+                
+                
+                
+                    <p class="factor-description">Export services via port binding</p>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Factor Content -->
+    <div class="factor-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Table of Contents -->
+                <aside class="toc-sidebar">
+                    <div class="toc-container">
+                        <h3>Table of Contents</h3>
+                        <div id="toc"></div>
+                    </div>
+                </aside>
+                
+                <!-- Main Content -->
+                <article class="factor-article">
+                    <h1 id="factor-7-port-binding">Factor 7: Port Binding</h1>
+
+<h2 id="export-services-via-port-binding">Export services via port binding</h2>
+
+<h3 id="original-principle">Original Principle</h3>
+
+<p>The twelve-factor app is completely self-contained and does not rely on runtime injection of a webserver into the execution environment. The web app exports HTTP as a service by binding to a port, and listening to requests coming in on that port.</p>
+
+<h3 id="modern-evolution">Modern Evolution</h3>
+
+<p>Container orchestration has abstracted port binding while maintaining the principle. Applications still bind to ports, but Kubernetes Services, Ingress controllers, and service mesh handle the networking complexity. The principle has evolved from simple port binding to sophisticated service exposure patterns.</p>
+
+<h4 id="container-networking-evolution">Container Networking Evolution</h4>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Traditional port binding</span>
+<span class="s">docker run -p 8080:8080 myapp</span>
+
+<span class="c1"># Kubernetes abstraction</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">myapp</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">myapp</span>
+  <span class="na">ports</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">80</span>        <span class="c1"># Service port</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">8080</span> <span class="c1"># Container port</span>
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">networking.k8s.io/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Ingress</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">myapp-ingress</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">rules</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">host</span><span class="pi">:</span> <span class="s">myapp.example.com</span>
+    <span class="na">http</span><span class="pi">:</span>
+      <span class="na">paths</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">path</span><span class="pi">:</span> <span class="s">/</span>
+        <span class="na">pathType</span><span class="pi">:</span> <span class="s">Prefix</span>
+        <span class="na">backend</span><span class="pi">:</span>
+          <span class="na">service</span><span class="pi">:</span>
+            <span class="na">name</span><span class="pi">:</span> <span class="s">myapp</span>
+            <span class="na">port</span><span class="pi">:</span>
+              <span class="na">number</span><span class="pi">:</span> <span class="m">80</span>
+</code></pre></div></div>
+
+<h4 id="self-contained-applications">Self-Contained Applications</h4>
+
+<p>Modern frameworks make self-contained servers trivial:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Python FastAPI
+</span><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">import</span> <span class="nn">uvicorn</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">root</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"message"</span><span class="p">:</span> <span class="s">"Hello World"</span><span class="p">}</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="c1"># Self-contained ASGI server
+</span>    <span class="n">uvicorn</span><span class="p">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span>
+        <span class="n">host</span><span class="o">=</span><span class="s">"0.0.0.0"</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"PORT"</span><span class="p">,</span> <span class="mi">8080</span><span class="p">)),</span>
+        <span class="n">log_config</span><span class="o">=</span><span class="p">{</span>
+            <span class="s">"version"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s">"disable_existing_loggers"</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+            <span class="s">"formatters"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">"default"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s">"format"</span><span class="p">:</span> <span class="s">"%(asctime)s - %(name)s - %(levelname)s - %(message)s"</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Node.js Express</span>
+<span class="kd">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="c1">// Middleware</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="na">extended</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}));</span>
+
+<span class="c1">// Routes</span>
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="na">message</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hello World</span><span class="dl">'</span> <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// Self-contained server</span>
+<span class="kd">const</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">||</span> <span class="mi">8080</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">,</span> <span class="dl">'</span><span class="s1">0.0.0.0</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`Server running on port </span><span class="p">${</span><span class="nx">PORT</span><span class="p">}</span><span class="s2">`</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Graceful shutdown</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">SIGTERM</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">server</span><span class="p">.</span><span class="nx">close</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Process terminated</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="implementation-guidelines">Implementation Guidelines</h3>
+
+<ol>
+  <li>
+    <p><strong>Dynamic Port Configuration</strong></p>
+
+    <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c">// Go with dynamic port binding</span>
+ <span class="k">package</span> <span class="n">main</span>
+    
+ <span class="k">import</span> <span class="p">(</span>
+     <span class="s">"fmt"</span>
+     <span class="s">"net/http"</span>
+     <span class="s">"os"</span>
+ <span class="p">)</span>
+    
+ <span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+     <span class="n">port</span> <span class="o">:=</span> <span class="n">os</span><span class="o">.</span><span class="n">Getenv</span><span class="p">(</span><span class="s">"PORT"</span><span class="p">)</span>
+     <span class="k">if</span> <span class="n">port</span> <span class="o">==</span> <span class="s">""</span> <span class="p">{</span>
+         <span class="n">port</span> <span class="o">=</span> <span class="s">"8080"</span>
+     <span class="p">}</span>
+        
+     <span class="n">mux</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewServeMux</span><span class="p">()</span>
+     <span class="n">mux</span><span class="o">.</span><span class="n">HandleFunc</span><span class="p">(</span><span class="s">"/"</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
+        
+     <span class="n">server</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Server</span><span class="p">{</span>
+         <span class="n">Addr</span><span class="o">:</span>    <span class="n">fmt</span><span class="o">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">":%s"</span><span class="p">,</span> <span class="n">port</span><span class="p">),</span>
+         <span class="n">Handler</span><span class="o">:</span> <span class="n">mux</span><span class="p">,</span>
+     <span class="p">}</span>
+        
+     <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Server starting on port %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+     <span class="k">if</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">server</span><span class="o">.</span><span class="n">ListenAndServe</span><span class="p">();</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+         <span class="nb">panic</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+     <span class="p">}</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Service Discovery Integration</strong></p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1"># Consul service registration</span>
+ <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+ <span class="na">kind</span><span class="pi">:</span> <span class="s">ConfigMap</span>
+ <span class="na">metadata</span><span class="pi">:</span>
+   <span class="na">name</span><span class="pi">:</span> <span class="s">consul-config</span>
+ <span class="na">data</span><span class="pi">:</span>
+   <span class="na">service.json</span><span class="pi">:</span> <span class="pi">|</span>
+     <span class="s">{</span>
+       <span class="s">"service": {</span>
+         <span class="s">"name": "myapp",</span>
+         <span class="s">"port": 8080,</span>
+         <span class="s">"tags": ["api", "v1"],</span>
+         <span class="s">"check": {</span>
+           <span class="s">"http": "http://localhost:8080/health",</span>
+           <span class="s">"interval": "10s"</span>
+         <span class="s">}</span>
+       <span class="s">}</span>
+     <span class="s">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Multi-Protocol Support</strong></p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1"># Serving HTTP and gRPC on different ports
+</span> <span class="kn">import</span> <span class="nn">asyncio</span>
+ <span class="kn">from</span> <span class="nn">concurrent</span> <span class="kn">import</span> <span class="n">futures</span>
+ <span class="kn">import</span> <span class="nn">grpc</span>
+ <span class="kn">from</span> <span class="nn">aiohttp</span> <span class="kn">import</span> <span class="n">web</span>
+    
+ <span class="c1"># HTTP server
+</span> <span class="k">async</span> <span class="k">def</span> <span class="nf">http_handler</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+     <span class="k">return</span> <span class="n">web</span><span class="p">.</span><span class="n">json_response</span><span class="p">({</span><span class="s">"protocol"</span><span class="p">:</span> <span class="s">"HTTP"</span><span class="p">})</span>
+    
+ <span class="n">app</span> <span class="o">=</span> <span class="n">web</span><span class="p">.</span><span class="n">Application</span><span class="p">()</span>
+ <span class="n">app</span><span class="p">.</span><span class="n">router</span><span class="p">.</span><span class="n">add_get</span><span class="p">(</span><span class="s">'/'</span><span class="p">,</span> <span class="n">http_handler</span><span class="p">)</span>
+    
+ <span class="c1"># gRPC server
+</span> <span class="k">class</span> <span class="nc">Greeter</span><span class="p">(</span><span class="n">greeter_pb2_grpc</span><span class="p">.</span><span class="n">GreeterServicer</span><span class="p">):</span>
+     <span class="k">def</span> <span class="nf">SayHello</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+         <span class="k">return</span> <span class="n">greeter_pb2</span><span class="p">.</span><span class="n">HelloReply</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s">'Hello </span><span class="si">{</span><span class="n">request</span><span class="p">.</span><span class="n">name</span><span class="si">}</span><span class="s">'</span><span class="p">)</span>
+    
+ <span class="k">async</span> <span class="k">def</span> <span class="nf">serve</span><span class="p">():</span>
+     <span class="c1"># Start HTTP server
+</span>     <span class="n">runner</span> <span class="o">=</span> <span class="n">web</span><span class="p">.</span><span class="n">AppRunner</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+     <span class="k">await</span> <span class="n">runner</span><span class="p">.</span><span class="n">setup</span><span class="p">()</span>
+     <span class="n">http_site</span> <span class="o">=</span> <span class="n">web</span><span class="p">.</span><span class="n">TCPSite</span><span class="p">(</span><span class="n">runner</span><span class="p">,</span> <span class="s">'0.0.0.0'</span><span class="p">,</span> <span class="mi">8080</span><span class="p">)</span>
+     <span class="k">await</span> <span class="n">http_site</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+        
+     <span class="c1"># Start gRPC server
+</span>     <span class="n">grpc_server</span> <span class="o">=</span> <span class="n">grpc</span><span class="p">.</span><span class="n">aio</span><span class="p">.</span><span class="n">server</span><span class="p">()</span>
+     <span class="n">greeter_pb2_grpc</span><span class="p">.</span><span class="n">add_GreeterServicer_to_server</span><span class="p">(</span><span class="n">Greeter</span><span class="p">(),</span> <span class="n">grpc_server</span><span class="p">)</span>
+     <span class="n">grpc_server</span><span class="p">.</span><span class="n">add_insecure_port</span><span class="p">(</span><span class="s">'[::]:50051'</span><span class="p">)</span>
+     <span class="k">await</span> <span class="n">grpc_server</span><span class="p">.</span><span class="n">start</span><span class="p">()</span>
+        
+     <span class="k">print</span><span class="p">(</span><span class="s">"HTTP server on :8080, gRPC server on :50051"</span><span class="p">)</span>
+     <span class="k">await</span> <span class="n">asyncio</span><span class="p">.</span><span class="n">Event</span><span class="p">().</span><span class="n">wait</span><span class="p">()</span>
+    
+ <span class="n">asyncio</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">serve</span><span class="p">())</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="best-practices">Best Practices</h3>
+
+<ol>
+  <li>
+    <p><strong>Bind to All Interfaces</strong></p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1"># Bind to 0.0.0.0, not localhost
+</span> <span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">'0.0.0.0'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8080</span><span class="p">)</span>  <span class="c1"># Correct
+</span> <span class="c1"># app.run(host='127.0.0.1', port=8080)  # Wrong for containers
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Graceful Shutdown</strong></p>
+
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">);</span>
+    
+ <span class="c1">// Handle shutdown signals</span>
+ <span class="p">[</span><span class="dl">'</span><span class="s1">SIGINT</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">SIGTERM</span><span class="dl">'</span><span class="p">].</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">signal</span> <span class="o">=&gt;</span> <span class="p">{</span>
+   <span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="nx">signal</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">signal</span><span class="p">}</span><span class="s2"> received, closing server`</span><span class="p">);</span>
+     <span class="nx">server</span><span class="p">.</span><span class="nx">close</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Server closed</span><span class="dl">'</span><span class="p">);</span>
+       <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+     <span class="p">});</span>
+   <span class="p">});</span>
+ <span class="p">});</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="anti-patterns-to-avoid">Anti-Patterns to Avoid</h3>
+
+<ul>
+  <li><strong>Hardcoded ports</strong> in application code</li>
+  <li><strong>Binding to localhost</strong> in containers</li>
+  <li><strong>Missing graceful shutdown</strong> handlers</li>
+  <li><strong>Port conflicts</strong> from poor planning</li>
+  <li><strong>Ignoring health check</strong> endpoints</li>
+</ul>
+
+<h3 id="modern-tools-and-services">Modern Tools and Services</h3>
+
+<ul>
+  <li><strong>Container Runtimes</strong>: Docker, containerd, CRI-O</li>
+  <li><strong>Orchestration</strong>: Kubernetes, Docker Swarm, Nomad</li>
+  <li><strong>Service Mesh</strong>: Istio, Linkerd, Consul Connect</li>
+  <li><strong>Ingress Controllers</strong>: NGINX, Traefik, HAProxy</li>
+</ul>
+
+<h3 id="key-takeaways">Key Takeaways</h3>
+
+<ol>
+  <li>Self-contained applications simplify deployment</li>
+  <li>Dynamic port configuration enables flexibility</li>
+  <li>Container orchestration abstracts networking complexity</li>
+  <li>Service discovery replaces hardcoded endpoints</li>
+  <li>Multiple protocols can coexist on different ports</li>
+  <li>Graceful shutdown is essential for reliability</li>
+</ol>
+
+<hr />
+
+<h3 id="sources">Sources</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://12factor.net/port-binding</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://kubernetes.io/docs/concepts/services-networking/service/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://docs.docker.com/network/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://www.cncf.io/blog/2023/10/18/ingress-controllers-in-kubernetes/</code></li>
+</ul>
+
+                    
+                    <!-- Factor Navigation Footer -->
+                    <div class="factor-footer-nav">
+                        
+                        
+                        
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Progress Indicator -->
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+</div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Modern 17-Factor App</h3>
+                    <p>An evolution of the twelve-factor methodology for modern cloud-native applications</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/12-factor-app-website/">Home</a></li>
+                        <li><a href="/12-factor-app-website/factor-01-codebase">Original 12 Factors</a></li>
+                        <li><a href="/12-factor-app-website/factor-13-api-first">New 5 Factors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://12factor.net" target="_blank">Original 12-Factor App</a></li>
+                        <li><a href="https://github.com/ifeatu/12-factor-app-website" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Modern 17-Factor App. Built with Jekyll.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/12-factor-app-website/assets/js/main.js"></script>
+</body>
+</html>

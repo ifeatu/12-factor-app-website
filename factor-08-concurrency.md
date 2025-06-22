@@ -1,3 +1,19 @@
+---
+layout: factor
+title: "Factor 8: Concurrency"
+factor_number: 8
+factor_name: "Concurrency"
+description: "Scale out via the process model"
+prev_factor:
+  number: 7
+  name: "Port Binding"
+  url: "/factor-07-port-binding"
+next_factor:
+  number: 9
+  name: "Disposability"
+  url: "/factor-09-disposability"
+---
+
 # Factor 8: Concurrency
 
 ## Scale out via the process model

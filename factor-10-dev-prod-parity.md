@@ -1,3 +1,13 @@
+---
+layout: factor
+title: "Factor 10: Dev/Prod Parity"
+factor_number: 10
+factor_name: "Dev/Prod Parity"
+description: "Keep development, staging, and production as similar as possible"
+prev_factor: "factor-09-disposability.md"
+next_factor: "factor-11-logs.md"
+---
+
 # Factor 10: Dev/Prod Parity
 
 ## Keep development, staging, and production as similar as possible

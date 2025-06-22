@@ -1,3 +1,19 @@
+---
+layout: factor
+title: "Factor 9: Disposability"
+factor_number: 9
+factor_name: "Disposability"
+description: "Maximize robustness with fast startup and graceful shutdown"
+prev_factor:
+  number: 8
+  name: "Concurrency"
+  url: "/factor-08-concurrency"
+next_factor:
+  number: 10
+  name: "Dev/Prod Parity"
+  url: "/factor-10-dev-prod-parity"
+---
+
 # Factor 9: Disposability
 
 ## Maximize robustness with fast startup and graceful shutdown

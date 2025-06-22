@@ -1,3 +1,19 @@
+---
+layout: factor
+title: "Factor 6: Processes"
+factor_number: 6
+factor_name: "Processes"
+description: "Execute the app as one or more stateless processes"
+prev_factor:
+  number: 5
+  name: "Build, Release, Run"
+  url: "/factor-05-build-release-run"
+next_factor:
+  number: 7
+  name: "Port Binding"
+  url: "/factor-07-port-binding"
+---
+
 # Factor 6: Processes
 
 ## Execute the app as one or more stateless processes

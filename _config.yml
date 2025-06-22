@@ -1,13 +1,21 @@
 # Site settings
-title: The Modern 17-Factor App
-description: Building Cloud-Native Applications in 2025
-baseurl: ""
-url: ""
+title: "The Modern 17-Factor App"
+description: "An evolution of the twelve-factor methodology for modern cloud-native applications"
+baseurl: "/12-factor-app-website"
+url: "https://pierrebrunelle.github.io"
+author: "Pierre Brunelle"
 
 # Build settings
+theme: minima
 markdown: kramdown
 highlighter: rouge
-theme: minima
+kramdown:
+  syntax_highlighter: rouge
+
+# Disable Sass processing completely
+sass:
+  sass_dir: null
+  style: null
 
 # Plugins
 plugins:
@@ -24,6 +32,11 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - README.md
+
+# Include Font Awesome
+head_scripts:
+  - "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 
 # Collections
 collections:
@@ -35,11 +48,31 @@ collections:
 defaults:
   - scope:
       path: ""
-      type: "pages"
-    values:
-      layout: "default"
-  - scope:
-      path: ""
       type: "factors"
     values:
       layout: "factor"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
+# Navigation
+navigation:
+  - name: "Home"
+    url: "/"
+  - name: "Factors 1-12"
+    url: "/#factors"
+  - name: "New Factors 13-17"
+    url: "/#factors"
+
+# Social links
+social:
+  github: "pierrebrunelle/12-factor-app-website"
+
+# SEO
+seo:
+  type: "WebSite"
+  name: "The Modern 17-Factor App"
+  links:
+    - "https://github.com/pierrebrunelle/12-factor-app-website"

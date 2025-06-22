@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factor 5: Build, Release, Run | The Modern 17-Factor App</title>
+    <meta name="description" content="An evolution of the twelve-factor methodology for modern cloud-native applications">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/12-factor-app-website/assets/css/main.css">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SEO -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Factor 5: Build, Release, Run | The Modern 17-Factor App</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Factor 5: Build, Release, Run" />
+<meta name="author" content="Pierre Brunelle" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An evolution of the twelve-factor methodology for modern cloud-native applications" />
+<meta property="og:description" content="An evolution of the twelve-factor methodology for modern cloud-native applications" />
+<link rel="canonical" href="http://0.0.0.0:4000/12-factor-app-website/factor-05-build-release-run.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/12-factor-app-website/factor-05-build-release-run.html" />
+<meta property="og:site_name" content="The Modern 17-Factor App" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Factor 5: Build, Release, Run" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"An evolution of the twelve-factor methodology for modern cloud-native applications","headline":"Factor 5: Build, Release, Run","url":"http://0.0.0.0:4000/12-factor-app-website/factor-05-build-release-run.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    <!-- Feed -->
+    <link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/12-factor-app-website/" class="brand-link">
+                    <i class="fas fa-cube brand-icon"></i>
+                    <span class="brand-text">The Modern 17-Factor App</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="/12-factor-app-website/" class="nav-link ">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-list"></i> Factors <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-section">
+                            <h4>Original 12 Factors</h4>
+                            <a href="/12-factor-app-website/factor-01-codebase">1. Codebase</a>
+                            <a href="/12-factor-app-website/factor-02-dependencies">2. Dependencies</a>
+                            <a href="/12-factor-app-website/factor-03-config">3. Config</a>
+                            <a href="/12-factor-app-website/factor-04-backing-services">4. Backing Services</a>
+                            <a href="/12-factor-app-website/factor-05-build-release-run">5. Build, Release, Run</a>
+                            <a href="/12-factor-app-website/factor-06-processes">6. Processes</a>
+                            <a href="/12-factor-app-website/factor-07-port-binding">7. Port Binding</a>
+                            <a href="/12-factor-app-website/factor-08-concurrency">8. Concurrency</a>
+                            <a href="/12-factor-app-website/factor-09-disposability">9. Disposability</a>
+                            <a href="/12-factor-app-website/factor-10-dev-prod-parity">10. Dev/Prod Parity</a>
+                            <a href="/12-factor-app-website/factor-11-logs">11. Logs</a>
+                            <a href="/12-factor-app-website/factor-12-admin-processes">12. Admin Processes</a>
+                        </div>
+                        <div class="dropdown-section">
+                            <h4>New 5 Factors</h4>
+                            <a href="/12-factor-app-website/factor-13-api-first">13. API First</a>
+                            <a href="/12-factor-app-website/factor-14-graphql-grpc">14. GraphQL & gRPC</a>
+                            <a href="/12-factor-app-website/factor-15-auth">15. Authentication & Authorization</a>
+                            <a href="/12-factor-app-website/factor-16-event-driven">16. Event-Driven Architecture</a>
+                            <a href="/12-factor-app-website/factor-17-failure-isolation">17. Failure Isolation</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://github.com/ifeatu/12-factor-app-website" target="_blank" class="nav-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 id="factor-5-build-release-run">Factor 5: Build, Release, Run</h1>
+
+<h2 id="strictly-separate-build-and-run-stages">Strictly separate build and run stages</h2>
+
+<h3 id="original-principle">Original Principle</h3>
+
+<p>A codebase is transformed into a deploy through three stages: Build (convert code to executable bundle), Release (combine build with config), and Run (execute the release in the environment). Strict separation between stages prevents changes to code at runtime.</p>
+
+<h3 id="modern-evolution">Modern Evolution</h3>
+
+<p>The principle has proven remarkably prescient, with modern CI/CD pipelines embodying this separation. However, progressive delivery techniques, infrastructure as code, and GitOps have added sophisticated patterns that blur traditional boundaries while maintaining the core separation.</p>
+
+<h4 id="modern-cicd-pipeline">Modern CI/CD Pipeline</h4>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># GitLab CI/CD Pipeline</span>
+<span class="na">stages</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">build</span>
+  <span class="pi">-</span> <span class="s">test</span>
+  <span class="pi">-</span> <span class="s">security</span>
+  <span class="pi">-</span> <span class="s">release</span>
+  <span class="pi">-</span> <span class="s">deploy</span>
+  <span class="pi">-</span> <span class="s">verify</span>
+
+<span class="c1"># BUILD STAGE</span>
+<span class="na">build</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">build</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">docker build -t myapp:$CI_COMMIT_SHA .</span>
+    <span class="pi">-</span> <span class="s">docker push registry.example.com/myapp:$CI_COMMIT_SHA</span>
+  <span class="na">artifacts</span><span class="pi">:</span>
+    <span class="na">reports</span><span class="pi">:</span>
+      <span class="na">sbom</span><span class="pi">:</span> <span class="s">sbom.json</span>  <span class="c1"># Software Bill of Materials</span>
+
+<span class="c1"># SECURITY SCANNING</span>
+<span class="na">security-scan</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">security</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">trivy image registry.example.com/myapp:$CI_COMMIT_SHA</span>
+    <span class="pi">-</span> <span class="s">snyk test --severity-threshold=high</span>
+
+<span class="c1"># RELEASE STAGE</span>
+<span class="na">release</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">release</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="c1"># Combine build with environment config</span>
+    <span class="pi">-</span> <span class="s">helm package chart/</span>
+    <span class="pi">-</span> <span class="s">helm push myapp-$VERSION.tgz chartmuseum</span>
+    <span class="c1"># Tag immutable release</span>
+    <span class="pi">-</span> <span class="s">docker tag registry.example.com/myapp:$CI_COMMIT_SHA registry.example.com/myapp:$VERSION</span>
+
+<span class="c1"># PROGRESSIVE DEPLOYMENT</span>
+<span class="na">deploy-canary</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">deploy</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">kubectl set image deployment/myapp myapp=registry.example.com/myapp:$VERSION</span>
+    <span class="pi">-</span> <span class="s">kubectl patch deployment myapp -p '{"spec":{"strategy":{"canary":{"weight":10}}}}'</span>
+  <span class="na">environment</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">production</span>
+    <span class="na">url</span><span class="pi">:</span> <span class="s">https://myapp.example.com</span>
+
+<span class="c1"># VERIFICATION</span>
+<span class="na">verify-deployment</span><span class="pi">:</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">verify</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">newman run tests/api-tests.json</span>
+    <span class="pi">-</span> <span class="s">artillery run tests/load-test.yml</span>
+</code></pre></div></div>
+
+<h4 id="progressive-delivery">Progressive Delivery</h4>
+
+<p>Modern deployments go beyond simple release/run:</p>
+
+<ol>
+  <li><strong>Canary Deployments</strong>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Flagger progressive delivery</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">flagger.app/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Canary</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">myapp</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">targetRef</span><span class="pi">:</span>
+    <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+    <span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">myapp</span>
+  <span class="na">progressDeadlineSeconds</span><span class="pi">:</span> <span class="m">60</span>
+  <span class="na">service</span><span class="pi">:</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">80</span>
+  <span class="na">analysis</span><span class="pi">:</span>
+    <span class="na">interval</span><span class="pi">:</span> <span class="s">30s</span>
+    <span class="na">threshold</span><span class="pi">:</span> <span class="m">5</span>
+    <span class="na">metrics</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">request-success-rate</span>
+      <span class="na">threshold</span><span class="pi">:</span> <span class="m">99</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">request-duration</span>
+      <span class="na">threshold</span><span class="pi">:</span> <span class="m">500</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Feature Flags</strong>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># LaunchDarkly feature flag integration
+</span><span class="kn">import</span> <span class="nn">ldclient</span>
+   
+<span class="n">ld_client</span> <span class="o">=</span> <span class="n">ldclient</span><span class="p">.</span><span class="n">get</span><span class="p">()</span>
+   
+<span class="k">def</span> <span class="nf">get_feature_state</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">feature_key</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ld_client</span><span class="p">.</span><span class="n">variation</span><span class="p">(</span>
+        <span class="n">feature_key</span><span class="p">,</span>
+        <span class="p">{</span><span class="s">"key"</span><span class="p">:</span> <span class="n">user</span><span class="p">.</span><span class="nb">id</span><span class="p">},</span>
+        <span class="bp">False</span>  <span class="c1"># default value
+</span>    <span class="p">)</span>
+   
+<span class="c1"># In application code
+</span><span class="k">if</span> <span class="n">get_feature_state</span><span class="p">(</span><span class="n">current_user</span><span class="p">,</span> <span class="s">"new-checkout-flow"</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">new_checkout_process</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">legacy_checkout_process</span><span class="p">()</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Blue-Green Deployments</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># Blue-green deployment script</span>
+   
+<span class="c"># Deploy to green environment</span>
+kubectl apply <span class="nt">-f</span> k8s/deployment-green.yaml
+   
+<span class="c"># Wait for health checks</span>
+kubectl <span class="nb">wait</span> <span class="nt">--for</span><span class="o">=</span><span class="nv">condition</span><span class="o">=</span>ready pod <span class="nt">-l</span> <span class="nv">version</span><span class="o">=</span>green
+   
+<span class="c"># Run smoke tests</span>
+./run-smoke-tests.sh https://green.myapp.example.com
+   
+<span class="c"># Switch traffic</span>
+kubectl patch service myapp <span class="nt">-p</span> <span class="s1">'{"spec":{"selector":{"version":"green"}}}'</span>
+   
+<span class="c"># Keep blue for quick rollback</span>
+kubectl scale deployment myapp-blue <span class="nt">--replicas</span><span class="o">=</span>0
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="implementation-guidelines">Implementation Guidelines</h3>
+
+<ol>
+  <li><strong>Immutable Builds</strong>
+    <div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Multi-stage build for security and size</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:18-alpine</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">builder</span>
+<span class="k">WORKDIR</span><span class="s"> /app</span>
+<span class="k">COPY</span><span class="s"> package*.json ./</span>
+<span class="k">RUN </span>npm ci <span class="nt">--only</span><span class="o">=</span>production
+   
+<span class="k">FROM</span><span class="s"> gcr.io/distroless/nodejs18</span>
+<span class="k">COPY</span><span class="s"> --from=builder /app/node_modules ./node_modules</span>
+<span class="k">COPY</span><span class="s"> . .</span>
+   
+<span class="c"># No package managers in final image</span>
+<span class="k">USER</span><span class="s"> nonroot</span>
+<span class="k">EXPOSE</span><span class="s"> 8080</span>
+<span class="k">CMD</span><span class="s"> ["server.js"]</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Release Manifests</strong>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># release-manifest.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ConfigMap</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">release-info</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.2.3"</span>
+  <span class="na">git_commit</span><span class="pi">:</span> <span class="s2">"</span><span class="s">abc123def"</span>
+  <span class="na">build_time</span><span class="pi">:</span> <span class="s2">"</span><span class="s">2025-06-21T10:00:00Z"</span>
+  <span class="na">release_notes</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">- Feature: New checkout flow</span>
+    <span class="s">- Fix: Memory leak in worker process</span>
+    <span class="s">- Security: Updated dependencies</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>GitOps Release Process</strong>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Kustomization for environment promotion</span>
+<span class="c1"># environments/staging/kustomization.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">kustomize.config.k8s.io/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Kustomization</span>
+   
+<span class="na">resources</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">../../base</span>
+   
+<span class="na">images</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">myapp</span>
+  <span class="na">newTag</span><span class="pi">:</span> <span class="s">1.2.3-staging</span>
+   
+<span class="na">patchesStrategicMerge</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">replica-count.yaml</span>
+<span class="pi">-</span> <span class="s">resource-limits.yaml</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="best-practices">Best Practices</h3>
+
+<ol>
+  <li><strong>Semantic Versioning</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Automated version bumping</span>
+npm version patch <span class="nt">-m</span> <span class="s2">"Release %s"</span>
+git push <span class="nt">--follow-tags</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Build Reproducibility</strong>
+    <div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Lock base image versions</span>
+<span class="k">FROM</span><span class="s"> node:18.16.0-alpine3.17@sha256:abc123...</span>
+   
+<span class="c"># Use specific package versions</span>
+<span class="k">RUN </span>npm ci <span class="nt">--production</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Release Automation</strong>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># release.py
+</span><span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+   
+<span class="k">def</span> <span class="nf">create_release</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">commit_sha</span><span class="p">):</span>
+    <span class="c1"># Build container
+</span>    <span class="n">subprocess</span><span class="p">.</span><span class="n">run</span><span class="p">([</span>
+        <span class="s">"docker"</span><span class="p">,</span> <span class="s">"build"</span><span class="p">,</span>
+        <span class="s">"-t"</span><span class="p">,</span> <span class="sa">f</span><span class="s">"myapp:</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s">"</span><span class="p">,</span>
+        <span class="s">"--build-arg"</span><span class="p">,</span> <span class="sa">f</span><span class="s">"VERSION=</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s">"</span><span class="p">,</span>
+        <span class="s">"--build-arg"</span><span class="p">,</span> <span class="sa">f</span><span class="s">"COMMIT=</span><span class="si">{</span><span class="n">commit_sha</span><span class="si">}</span><span class="s">"</span><span class="p">,</span>
+        <span class="s">"."</span>
+    <span class="p">])</span>
+       
+    <span class="c1"># Generate release metadata
+</span>    <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">"version"</span><span class="p">:</span> <span class="n">version</span><span class="p">,</span>
+        <span class="s">"commit"</span><span class="p">:</span> <span class="n">commit_sha</span><span class="p">,</span>
+        <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">().</span><span class="n">isoformat</span><span class="p">(),</span>
+        <span class="s">"artifacts"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">"container"</span><span class="p">:</span> <span class="sa">f</span><span class="s">"myapp:</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s">"</span><span class="p">,</span>
+            <span class="s">"helm_chart"</span><span class="p">:</span> <span class="sa">f</span><span class="s">"myapp-</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s">.tgz"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+       
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s">"release-</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s">.json"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Rollback Strategy</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Quick rollback with Kubernetes</span>
+kubectl rollout undo deployment/myapp
+   
+<span class="c"># Specific version rollback</span>
+kubectl <span class="nb">set </span>image deployment/myapp <span class="nv">myapp</span><span class="o">=</span>myapp:1.2.2
+   
+<span class="c"># GitOps rollback</span>
+git revert HEAD
+git push
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="anti-patterns-to-avoid">Anti-Patterns to Avoid</h3>
+
+<ul>
+  <li><strong>Mutable deployments</strong> - Never modify running code</li>
+  <li><strong>Manual releases</strong> - Automate everything</li>
+  <li><strong>Missing version tracking</strong> - Tag everything</li>
+  <li><strong>Configuration in builds</strong> - Keep config separate</li>
+  <li><strong>Long-running branches</strong> - Merge frequently</li>
+</ul>
+
+<h3 id="modern-tools-and-services">Modern Tools and Services</h3>
+
+<ul>
+  <li><strong>CI/CD</strong>: GitHub Actions, GitLab CI, CircleCI, Jenkins</li>
+  <li><strong>Progressive Delivery</strong>: Flagger, Argo Rollouts, Spinnaker</li>
+  <li><strong>Feature Flags</strong>: LaunchDarkly, Split.io, Unleash</li>
+  <li><strong>GitOps</strong>: ArgoCD, Flux, Jenkins X</li>
+  <li><strong>Release Management</strong>: Helm, Kustomize, Jsonnet</li>
+</ul>
+
+<h3 id="key-takeaways">Key Takeaways</h3>
+
+<ol>
+  <li>Strict separation enables reliable deployments</li>
+  <li>Immutable builds prevent runtime surprises</li>
+  <li>Progressive delivery reduces deployment risk</li>
+  <li>GitOps provides auditability and rollback</li>
+  <li>Automation is essential for consistency</li>
+  <li>Version everything for traceability</li>
+</ol>
+
+<hr />
+
+<h3 id="sources">Sources</h3>
+
+<ul>
+  <li>https://12factor.net/build-release-run</li>
+  <li>https://sre.google/sre-book/release-engineering/</li>
+  <li>https://www.weave.works/technologies/gitops/</li>
+  <li>https://www.split.io/glossary/progressive-delivery/</li>
+  <li>https://www.cncf.io/blog/2023/03/28/ci-cd-best-practices/</li>
+</ul>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Modern 17-Factor App</h3>
+                    <p>An evolution of the twelve-factor methodology for modern cloud-native applications</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/12-factor-app-website/">Home</a></li>
+                        <li><a href="/12-factor-app-website/factor-01-codebase">Original 12 Factors</a></li>
+                        <li><a href="/12-factor-app-website/factor-13-api-first">New 5 Factors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://12factor.net" target="_blank">Original 12-Factor App</a></li>
+                        <li><a href="https://github.com/ifeatu/12-factor-app-website" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Modern 17-Factor App. Built with Jekyll.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/12-factor-app-website/assets/js/main.js"></script>
+</body>
+</html>

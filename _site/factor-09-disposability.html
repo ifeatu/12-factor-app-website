@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factor 9: Disposability | The Modern 17-Factor App</title>
+    <meta name="description" content="Maximize robustness with fast startup and graceful shutdown">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/12-factor-app-website/assets/css/main.css">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SEO -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Factor 9: Disposability | The Modern 17-Factor App</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Factor 9: Disposability" />
+<meta name="author" content="Pierre Brunelle" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Maximize robustness with fast startup and graceful shutdown" />
+<meta property="og:description" content="Maximize robustness with fast startup and graceful shutdown" />
+<link rel="canonical" href="http://0.0.0.0:4000/12-factor-app-website/factor-09-disposability.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/12-factor-app-website/factor-09-disposability.html" />
+<meta property="og:site_name" content="The Modern 17-Factor App" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Factor 9: Disposability" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"Maximize robustness with fast startup and graceful shutdown","headline":"Factor 9: Disposability","url":"http://0.0.0.0:4000/12-factor-app-website/factor-09-disposability.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    <!-- Feed -->
+    <link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/12-factor-app-website/" class="brand-link">
+                    <i class="fas fa-cube brand-icon"></i>
+                    <span class="brand-text">The Modern 17-Factor App</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="/12-factor-app-website/" class="nav-link ">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-list"></i> Factors <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-section">
+                            <h4>Original 12 Factors</h4>
+                            <a href="/12-factor-app-website/factor-01-codebase">1. Codebase</a>
+                            <a href="/12-factor-app-website/factor-02-dependencies">2. Dependencies</a>
+                            <a href="/12-factor-app-website/factor-03-config">3. Config</a>
+                            <a href="/12-factor-app-website/factor-04-backing-services">4. Backing Services</a>
+                            <a href="/12-factor-app-website/factor-05-build-release-run">5. Build, Release, Run</a>
+                            <a href="/12-factor-app-website/factor-06-processes">6. Processes</a>
+                            <a href="/12-factor-app-website/factor-07-port-binding">7. Port Binding</a>
+                            <a href="/12-factor-app-website/factor-08-concurrency">8. Concurrency</a>
+                            <a href="/12-factor-app-website/factor-09-disposability">9. Disposability</a>
+                            <a href="/12-factor-app-website/factor-10-dev-prod-parity">10. Dev/Prod Parity</a>
+                            <a href="/12-factor-app-website/factor-11-logs">11. Logs</a>
+                            <a href="/12-factor-app-website/factor-12-admin-processes">12. Admin Processes</a>
+                        </div>
+                        <div class="dropdown-section">
+                            <h4>New 5 Factors</h4>
+                            <a href="/12-factor-app-website/factor-13-api-first">13. API First</a>
+                            <a href="/12-factor-app-website/factor-14-graphql-grpc">14. GraphQL & gRPC</a>
+                            <a href="/12-factor-app-website/factor-15-auth">15. Authentication & Authorization</a>
+                            <a href="/12-factor-app-website/factor-16-event-driven">16. Event-Driven Architecture</a>
+                            <a href="/12-factor-app-website/factor-17-failure-isolation">17. Failure Isolation</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://github.com/ifeatu/12-factor-app-website" target="_blank" class="nav-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="factor-page">
+    <!-- Factor Header -->
+    <div class="factor-header">
+        <div class="container">
+            <div class="factor-nav">
+                <a href="/12-factor-app-website/" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </a>
+                
+                <div class="factor-navigation">
+                    
+                        <a href="/12-factor-app-website/factor-08-concurrency" class="nav-btn prev-btn">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </a>
+                    
+                    
+                    
+                        <a href="/12-factor-app-website/factor-10-dev-prod-parity" class="nav-btn next-btn">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </a>
+                    
+                </div>
+            </div>
+            
+            <div class="factor-title">
+                
+                
+                    <span class="factor-number">Factor 9</span>
+                    <h1 class="factor-name">Disposability</h1>
+                
+                
+                
+                    <p class="factor-description">Maximize robustness with fast startup and graceful shutdown</p>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Factor Content -->
+    <div class="factor-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Table of Contents -->
+                <aside class="toc-sidebar">
+                    <div class="toc-container">
+                        <h3>Table of Contents</h3>
+                        <div id="toc"></div>
+                    </div>
+                </aside>
+                
+                <!-- Main Content -->
+                <article class="factor-article">
+                    <h1 id="factor-9-disposability">Factor 9: Disposability</h1>
+
+<h2 id="maximize-robustness-with-fast-startup-and-graceful-shutdown">Maximize robustness with fast startup and graceful shutdown</h2>
+
+<h3 id="original-principle">Original Principle</h3>
+
+<p>The twelve-factor app’s processes are disposable, meaning they can be started or stopped at a moment’s notice. This facilitates fast elastic scaling, rapid deployment of code or config changes, and robustness of production deploys.</p>
+
+<h3 id="modern-evolution">Modern Evolution</h3>
+
+<p>Chaos engineering has pushed disposability to extremes. Modern applications must handle not just graceful shutdowns but also sudden terminations, network partitions, and zone failures. Disposability has evolved from a nice-to-have to a core requirement tested continuously in production.</p>
+
+<h4 id="chaos-engineering">Chaos Engineering</h4>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Litmus Chaos experiment</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">litmuschaos.io/v1alpha1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ChaosEngine</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">pod-delete</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">appinfo</span><span class="pi">:</span>
+    <span class="na">appns</span><span class="pi">:</span> <span class="s">production</span>
+    <span class="na">applabel</span><span class="pi">:</span> <span class="s1">'</span><span class="s">app=myapp'</span>
+  <span class="na">chaosServiceAccount</span><span class="pi">:</span> <span class="s">litmus-admin</span>
+  <span class="na">experiments</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">pod-delete</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">components</span><span class="pi">:</span>
+        <span class="na">env</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">TOTAL_CHAOS_DURATION</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s1">'</span><span class="s">60'</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">CHAOS_INTERVAL</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s1">'</span><span class="s">10'</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">FORCE</span>
+          <span class="na">value</span><span class="pi">:</span> <span class="s1">'</span><span class="s">false'</span>
+</code></pre></div></div>
+
+<h4 id="graceful-shutdown-implementation">Graceful Shutdown Implementation</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">signal</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+
+<span class="k">class</span> <span class="nc">GracefulShutdown</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">shutdown</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">signal</span><span class="p">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="p">.</span><span class="n">SIGTERM</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">_handle_signal</span><span class="p">)</span>
+        <span class="n">signal</span><span class="p">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="p">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">_handle_signal</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_handle_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signum</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Received signal </span><span class="si">{</span><span class="n">signum</span><span class="si">}</span><span class="s">, starting graceful shutdown..."</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">shutdown</span> <span class="o">=</span> <span class="bp">True</span>
+    
+    <span class="o">@</span><span class="n">contextmanager</span>
+    <span class="k">def</span> <span class="nf">lifecycle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">yield</span>
+        <span class="c1"># Cleanup code here
+</span>        <span class="k">print</span><span class="p">(</span><span class="s">"Cleanup complete"</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">GracefulShutdown</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">app</span><span class="p">.</span><span class="n">lifecycle</span><span class="p">():</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">app</span><span class="p">.</span><span class="n">shutdown</span><span class="p">:</span>
+        <span class="c1"># Process work
+</span>        <span class="n">process_message</span><span class="p">()</span>
+        <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="best-practices">Best Practices</h3>
+
+<ol>
+  <li>
+    <p><strong>Fast Startup</strong></p>
+
+    <ul>
+      <li>Lazy loading of non-critical components</li>
+      <li>Pre-warmed container images</li>
+      <li>Readiness probes before receiving traffic</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Graceful Shutdown</strong></p>
+
+    <ul>
+      <li>Stop accepting new work</li>
+      <li>Complete in-flight requests</li>
+      <li>Close connections cleanly</li>
+      <li>Deregister from service discovery</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Timeout Management</strong></p>
+
+    <ul>
+      <li>SIGTERM grace period alignment</li>
+      <li>Connection draining timeouts</li>
+      <li>Background job completion windows</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="key-takeaways">Key Takeaways</h3>
+
+<ul>
+  <li>Design for sudden termination</li>
+  <li>Test disposability with chaos engineering</li>
+  <li>Fast startup enables rapid scaling</li>
+  <li>Graceful shutdown prevents data loss</li>
+  <li>Health checks ensure traffic safety</li>
+</ul>
+
+<hr />
+
+<h3 id="sources">Sources</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://12factor.net/disposability</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://netflixtechblog.com/the-netflix-simian-army-16e57fbab116</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/</code></li>
+</ul>
+
+                    
+                    <!-- Factor Navigation Footer -->
+                    <div class="factor-footer-nav">
+                        
+                        
+                        
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Progress Indicator -->
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+</div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Modern 17-Factor App</h3>
+                    <p>An evolution of the twelve-factor methodology for modern cloud-native applications</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/12-factor-app-website/">Home</a></li>
+                        <li><a href="/12-factor-app-website/factor-01-codebase">Original 12 Factors</a></li>
+                        <li><a href="/12-factor-app-website/factor-13-api-first">New 5 Factors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://12factor.net" target="_blank">Original 12-Factor App</a></li>
+                        <li><a href="https://github.com/ifeatu/12-factor-app-website" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Modern 17-Factor App. Built with Jekyll.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/12-factor-app-website/assets/js/main.js"></script>
+</body>
+</html>

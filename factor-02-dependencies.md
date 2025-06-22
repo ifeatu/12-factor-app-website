@@ -1,6 +1,17 @@
 ---
-layout: default
+layout: factor
 title: "Factor 2: Dependencies"
+factor_number: 2
+factor_name: "Dependencies"
+description: "Explicitly declare and isolate dependencies"
+prev_factor:
+  number: 1
+  name: "Codebase"
+  url: "/factor-01-codebase"
+next_factor:
+  number: 3
+  name: "Config"
+  url: "/factor-03-config"
 ---
 
 # Factor 2: Dependencies

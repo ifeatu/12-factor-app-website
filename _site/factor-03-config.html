@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factor 3: Config | The Modern 17-Factor App</title>
+    <meta name="description" content="An evolution of the twelve-factor methodology for modern cloud-native applications">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/12-factor-app-website/assets/css/main.css">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SEO -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Factor 3: Config | The Modern 17-Factor App</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Factor 3: Config" />
+<meta name="author" content="Pierre Brunelle" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An evolution of the twelve-factor methodology for modern cloud-native applications" />
+<meta property="og:description" content="An evolution of the twelve-factor methodology for modern cloud-native applications" />
+<link rel="canonical" href="http://0.0.0.0:4000/12-factor-app-website/factor-03-config.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/12-factor-app-website/factor-03-config.html" />
+<meta property="og:site_name" content="The Modern 17-Factor App" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Factor 3: Config" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"An evolution of the twelve-factor methodology for modern cloud-native applications","headline":"Factor 3: Config","url":"http://0.0.0.0:4000/12-factor-app-website/factor-03-config.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    <!-- Feed -->
+    <link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/12-factor-app-website/" class="brand-link">
+                    <i class="fas fa-cube brand-icon"></i>
+                    <span class="brand-text">The Modern 17-Factor App</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="/12-factor-app-website/" class="nav-link ">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-list"></i> Factors <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-section">
+                            <h4>Original 12 Factors</h4>
+                            <a href="/12-factor-app-website/factor-01-codebase">1. Codebase</a>
+                            <a href="/12-factor-app-website/factor-02-dependencies">2. Dependencies</a>
+                            <a href="/12-factor-app-website/factor-03-config">3. Config</a>
+                            <a href="/12-factor-app-website/factor-04-backing-services">4. Backing Services</a>
+                            <a href="/12-factor-app-website/factor-05-build-release-run">5. Build, Release, Run</a>
+                            <a href="/12-factor-app-website/factor-06-processes">6. Processes</a>
+                            <a href="/12-factor-app-website/factor-07-port-binding">7. Port Binding</a>
+                            <a href="/12-factor-app-website/factor-08-concurrency">8. Concurrency</a>
+                            <a href="/12-factor-app-website/factor-09-disposability">9. Disposability</a>
+                            <a href="/12-factor-app-website/factor-10-dev-prod-parity">10. Dev/Prod Parity</a>
+                            <a href="/12-factor-app-website/factor-11-logs">11. Logs</a>
+                            <a href="/12-factor-app-website/factor-12-admin-processes">12. Admin Processes</a>
+                        </div>
+                        <div class="dropdown-section">
+                            <h4>New 5 Factors</h4>
+                            <a href="/12-factor-app-website/factor-13-api-first">13. API First</a>
+                            <a href="/12-factor-app-website/factor-14-graphql-grpc">14. GraphQL & gRPC</a>
+                            <a href="/12-factor-app-website/factor-15-auth">15. Authentication & Authorization</a>
+                            <a href="/12-factor-app-website/factor-16-event-driven">16. Event-Driven Architecture</a>
+                            <a href="/12-factor-app-website/factor-17-failure-isolation">17. Failure Isolation</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://github.com/ifeatu/12-factor-app-website" target="_blank" class="nav-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <h1 id="factor-3-config">Factor 3: Config</h1>
+
+<h2 id="store-config-in-the-environment">Store config in the environment</h2>
+
+<h3 id="original-principle">Original Principle</h3>
+
+<p>The twelve-factor app stores config in environment variables. Config varies substantially across deploys, code does not. This includes database handles, credentials to external services, and per-deploy values such as the canonical hostname.</p>
+
+<h3 id="modern-evolution">Modern Evolution</h3>
+
+<p>While environment variables served simple applications well, modern distributed systems require more sophisticated configuration management. The principle of separating configuration from code remains vital, but implementation has evolved significantly.</p>
+
+<h4 id="limitations-of-environment-variables">Limitations of Environment Variables</h4>
+
+<ul>
+  <li><strong>No type safety</strong> - Everything is a string</li>
+  <li><strong>No validation</strong> - Errors only discovered at runtime</li>
+  <li><strong>No structure</strong> - Difficult to manage complex configurations</li>
+  <li><strong>No versioning</strong> - No audit trail of changes</li>
+  <li><strong>Security risks</strong> - Visible in process listings</li>
+  <li><strong>Scale challenges</strong> - Managing hundreds of variables across services</li>
+</ul>
+
+<h4 id="modern-configuration-services">Modern Configuration Services</h4>
+
+<p><strong>Kubernetes ConfigMaps and Secrets:</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ConfigMap</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-config</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">database_url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">postgres://db.example.com:5432/myapp"</span>
+  <span class="na">feature_flags</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">{</span>
+      <span class="s">"new_ui": true,</span>
+      <span class="s">"beta_features": false</span>
+    <span class="s">}</span>
+<span class="s">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">app-secrets</span>
+<span class="na">type</span><span class="pi">:</span> <span class="s">Opaque</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">api_key</span><span class="pi">:</span> <span class="s">bXlfc2VjcmV0X2tleQ==</span>  <span class="c1"># base64 encoded</span>
+</code></pre></div></div>
+
+<p><strong>HashiCorp Vault Integration:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">hvac</span>
+
+<span class="c1"># Dynamic secret retrieval
+</span><span class="n">client</span> <span class="o">=</span> <span class="n">hvac</span><span class="p">.</span><span class="n">Client</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s">'https://vault.example.com'</span><span class="p">)</span>
+<span class="n">client</span><span class="p">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'VAULT_TOKEN'</span><span class="p">]</span>
+
+<span class="c1"># Get database credentials that rotate automatically
+</span><span class="n">db_creds</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="s">'database/creds/myapp'</span><span class="p">)</span>
+<span class="n">db_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"postgres://</span><span class="si">{</span><span class="n">db_creds</span><span class="p">[</span><span class="s">'username'</span><span class="p">]</span><span class="si">}</span><span class="s">:</span><span class="si">{</span><span class="n">db_creds</span><span class="p">[</span><span class="s">'password'</span><span class="p">]</span><span class="si">}</span><span class="s">@db.example.com/myapp"</span>
+</code></pre></div></div>
+
+<h4 id="configuration-as-code">Configuration as Code</h4>
+
+<p>Modern approaches treat configuration as code with:</p>
+
+<p><strong>Helm Values:</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># values.yaml</span>
+<span class="na">replicaCount</span><span class="pi">:</span> <span class="m">3</span>
+<span class="na">image</span><span class="pi">:</span>
+  <span class="na">repository</span><span class="pi">:</span> <span class="s">myapp</span>
+  <span class="na">tag</span><span class="pi">:</span> <span class="s">1.2.3</span>
+  
+<span class="na">database</span><span class="pi">:</span>
+  <span class="na">host</span><span class="pi">:</span> <span class="s">db.example.com</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="m">5432</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">myapp</span>
+  
+<span class="na">features</span><span class="pi">:</span>
+  <span class="na">newUI</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">betaFeatures</span><span class="pi">:</span> <span class="no">false</span>
+</code></pre></div></div>
+
+<p><strong>Kustomize Overlays:</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># base/deployment.yaml</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">myapp</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">app</span>
+        <span class="na">env</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">DB_HOST</span>
+          <span class="na">valueFrom</span><span class="pi">:</span>
+            <span class="na">configMapKeyRef</span><span class="pi">:</span>
+              <span class="na">name</span><span class="pi">:</span> <span class="s">db-config</span>
+              <span class="na">key</span><span class="pi">:</span> <span class="s">host</span>
+</code></pre></div></div>
+
+<h3 id="implementation-guidelines">Implementation Guidelines</h3>
+
+<ol>
+  <li><strong>Use Configuration Services</strong>
+    <ul>
+      <li>Development: Local config files</li>
+      <li>Staging: ConfigMaps/Secrets</li>
+      <li>Production: Vault/AWS Parameter Store</li>
+    </ul>
+  </li>
+  <li><strong>Implement Validation</strong>
+```</li>
+</ol>
+
+<h3 id="best-practices">Best Practices</h3>
+
+<ol>
+  <li><strong>Hierarchical Configuration</strong>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Order of precedence
+# 1. Environment variables
+# 2. Configuration service
+# 3. Config files
+# 4. Defaults
+</span>   
+<span class="n">config</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">,</span>
+    <span class="n">load_from_vault</span><span class="p">(),</span>
+    <span class="n">load_from_file</span><span class="p">(</span><span class="s">'config.yaml'</span><span class="p">),</span>
+    <span class="n">DEFAULTS</span>
+<span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Configuration Templates</strong>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># config-template.yaml</span>
+<span class="na">database</span><span class="pi">:</span>
+  <span class="na">url</span><span class="pi">:</span> 
+  <span class="na">pool_size</span><span class="pi">:</span> 
+   
+<span class="na">redis</span><span class="pi">:</span>
+  <span class="na">url</span><span class="pi">:</span> 
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Audit and Compliance</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Track configuration changes</span>
+vault audit <span class="nb">enable </span>file <span class="nv">file_path</span><span class="o">=</span>/var/log/vault_audit.log
+   
+<span class="c"># Policy as code</span>
+path <span class="s2">"secret/data/myapp/*"</span> <span class="o">{</span>
+  capabilities <span class="o">=</span> <span class="o">[</span><span class="s2">"read"</span>, <span class="s2">"list"</span><span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="anti-patterns-to-avoid">Anti-Patterns to Avoid</h3>
+
+<ul>
+  <li><strong>Hardcoded values</strong> in code</li>
+  <li><strong>Configuration in containers</strong> - Use mounted configs</li>
+  <li><strong>Unencrypted secrets</strong> in version control</li>
+  <li><strong>Manual configuration</strong> updates</li>
+  <li><strong>Missing validation</strong> of configuration values</li>
+</ul>
+
+<h3 id="modern-tools-and-services">Modern Tools and Services</h3>
+
+<ul>
+  <li><strong>Secret Management</strong>: HashiCorp Vault, AWS Secrets Manager, Azure Key Vault</li>
+  <li><strong>Configuration Services</strong>: Consul, etcd, AWS Parameter Store</li>
+  <li><strong>Kubernetes Tools</strong>: Helm, Kustomize, Sealed Secrets</li>
+  <li><strong>Feature Flags</strong>: LaunchDarkly, Split.io, Unleash</li>
+</ul>
+
+<h3 id="example-complete-configuration-setup">Example: Complete Configuration Setup</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># config.py
+</span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span> <span class="nn">hvac</span>
+
+<span class="o">@</span><span class="n">dataclass</span>
+<span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="c1"># Required configuration
+</span>    <span class="n">database_url</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">redis_url</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span>
+    
+    <span class="c1"># Optional with defaults
+</span>    <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8080</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span>
+    
+    <span class="o">@</span><span class="nb">classmethod</span>
+    <span class="k">def</span> <span class="nf">from_environment</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s">'Config'</span><span class="p">:</span>
+        <span class="s">"""Load configuration with fallback hierarchy"""</span>
+        <span class="c1"># 1. Try Vault first
+</span>        <span class="n">config</span> <span class="o">=</span> <span class="n">cls</span><span class="p">.</span><span class="n">_load_from_vault</span><span class="p">()</span>
+        
+        <span class="c1"># 2. Override with environment variables
+</span>        <span class="n">config</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">cls</span><span class="p">.</span><span class="n">_load_from_env</span><span class="p">())</span>
+        
+        <span class="c1"># 3. Validate and return
+</span>        <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">)</span>
+    
+    <span class="o">@</span><span class="nb">staticmethod</span>
+    <span class="k">def</span> <span class="nf">_load_from_vault</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="s">"""Load secrets from Vault"""</span>
+        <span class="k">if</span> <span class="n">vault_addr</span> <span class="p">:</span><span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span><span class="s">'VAULT_ADDR'</span><span class="p">):</span>
+            <span class="n">client</span> <span class="o">=</span> <span class="n">hvac</span><span class="p">.</span><span class="n">Client</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">vault_addr</span><span class="p">)</span>
+            <span class="n">client</span><span class="p">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'VAULT_TOKEN'</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">client</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="s">'secret/myapp'</span><span class="p">)[</span><span class="s">'data'</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    
+    <span class="o">@</span><span class="nb">staticmethod</span>
+    <span class="k">def</span> <span class="nf">_load_from_env</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="s">"""Load from environment variables"""</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">.</span><span class="n">lower</span><span class="p">():</span> <span class="n">v</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">k</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'MYAPP_'</span><span class="p">)</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="key-takeaways">Key Takeaways</h3>
+
+<ol>
+  <li>Environment variables alone are insufficient for modern apps</li>
+  <li>Use dedicated configuration services for complex deployments</li>
+  <li>Treat configuration as code with version control</li>
+  <li>Implement validation and type safety</li>
+  <li>Separate secrets from general configuration</li>
+  <li>Audit all configuration access and changes</li>
+</ol>
+
+<hr />
+
+<h3 id="sources">Sources</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://12factor.net/config</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://kubernetes.io/docs/concepts/configuration/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://www.vaultproject.io/docs/concepts/seal</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://www.cncf.io/blog/2023/01/10/kubernetes-configuration-management-101/</code></li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">https://cloud.google.com/appengine/docs/standard/python/config</code>python
+ from pydantic import BaseSettings, validator</p>
+
+    <p>class Settings(BaseSettings):
+     database_url: str
+     redis_url: str
+     api_key: str
+     max_workers: int = 10</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> @validator('database_url')
+ def validate_db_url(cls, v):
+     if not v.startswith('postgres://'):
+         raise ValueError('Invalid database URL')
+     return v
+</code></pre></div>    </div>
+
+    <p>settings = Settings()  # Loads from environment
+ ```</p>
+  </li>
+</ul>
+
+<ol>
+  <li><strong>Secret Rotation</strong>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Kubernetes Secret rotation with Sealed Secrets</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">bitnami.com/v1alpha1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">SealedSecret</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">myapp-secrets</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">encryptedData</span><span class="pi">:</span>
+    <span class="na">api_key</span><span class="pi">:</span> <span class="s">AgA3B4C5D6E7F8G9H0...</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Feature Flags</strong>
+    <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Using LaunchDarkly or similar</span>
+<span class="kd">const</span> <span class="nx">ld</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">launchdarkly-node-server-sdk</span><span class="dl">'</span><span class="p">);</span>
+   
+<span class="kd">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">ld</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">LD_SDK_KEY</span><span class="p">);</span>
+   
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">checkFeature</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">flag</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">variation</span><span class="p">(</span><span class="nx">flag</span><span class="p">,</span> <span class="nx">user</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Modern 17-Factor App</h3>
+                    <p>An evolution of the twelve-factor methodology for modern cloud-native applications</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/12-factor-app-website/">Home</a></li>
+                        <li><a href="/12-factor-app-website/factor-01-codebase">Original 12 Factors</a></li>
+                        <li><a href="/12-factor-app-website/factor-13-api-first">New 5 Factors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://12factor.net" target="_blank">Original 12-Factor App</a></li>
+                        <li><a href="https://github.com/ifeatu/12-factor-app-website" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Modern 17-Factor App. Built with Jekyll.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/12-factor-app-website/assets/js/main.js"></script>
+</body>
+</html>

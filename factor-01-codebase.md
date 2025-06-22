@@ -1,3 +1,16 @@
+---
+layout: factor
+title: "Factor 1: Codebase"
+factor_number: 1
+factor_name: "Codebase"
+description: "One codebase tracked in revision control, many deploys"
+prev_factor: null
+next_factor:
+  number: 2
+  name: "Dependencies"
+  url: "/factor-02-dependencies"
+---
+
 # Factor 1: Codebase
 
 ## One codebase tracked in revision control, many deploys

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factor 2: Dependencies | The Modern 17-Factor App</title>
+    <meta name="description" content="Explicitly declare and isolate dependencies">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/12-factor-app-website/assets/css/main.css">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SEO -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Factor 2: Dependencies | The Modern 17-Factor App</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Factor 2: Dependencies" />
+<meta name="author" content="Pierre Brunelle" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Explicitly declare and isolate dependencies" />
+<meta property="og:description" content="Explicitly declare and isolate dependencies" />
+<link rel="canonical" href="http://0.0.0.0:4000/12-factor-app-website/factor-02-dependencies.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/12-factor-app-website/factor-02-dependencies.html" />
+<meta property="og:site_name" content="The Modern 17-Factor App" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Factor 2: Dependencies" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"Explicitly declare and isolate dependencies","headline":"Factor 2: Dependencies","url":"http://0.0.0.0:4000/12-factor-app-website/factor-02-dependencies.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    <!-- Feed -->
+    <link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/12-factor-app-website/" class="brand-link">
+                    <i class="fas fa-cube brand-icon"></i>
+                    <span class="brand-text">The Modern 17-Factor App</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="/12-factor-app-website/" class="nav-link ">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-list"></i> Factors <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-section">
+                            <h4>Original 12 Factors</h4>
+                            <a href="/12-factor-app-website/factor-01-codebase">1. Codebase</a>
+                            <a href="/12-factor-app-website/factor-02-dependencies">2. Dependencies</a>
+                            <a href="/12-factor-app-website/factor-03-config">3. Config</a>
+                            <a href="/12-factor-app-website/factor-04-backing-services">4. Backing Services</a>
+                            <a href="/12-factor-app-website/factor-05-build-release-run">5. Build, Release, Run</a>
+                            <a href="/12-factor-app-website/factor-06-processes">6. Processes</a>
+                            <a href="/12-factor-app-website/factor-07-port-binding">7. Port Binding</a>
+                            <a href="/12-factor-app-website/factor-08-concurrency">8. Concurrency</a>
+                            <a href="/12-factor-app-website/factor-09-disposability">9. Disposability</a>
+                            <a href="/12-factor-app-website/factor-10-dev-prod-parity">10. Dev/Prod Parity</a>
+                            <a href="/12-factor-app-website/factor-11-logs">11. Logs</a>
+                            <a href="/12-factor-app-website/factor-12-admin-processes">12. Admin Processes</a>
+                        </div>
+                        <div class="dropdown-section">
+                            <h4>New 5 Factors</h4>
+                            <a href="/12-factor-app-website/factor-13-api-first">13. API First</a>
+                            <a href="/12-factor-app-website/factor-14-graphql-grpc">14. GraphQL & gRPC</a>
+                            <a href="/12-factor-app-website/factor-15-auth">15. Authentication & Authorization</a>
+                            <a href="/12-factor-app-website/factor-16-event-driven">16. Event-Driven Architecture</a>
+                            <a href="/12-factor-app-website/factor-17-failure-isolation">17. Failure Isolation</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://github.com/ifeatu/12-factor-app-website" target="_blank" class="nav-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="factor-page">
+    <!-- Factor Header -->
+    <div class="factor-header">
+        <div class="container">
+            <div class="factor-nav">
+                <a href="/12-factor-app-website/" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </a>
+                
+                <div class="factor-navigation">
+                    
+                        <a href="/12-factor-app-website/factor-01-codebase" class="nav-btn prev-btn">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </a>
+                    
+                    
+                    
+                        <a href="/12-factor-app-website/factor-03-config" class="nav-btn next-btn">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </a>
+                    
+                </div>
+            </div>
+            
+            <div class="factor-title">
+                
+                
+                    <span class="factor-number">Factor 2</span>
+                    <h1 class="factor-name">Dependencies</h1>
+                
+                
+                
+                    <p class="factor-description">Explicitly declare and isolate dependencies</p>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Factor Content -->
+    <div class="factor-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Table of Contents -->
+                <aside class="toc-sidebar">
+                    <div class="toc-container">
+                        <h3>Table of Contents</h3>
+                        <div id="toc"></div>
+                    </div>
+                </aside>
+                
+                <!-- Main Content -->
+                <article class="factor-article">
+                    <h1 id="factor-2-dependencies">Factor 2: Dependencies</h1>
+
+<h2 id="explicitly-declare-and-isolate-dependencies">Explicitly declare and isolate dependencies</h2>
+
+<h3 id="original-principle">Original Principle</h3>
+
+<p>A twelve-factor app never relies on implicit existence of system-wide packages. It declares all dependencies, completely and exactly, via a dependency declaration manifest. It uses a dependency isolation tool during execution to ensure that no implicit dependencies “leak in” from the surrounding system.</p>
+
+<h3 id="modern-evolution">Modern Evolution</h3>
+
+<p>Dependency management has evolved from a development convenience to a critical security concern. Modern applications face sophisticated supply chain attacks that exploit transitive dependencies and compromised packages.</p>
+
+<h4 id="supply-chain-security">Supply Chain Security</h4>
+
+<p>The evolution of dependency management now includes:</p>
+
+<ul>
+  <li><strong>Software Bills of Materials (SBOMs)</strong> - Complete inventory of all components</li>
+  <li><strong>Dependency scanning</strong> - Continuous vulnerability assessment</li>
+  <li><strong>License compliance</strong> - Automated license compatibility checks</li>
+  <li><strong>Provenance tracking</strong> - Verifying the source and integrity of dependencies</li>
+</ul>
+
+<h4 id="container-based-isolation">Container-Based Isolation</h4>
+
+<p>Containers have revolutionized dependency isolation:</p>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Modern dependency declaration</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">node:18-alpine</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">base</span>
+
+<span class="c"># Install production dependencies</span>
+<span class="k">COPY</span><span class="s"> package*.json ./</span>
+<span class="k">RUN </span>npm ci <span class="nt">--only</span><span class="o">=</span>production
+
+<span class="c"># Multi-stage build for security</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">base</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s">dev</span>
+<span class="k">RUN </span>npm ci <span class="nt">--only</span><span class="o">=</span>development
+
+<span class="k">FROM</span><span class="s"> gcr.io/distroless/nodejs18</span>
+<span class="k">COPY</span><span class="s"> --from=base /app/node_modules ./node_modules</span>
+<span class="k">COPY</span><span class="s"> . .</span>
+</code></pre></div></div>
+
+<h4 id="language-specific-evolution">Language-Specific Evolution</h4>
+
+<p>Each ecosystem has matured its dependency management:</p>
+
+<p><strong>JavaScript/Node.js:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">package-lock.json</code> for deterministic installs</li>
+  <li><code class="language-plaintext highlighter-rouge">npm audit</code> for vulnerability scanning</li>
+  <li>Workspaces for monorepo management</li>
+</ul>
+
+<p><strong>Python:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">requirements.txt</code> → <code class="language-plaintext highlighter-rouge">Pipfile</code> → <code class="language-plaintext highlighter-rouge">pyproject.toml</code></li>
+  <li>Virtual environments → Docker containers</li>
+  <li>Poetry for modern dependency management</li>
+</ul>
+
+<p><strong>Java:</strong></p>
+<ul>
+  <li>Maven Central security scanning</li>
+  <li>Gradle dependency verification</li>
+  <li>OWASP Dependency Check integration</li>
+</ul>
+
+<p><strong>Go:</strong></p>
+<ul>
+  <li>Go modules with cryptographic checksums</li>
+  <li>Proxy servers for availability</li>
+  <li>Minimal version selection</li>
+</ul>
+
+<h3 id="implementation-guidelines">Implementation Guidelines</h3>
+
+<ol>
+  <li><strong>Declare Everything Explicitly</strong>
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"dependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"express"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.18.2"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"postgres"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.3.5"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"devDependencies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"jest"</span><span class="p">:</span><span class="w"> </span><span class="s2">"29.5.0"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"eslint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8.42.0"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+  </li>
+  <li><strong>Lock Dependencies</strong>
+    <ul>
+      <li>Use lock files (<code class="language-plaintext highlighter-rouge">package-lock.json</code>, <code class="language-plaintext highlighter-rouge">Gemfile.lock</code>, <code class="language-plaintext highlighter-rouge">go.sum</code>)</li>
+      <li>Commit lock files to version control</li>
+      <li>Automated updates with security patches</li>
+    </ul>
+  </li>
+  <li><strong>Scan Continuously</strong>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># GitHub dependency scanning</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">Dependency Scan</span>
+<span class="na">on</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">push</span><span class="pi">,</span> <span class="nv">pull_request</span><span class="pi">]</span>
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">security</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v3</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Run Snyk scan</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">snyk/actions/node@master</span>
+        <span class="na">env</span><span class="pi">:</span>
+          <span class="na">SNYK_TOKEN</span><span class="pi">:</span> <span class="s">$</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Generate SBOMs</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Generate SBOM in SPDX format</span>
+syft packages <span class="nb">dir</span>:. <span class="nt">-o</span> spdx-json <span class="o">&gt;</span> sbom.json
+   
+<span class="c"># Scan SBOM for vulnerabilities</span>
+grype sbom:./sbom.json
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="security-best-practices">Security Best Practices</h3>
+
+<ol>
+  <li><strong>Minimize Dependencies</strong>
+    <ul>
+      <li>Audit every new dependency</li>
+      <li>Prefer standard library when possible</li>
+      <li>Regular dependency pruning</li>
+    </ul>
+  </li>
+  <li><strong>Use Private Registries</strong>
+    <ul>
+      <li>Mirror public packages internally</li>
+      <li>Scan before allowing usage</li>
+      <li>Control approved package list</li>
+    </ul>
+  </li>
+  <li><strong>Implement Security Policies</strong>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># OPA policy for dependencies</span>
+<span class="s">package dependencies</span>
+   
+<span class="s">deny[msg] {</span>
+  <span class="s">input.vulnerability.severity == "CRITICAL"</span>
+  <span class="s">msg := sprintf("Critical vulnerability in %v", [input.package])</span>
+<span class="err">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li><strong>Container Scanning</strong>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Scan container layers</span>
+trivy image myapp:latest
+   
+<span class="c"># Fail on high severity</span>
+docker scan <span class="nt">--severity</span> high myapp:latest
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="anti-patterns-to-avoid">Anti-Patterns to Avoid</h3>
+
+<ul>
+  <li><strong>Floating versions</strong> (<code class="language-plaintext highlighter-rouge">"express": "*"</code>)</li>
+  <li><strong>Git dependencies</strong> without commit hashes</li>
+  <li><strong>System-wide package installation</strong></li>
+  <li><strong>Ignoring transitive dependencies</strong></li>
+  <li><strong>Skipping vulnerability scans</strong></li>
+</ul>
+
+<h3 id="modern-tools-and-services">Modern Tools and Services</h3>
+
+<ul>
+  <li><strong>Scanning</strong>: Snyk, OWASP Dependency Check, GitHub Dependabot</li>
+  <li><strong>SBOM Generation</strong>: Syft, SPDX, CycloneDX</li>
+  <li><strong>Container Scanning</strong>: Trivy, Clair, Twistlock</li>
+  <li><strong>Policy Enforcement</strong>: Open Policy Agent, Falco</li>
+</ul>
+
+<h3 id="key-takeaways">Key Takeaways</h3>
+
+<ol>
+  <li>Dependencies are a critical attack vector</li>
+  <li>Explicit declaration enables reproducible builds</li>
+  <li>Container isolation provides strong boundaries</li>
+  <li>Continuous scanning is non-negotiable</li>
+  <li>SBOMs provide transparency and compliance</li>
+</ol>
+
+<hr />
+
+<h3 id="sources">Sources</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://12factor.net/dependencies</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://owasp.org/www-project-dependency-check/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://security.googleblog.com/2021/06/introducing-slsa-end-to-end-framework.html</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://www.nist.gov/itl/executive-order-14028-improving-nations-cybersecurity</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://cyclonedx.org/</code></li>
+</ul>
+
+                    
+                    <!-- Factor Navigation Footer -->
+                    <div class="factor-footer-nav">
+                        
+                        
+                        
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Progress Indicator -->
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+</div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Modern 17-Factor App</h3>
+                    <p>An evolution of the twelve-factor methodology for modern cloud-native applications</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/12-factor-app-website/">Home</a></li>
+                        <li><a href="/12-factor-app-website/factor-01-codebase">Original 12 Factors</a></li>
+                        <li><a href="/12-factor-app-website/factor-13-api-first">New 5 Factors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://12factor.net" target="_blank">Original 12-Factor App</a></li>
+                        <li><a href="https://github.com/ifeatu/12-factor-app-website" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Modern 17-Factor App. Built with Jekyll.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/12-factor-app-website/assets/js/main.js"></script>
+</body>
+</html>

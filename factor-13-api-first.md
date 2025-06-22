@@ -1,3 +1,19 @@
+---
+layout: factor
+title: "Factor 13: API First"
+factor_number: 13
+factor_name: "API First"
+description: "Design and document APIs before implementation"
+prev_factor:
+  number: 12
+  name: "Admin Processes"
+  url: "/factor-12-admin-processes"
+next_factor:
+  number: 14
+  name: "GraphQL & gRPC"
+  url: "/factor-14-graphql-grpc"
+---
+
 # Factor 13: API First
 
 ## Design and document APIs before implementation

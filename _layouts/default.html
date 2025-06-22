@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SEO -->
+    {% seo %}
+    
+    <!-- Feed -->
+    {% feed_meta %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="{{ '/' | relative_url }}" class="brand-link">
+                    <i class="fas fa-cube brand-icon"></i>
+                    <span class="brand-text">{{ site.title }}</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-list"></i> Factors <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-section">
+                            <h4>Original 12 Factors</h4>
+                            <a href="{{ '/factor-01-codebase' | relative_url }}">1. Codebase</a>
+                            <a href="{{ '/factor-02-dependencies' | relative_url }}">2. Dependencies</a>
+                            <a href="{{ '/factor-03-config' | relative_url }}">3. Config</a>
+                            <a href="{{ '/factor-04-backing-services' | relative_url }}">4. Backing Services</a>
+                            <a href="{{ '/factor-05-build-release-run' | relative_url }}">5. Build, Release, Run</a>
+                            <a href="{{ '/factor-06-processes' | relative_url }}">6. Processes</a>
+                            <a href="{{ '/factor-07-port-binding' | relative_url }}">7. Port Binding</a>
+                            <a href="{{ '/factor-08-concurrency' | relative_url }}">8. Concurrency</a>
+                            <a href="{{ '/factor-09-disposability' | relative_url }}">9. Disposability</a>
+                            <a href="{{ '/factor-10-dev-prod-parity' | relative_url }}">10. Dev/Prod Parity</a>
+                            <a href="{{ '/factor-11-logs' | relative_url }}">11. Logs</a>
+                            <a href="{{ '/factor-12-admin-processes' | relative_url }}">12. Admin Processes</a>
+                        </div>
+                        <div class="dropdown-section">
+                            <h4>New 5 Factors</h4>
+                            <a href="{{ '/factor-13-api-first' | relative_url }}">13. API First</a>
+                            <a href="{{ '/factor-14-graphql-grpc' | relative_url }}">14. GraphQL & gRPC</a>
+                            <a href="{{ '/factor-15-auth' | relative_url }}">15. Authentication & Authorization</a>
+                            <a href="{{ '/factor-16-event-driven' | relative_url }}">16. Event-Driven Architecture</a>
+                            <a href="{{ '/factor-17-failure-isolation' | relative_url }}">17. Failure Isolation</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://github.com/ifeatu/12-factor-app-website" target="_blank" class="nav-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {{ content }}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>{{ site.title }}</h3>
+                    <p>{{ site.description }}</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="{{ '/' | relative_url }}">Home</a></li>
+                        <li><a href="{{ '/factor-01-codebase' | relative_url }}">Original 12 Factors</a></li>
+                        <li><a href="{{ '/factor-13-api-first' | relative_url }}">New 5 Factors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://12factor.net" target="_blank">Original 12-Factor App</a></li>
+                        <li><a href="https://github.com/ifeatu/12-factor-app-website" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Modern 17-Factor App. Built with Jekyll.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>

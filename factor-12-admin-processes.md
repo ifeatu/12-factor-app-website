@@ -1,3 +1,13 @@
+---
+layout: factor
+title: "Factor 12: Admin Processes"
+factor_number: 12
+factor_name: "Admin Processes"
+description: "Run admin/management tasks as one-off processes"
+prev_factor: "factor-11-logs.md"
+next_factor: null
+---
+
 # Factor 12: Admin Processes
 
 ## Run admin/management tasks as one-off processes
