@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factor 5: Build, Release, Run | The Modern 17-Factor App</title>
-    <meta name="description" content="An evolution of the twelve-factor methodology for modern cloud-native applications">
+    <meta name="description" content="Strictly separate build and run stages">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,21 +24,21 @@
 <meta property="og:title" content="Factor 5: Build, Release, Run" />
 <meta name="author" content="Pierre Brunelle" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="An evolution of the twelve-factor methodology for modern cloud-native applications" />
-<meta property="og:description" content="An evolution of the twelve-factor methodology for modern cloud-native applications" />
-<link rel="canonical" href="http://0.0.0.0:4000/12-factor-app-website/factor-05-build-release-run.html" />
-<meta property="og:url" content="http://0.0.0.0:4000/12-factor-app-website/factor-05-build-release-run.html" />
+<meta name="description" content="Strictly separate build and run stages" />
+<meta property="og:description" content="Strictly separate build and run stages" />
+<link rel="canonical" href="https://pierrebrunelle.github.io/12-factor-app-website/factor-05-build-release-run.html" />
+<meta property="og:url" content="https://pierrebrunelle.github.io/12-factor-app-website/factor-05-build-release-run.html" />
 <meta property="og:site_name" content="The Modern 17-Factor App" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Factor 5: Build, Release, Run" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"An evolution of the twelve-factor methodology for modern cloud-native applications","headline":"Factor 5: Build, Release, Run","url":"http://0.0.0.0:4000/12-factor-app-website/factor-05-build-release-run.html"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"Strictly separate build and run stages","headline":"Factor 5: Build, Release, Run","url":"https://pierrebrunelle.github.io/12-factor-app-website/factor-05-build-release-run.html"}</script>
 <!-- End Jekyll SEO tag -->
 
     
     <!-- Feed -->
-    <link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
+    <link type="application/atom+xml" rel="alternate" href="https://pierrebrunelle.github.io/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
 </head>
 <body>
     <!-- Navigation -->
@@ -100,7 +100,59 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <h1 id="factor-5-build-release-run">Factor 5: Build, Release, Run</h1>
+        <div class="factor-page">
+    <!-- Factor Header -->
+    <div class="factor-header">
+        <div class="container">
+            <div class="factor-nav">
+                <a href="/12-factor-app-website/" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </a>
+                
+                <div class="factor-navigation">
+                    
+                        <a href="/12-factor-app-website/factor-04-backing-services" class="nav-btn prev-btn">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </a>
+                    
+                    
+                    
+                        <a href="/12-factor-app-website/factor-06-processes" class="nav-btn next-btn">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </a>
+                    
+                </div>
+            </div>
+            
+            <div class="factor-title">
+                
+                
+                    <span class="factor-number">Factor 5</span>
+                    <h1 class="factor-name">Build, Release, Run</h1>
+                
+                
+                
+                    <p class="factor-description">Strictly separate build and run stages</p>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Factor Content -->
+    <div class="factor-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Table of Contents -->
+                <aside class="toc-sidebar">
+                    <div class="toc-container">
+                        <h3>Table of Contents</h3>
+                        <div id="toc"></div>
+                    </div>
+                </aside>
+                
+                <!-- Main Content -->
+                <article class="factor-article">
+                    <h1 id="factor-5-build-release-run">Factor 5: Build, Release, Run</h1>
 
 <h2 id="strictly-separate-build-and-run-stages">Strictly separate build and run stages</h2>
 
@@ -400,6 +452,23 @@ git push
   <li>https://www.cncf.io/blog/2023/03/28/ci-cd-best-practices/</li>
 </ul>
 
+                    
+                    <!-- Factor Navigation Footer -->
+                    <div class="factor-footer-nav">
+                        
+                        
+                        
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Progress Indicator -->
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+</div>
     </main>
 
     <!-- Footer -->

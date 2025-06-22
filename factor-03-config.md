@@ -1,6 +1,17 @@
 ---
-layout: default
+layout: factor
 title: "Factor 3: Config"
+factor_number: 3
+factor_name: "Config"
+description: "Store config in the environment"
+prev_factor:
+  number: 2
+  name: "Dependencies"
+  url: "/factor-02-dependencies"
+next_factor:
+  number: 4
+  name: "Backing Services"
+  url: "/factor-04-backing-services"
 ---
 
 # Factor 3: Config

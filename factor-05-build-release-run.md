@@ -1,6 +1,17 @@
 ---
-layout: default
+layout: factor
 title: "Factor 5: Build, Release, Run"
+factor_number: 5
+factor_name: "Build, Release, Run"
+description: "Strictly separate build and run stages"
+prev_factor:
+  number: 4
+  name: "Backing Services"
+  url: "/factor-04-backing-services"
+next_factor:
+  number: 6
+  name: "Processes"
+  url: "/factor-06-processes"
 ---
 
 # Factor 5: Build, Release, Run
