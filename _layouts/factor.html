@@ -29,7 +29,7 @@ layout: default
             <div class="factor-title">
                 {% assign title_parts = page.title | split: ':' %}
                 {% if title_parts.size > 1 %}
-                    <span class="factor-number">{{ title_parts[0] }}</span>
+                    <div class="factor-number-circle">{{ page.factor_number }}</div>
                     <h1 class="factor-name">{{ title_parts[1] | strip }}</h1>
                 {% else %}
                     <h1 class="factor-name">{{ page.title }}</h1>
