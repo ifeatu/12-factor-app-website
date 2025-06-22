@@ -1,20 +1,20 @@
 ---
 layout: factor
-title: "Factor 14: GraphQL & gRPC"
-factor_number: 14
-factor_name: "GraphQL & gRPC"
+title: "Factor 15: GraphQL & gRPC"
+number: 15
+name: "GraphQL & gRPC"
 description: "Modern API protocols for efficient communication"
 prev_factor:
-  number: 13
-  name: "API First"
-  url: "/factor-13-api-first"
+  number: 14
+  name: "Telemetry"
+  url: "factor-14-telemetry"
 next_factor:
-  number: 15
-  name: "Authentication & Authorization"
-  url: "/factor-15-auth"
+  number: 16
+  name: "Event-Driven"
+  url: "factor-16-event-driven"
 ---
 
-# Factor 14: GraphQL & gRPC
+# Factor 15: GraphQL & gRPC
 
 ## Modern API protocols for efficient communication
 

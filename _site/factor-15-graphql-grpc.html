@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factor 17: Failure Isolation | The Modern 17-Factor App</title>
-    <meta name="description" content="Design for failure and implement resilience patterns">
+    <title>Factor 15: GraphQL & gRPC | The Modern 17-Factor App</title>
+    <meta name="description" content="Modern API protocols for efficient communication">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,26 +19,26 @@
     
     <!-- SEO -->
     <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Factor 17: Failure Isolation | The Modern 17-Factor App</title>
+<title>Factor 15: GraphQL &amp; gRPC | The Modern 17-Factor App</title>
 <meta name="generator" content="Jekyll v3.9.5" />
-<meta property="og:title" content="Factor 17: Failure Isolation" />
+<meta property="og:title" content="Factor 15: GraphQL &amp; gRPC" />
 <meta name="author" content="Pierre Brunelle" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Design for failure and implement resilience patterns" />
-<meta property="og:description" content="Design for failure and implement resilience patterns" />
-<link rel="canonical" href="http://0.0.0.0:4000/12-factor-app-website/factor-17-failure-isolation.html" />
-<meta property="og:url" content="http://0.0.0.0:4000/12-factor-app-website/factor-17-failure-isolation.html" />
+<meta name="description" content="Modern API protocols for efficient communication" />
+<meta property="og:description" content="Modern API protocols for efficient communication" />
+<link rel="canonical" href="https://pierrebrunelle.github.io/12-factor-app-website/factor-15-graphql-grpc.html" />
+<meta property="og:url" content="https://pierrebrunelle.github.io/12-factor-app-website/factor-15-graphql-grpc.html" />
 <meta property="og:site_name" content="The Modern 17-Factor App" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Factor 17: Failure Isolation" />
+<meta property="twitter:title" content="Factor 15: GraphQL &amp; gRPC" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"Design for failure and implement resilience patterns","headline":"Factor 17: Failure Isolation","url":"http://0.0.0.0:4000/12-factor-app-website/factor-17-failure-isolation.html"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"Modern API protocols for efficient communication","headline":"Factor 15: GraphQL &amp; gRPC","url":"https://pierrebrunelle.github.io/12-factor-app-website/factor-15-graphql-grpc.html"}</script>
 <!-- End Jekyll SEO tag -->
 
     
     <!-- Feed -->
-    <link type="application/atom+xml" rel="alternate" href="http://0.0.0.0:4000/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
+    <link type="application/atom+xml" rel="alternate" href="https://pierrebrunelle.github.io/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
 </head>
 <body>
     <!-- Navigation -->
@@ -111,11 +111,15 @@
                 
                 <div class="factor-navigation">
                     
-                        <a href="/12-factor-app-website/factor-16-event-driven" class="nav-btn prev-btn">
+                        <a href="/12-factor-app-website/factor-14-telemetry" class="nav-btn prev-btn">
                             <i class="fas fa-chevron-left"></i> Previous
                         </a>
                     
                     
+                    
+                        <a href="/12-factor-app-website/factor-16-event-driven" class="nav-btn next-btn">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </a>
                     
                 </div>
             </div>
@@ -123,12 +127,12 @@
             <div class="factor-title">
                 
                 
-                    <div class="factor-number-circle">17</div>
-                    <h1 class="factor-name">Failure Isolation</h1>
+                    <div class="factor-number-circle"></div>
+                    <h1 class="factor-name">GraphQL & gRPC</h1>
                 
                 
                 
-                    <p class="factor-description">Design for failure and implement resilience patterns</p>
+                    <p class="factor-description">Modern API protocols for efficient communication</p>
                 
             </div>
         </div>
@@ -148,93 +152,79 @@
                 
                 <!-- Main Content -->
                 <article class="factor-article">
-                    <h1 id="factor-17-failure-isolation">Factor 17: Failure Isolation</h1>
+                    <h1 id="factor-15-graphql--grpc">Factor 15: GraphQL &amp; gRPC</h1>
 
-<h2 id="design-for-failure-and-implement-resilience-patterns">Design for failure and implement resilience patterns</h2>
+<h2 id="modern-api-protocols-for-efficient-communication">Modern API protocols for efficient communication</h2>
 
 <h3 id="modern-principle">Modern Principle</h3>
 
-<p>In distributed systems, failure is not an exception—it’s the norm. Modern applications must be designed to gracefully handle failures, isolate them to prevent cascading effects, and recover automatically when possible.</p>
+<p>While REST APIs remain important, modern applications benefit from more efficient protocols like GraphQL for flexible data fetching and gRPC for high-performance service-to-service communication.</p>
 
-<h4 id="core-resilience-patterns">Core Resilience Patterns</h4>
+<h4 id="graphql-benefits">GraphQL Benefits</h4>
 
 <ul>
-  <li><strong>Circuit Breaker</strong>: Prevent cascading failures</li>
-  <li><strong>Bulkhead</strong>: Isolate critical resources</li>
-  <li><strong>Timeout</strong>: Prevent hanging operations</li>
-  <li><strong>Retry with Backoff</strong>: Handle transient failures</li>
-  <li><strong>Rate Limiting</strong>: Protect against overload</li>
-  <li><strong>Health Checks</strong>: Monitor service health</li>
+  <li><strong>Flexible Data Fetching</strong>: Clients request exactly the data they need</li>
+  <li><strong>Strong Type System</strong>: Self-documenting APIs with introspection</li>
+  <li><strong>Single Endpoint</strong>: Reduces over-fetching and under-fetching</li>
+  <li><strong>Real-time Subscriptions</strong>: Built-in support for live data</li>
+</ul>
+
+<h4 id="grpc-advantages">gRPC Advantages</h4>
+
+<ul>
+  <li><strong>High Performance</strong>: Binary protocol with HTTP/2</li>
+  <li><strong>Language Agnostic</strong>: Generated clients and servers</li>
+  <li><strong>Streaming Support</strong>: Bidirectional streaming capabilities</li>
+  <li><strong>Built-in Load Balancing</strong>: Advanced routing and load balancing</li>
 </ul>
 
 <h3 id="implementation-guidelines">Implementation Guidelines</h3>
 
 <ol>
-  <li><strong>Implement circuit breakers</strong> for external service calls</li>
-  <li><strong>Use timeouts</strong> for all network operations</li>
-  <li><strong>Apply bulkhead pattern</strong> to isolate critical resources</li>
-  <li><strong>Implement graceful degradation</strong> when dependencies fail</li>
-  <li><strong>Use chaos engineering</strong> to test failure scenarios</li>
-  <li><strong>Monitor and alert</strong> on failure patterns</li>
-  <li><strong>Implement automatic recovery</strong> where possible</li>
+  <li><strong>Use GraphQL for client-facing APIs</strong> where flexibility is important</li>
+  <li><strong>Use gRPC for service-to-service communication</strong> where performance matters</li>
+  <li><strong>Maintain REST APIs</strong> for simple CRUD operations and external integrations</li>
+  <li><strong>Implement proper schema versioning</strong> for both GraphQL and gRPC</li>
+  <li><strong>Use code generation</strong> to maintain type safety across services</li>
 </ol>
-
-<h3 id="failure-types">Failure Types</h3>
-
-<ul>
-  <li><strong>Transient Failures</strong>: Temporary network issues, timeouts</li>
-  <li><strong>Intermittent Failures</strong>: Sporadic service unavailability</li>
-  <li><strong>Permanent Failures</strong>: Service shutdown, configuration errors</li>
-  <li><strong>Cascading Failures</strong>: Failure propagation across services</li>
-  <li><strong>Resource Exhaustion</strong>: Memory, CPU, or connection limits</li>
-</ul>
 
 <h3 id="modern-tools">Modern Tools</h3>
 
 <ul>
-  <li><strong>Circuit Breakers</strong>: Hystrix, Resilience4j, Polly</li>
-  <li><strong>Service Mesh</strong>: Istio, Linkerd, Consul Connect</li>
-  <li><strong>Load Balancers</strong>: HAProxy, NGINX, AWS ALB</li>
-  <li><strong>Chaos Engineering</strong>: Chaos Monkey, Gremlin, Litmus</li>
-  <li><strong>Monitoring</strong>: Prometheus, Grafana, Datadog</li>
-</ul>
-
-<h3 id="resilience-strategies">Resilience Strategies</h3>
-
-<ul>
-  <li><strong>Fail Fast</strong>: Detect and report failures quickly</li>
-  <li><strong>Fail Safe</strong>: Maintain safe state during failures</li>
-  <li><strong>Fail Silent</strong>: Continue operating with reduced functionality</li>
-  <li><strong>Fail Loud</strong>: Alert operators to critical failures</li>
-  <li><strong>Auto-Recovery</strong>: Automatically restart or heal failed components</li>
-</ul>
-
-<h3 id="testing-for-failure">Testing for Failure</h3>
-
-<ul>
-  <li><strong>Unit Tests</strong>: Test individual component failures</li>
-  <li><strong>Integration Tests</strong>: Test service interaction failures</li>
-  <li><strong>Chaos Engineering</strong>: Inject failures in production</li>
-  <li><strong>Load Testing</strong>: Test behavior under stress</li>
-  <li><strong>Disaster Recovery</strong>: Test full system recovery</li>
+  <li><strong>GraphQL</strong>: Apollo Server, GraphQL Yoga, Hasura</li>
+  <li><strong>gRPC</strong>: Protocol Buffers, Envoy Proxy, Istio</li>
+  <li><strong>API Gateways</strong>: Kong, Ambassador, Traefik</li>
+  <li><strong>Schema Management</strong>: Apollo Studio, Buf Schema Registry</li>
 </ul>
 
 <h3 id="anti-patterns">Anti-patterns</h3>
 
 <ul>
-  <li>Assuming the network is reliable</li>
-  <li>Not implementing timeouts on external calls</li>
-  <li>Cascading failures due to tight coupling</li>
-  <li>Not testing failure scenarios regularly</li>
-  <li>Ignoring partial failures and edge cases</li>
-  <li>Not having proper monitoring and alerting</li>
+  <li>Using GraphQL for everything without considering use case</li>
+  <li>Exposing internal gRPC services directly to clients</li>
+  <li>Not implementing proper error handling for different protocols</li>
+  <li>Mixing protocols without clear boundaries</li>
 </ul>
 
                     
                     <!-- Factor Navigation Footer -->
                     <div class="factor-footer-nav">
                         
+                            
+                                <a href="/12-factor-app-website/factor-14-telemetry" class="footer-nav-btn prev">
+                                    <div class="nav-direction">Previous Factor</div>
+                                    <div class="nav-title">Factor 14: Telemetry</div>
+                                </a>
+                            
                         
+                        
+                        
+                            
+                                <a href="/12-factor-app-website/factor-16-event-driven" class="footer-nav-btn next">
+                                    <div class="nav-direction">Next Factor</div>
+                                    <div class="nav-title">Factor 16: Event-Driven</div>
+                                </a>
+                            
                         
                     </div>
                 </article>

@@ -60,18 +60,22 @@ layout: default
                     
                     <!-- Factor Navigation Footer -->
                     <div class="factor-footer-nav">
-                        {% if prev_num > 0 %}
-                            <a href="{{ '/factor-' | append: prev_factor | append: '-' | relative_url }}" class="footer-nav-btn prev">
-                                <div class="nav-direction">Previous Factor</div>
-                                <div class="nav-title">Factor {{ prev_num }}</div>
-                            </a>
+                        {% if page.prev_factor %}
+                            {% if page.prev_factor.url %}
+                                <a href="{{ page.prev_factor.url | relative_url }}" class="footer-nav-btn prev">
+                                    <div class="nav-direction">Previous Factor</div>
+                                    <div class="nav-title">Factor {{ page.prev_factor.number }}: {{ page.prev_factor.name }}</div>
+                                </a>
+                            {% endif %}
                         {% endif %}
                         
-                        {% if next_num <= 17 %}
-                            <a href="{{ '/factor-' | append: next_factor | append: '-' | relative_url }}" class="footer-nav-btn next">
-                                <div class="nav-direction">Next Factor</div>
-                                <div class="nav-title">Factor {{ next_num }}</div>
-                            </a>
+                        {% if page.next_factor %}
+                            {% if page.next_factor.url %}
+                                <a href="{{ page.next_factor.url | relative_url }}" class="footer-nav-btn next">
+                                    <div class="nav-direction">Next Factor</div>
+                                    <div class="nav-title">Factor {{ page.next_factor.number }}: {{ page.next_factor.name }}</div>
+                                </a>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </article>

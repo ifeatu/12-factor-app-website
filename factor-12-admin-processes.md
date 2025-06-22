@@ -4,8 +4,14 @@ title: "Factor 12: Admin Processes"
 factor_number: 12
 factor_name: "Admin Processes"
 description: "Run admin/management tasks as one-off processes"
-prev_factor: "factor-11-logs.md"
-next_factor: null
+prev_factor:
+  number: 11
+  name: "Logs"
+  url: "/factor-11-logs"
+next_factor:
+  number: 13
+  name: "API First"
+  url: "/factor-13-api-first"
 ---
 
 # Factor 12: Admin Processes

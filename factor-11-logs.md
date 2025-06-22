@@ -4,8 +4,14 @@ title: "Factor 11: Logs"
 factor_number: 11
 factor_name: "Logs"
 description: "Treat logs as event streams"
-prev_factor: "factor-10-dev-prod-parity.md"
-next_factor: "factor-12-admin-processes.md"
+prev_factor:
+  number: 10
+  name: "Dev/Prod Parity"
+  url: "/factor-10-dev-prod-parity"
+next_factor:
+  number: 12
+  name: "Admin Processes"
+  url: "/factor-12-admin-processes"
 ---
 
 # Factor 11: Logs

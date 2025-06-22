@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factor 14: Telemetry | The Modern 17-Factor App</title>
+    <meta name="description" content="Comprehensive observability with metrics, logs, and traces">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/12-factor-app-website/assets/css/main.css">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SEO -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Factor 14: Telemetry | The Modern 17-Factor App</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Factor 14: Telemetry" />
+<meta name="author" content="Pierre Brunelle" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Comprehensive observability with metrics, logs, and traces" />
+<meta property="og:description" content="Comprehensive observability with metrics, logs, and traces" />
+<link rel="canonical" href="https://pierrebrunelle.github.io/12-factor-app-website/factor-14-telemetry.html" />
+<meta property="og:url" content="https://pierrebrunelle.github.io/12-factor-app-website/factor-14-telemetry.html" />
+<meta property="og:site_name" content="The Modern 17-Factor App" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Factor 14: Telemetry" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"Comprehensive observability with metrics, logs, and traces","headline":"Factor 14: Telemetry","url":"https://pierrebrunelle.github.io/12-factor-app-website/factor-14-telemetry.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    <!-- Feed -->
+    <link type="application/atom+xml" rel="alternate" href="https://pierrebrunelle.github.io/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/12-factor-app-website/" class="brand-link">
+                    <i class="fas fa-cube brand-icon"></i>
+                    <span class="brand-text">The Modern 17-Factor App</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="/12-factor-app-website/" class="nav-link ">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-list"></i> Factors <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-section">
+                            <h4>Original 12 Factors</h4>
+                            <a href="/12-factor-app-website/factor-01-codebase">1. Codebase</a>
+                            <a href="/12-factor-app-website/factor-02-dependencies">2. Dependencies</a>
+                            <a href="/12-factor-app-website/factor-03-config">3. Config</a>
+                            <a href="/12-factor-app-website/factor-04-backing-services">4. Backing Services</a>
+                            <a href="/12-factor-app-website/factor-05-build-release-run">5. Build, Release, Run</a>
+                            <a href="/12-factor-app-website/factor-06-processes">6. Processes</a>
+                            <a href="/12-factor-app-website/factor-07-port-binding">7. Port Binding</a>
+                            <a href="/12-factor-app-website/factor-08-concurrency">8. Concurrency</a>
+                            <a href="/12-factor-app-website/factor-09-disposability">9. Disposability</a>
+                            <a href="/12-factor-app-website/factor-10-dev-prod-parity">10. Dev/Prod Parity</a>
+                            <a href="/12-factor-app-website/factor-11-logs">11. Logs</a>
+                            <a href="/12-factor-app-website/factor-12-admin-processes">12. Admin Processes</a>
+                        </div>
+                        <div class="dropdown-section">
+                            <h4>New 5 Factors</h4>
+                            <a href="/12-factor-app-website/factor-13-api-first">13. API First</a>
+                            <a href="/12-factor-app-website/factor-14-graphql-grpc">14. GraphQL & gRPC</a>
+                            <a href="/12-factor-app-website/factor-15-auth">15. Authentication & Authorization</a>
+                            <a href="/12-factor-app-website/factor-16-event-driven">16. Event-Driven Architecture</a>
+                            <a href="/12-factor-app-website/factor-17-failure-isolation">17. Failure Isolation</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://github.com/ifeatu/12-factor-app-website" target="_blank" class="nav-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="factor-page">
+    <!-- Factor Header -->
+    <div class="factor-header">
+        <div class="container">
+            <div class="factor-nav">
+                <a href="/12-factor-app-website/" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </a>
+                
+                <div class="factor-navigation">
+                    
+                        <a href="/12-factor-app-website/factor-13-api-first" class="nav-btn prev-btn">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </a>
+                    
+                    
+                    
+                        <a href="/12-factor-app-website/factor-15-auth" class="nav-btn next-btn">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </a>
+                    
+                </div>
+            </div>
+            
+            <div class="factor-title">
+                
+                
+                    <div class="factor-number-circle"></div>
+                    <h1 class="factor-name">Telemetry</h1>
+                
+                
+                
+                    <p class="factor-description">Comprehensive observability with metrics, logs, and traces</p>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Factor Content -->
+    <div class="factor-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Table of Contents -->
+                <aside class="toc-sidebar">
+                    <div class="toc-container">
+                        <h3>Table of Contents</h3>
+                        <div id="toc"></div>
+                    </div>
+                </aside>
+                
+                <!-- Main Content -->
+                <article class="factor-article">
+                    <h1 id="factor-14-telemetry">Factor 14: Telemetry</h1>
+
+<h2 id="comprehensive-observability-with-metrics-logs-and-traces">Comprehensive observability with metrics, logs, and traces</h2>
+
+<h3 id="modern-principle">Modern Principle</h3>
+
+<p>While Factor 11 addresses logging, modern applications require comprehensive telemetry. This factor mandates that applications emit structured metrics, distributed traces, and contextual logs that enable understanding system behavior, debugging issues, and making data-driven decisions. Observability must be built-in, not bolted-on.</p>
+
+<h4 id="the-three-pillars-of-observability">The Three Pillars of Observability</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Unified telemetry with OpenTelemetry
+</span><span class="kn">from</span> <span class="nn">opentelemetry</span> <span class="kn">import</span> <span class="n">trace</span><span class="p">,</span> <span class="n">metrics</span>
+<span class="kn">from</span> <span class="nn">opentelemetry.exporter.otlp.proto.grpc</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">trace_exporter</span><span class="p">,</span>
+    <span class="n">metrics_exporter</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">opentelemetry.sdk.trace</span> <span class="kn">import</span> <span class="n">TracerProvider</span>
+<span class="kn">from</span> <span class="nn">opentelemetry.sdk.metrics</span> <span class="kn">import</span> <span class="n">MeterProvider</span>
+<span class="kn">from</span> <span class="nn">opentelemetry.instrumentation.flask</span> <span class="kn">import</span> <span class="n">FlaskInstrumentor</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c1"># Configure tracing
+</span><span class="n">trace</span><span class="p">.</span><span class="n">set_tracer_provider</span><span class="p">(</span><span class="n">TracerProvider</span><span class="p">())</span>
+<span class="n">tracer</span> <span class="o">=</span> <span class="n">trace</span><span class="p">.</span><span class="n">get_tracer</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">trace_exporter</span> <span class="o">=</span> <span class="n">trace_exporter</span><span class="p">.</span><span class="n">OTLPSpanExporter</span><span class="p">(</span>
+    <span class="n">endpoint</span><span class="o">=</span><span class="s">"otel-collector:4317"</span>
+<span class="p">)</span>
+
+<span class="c1"># Configure metrics
+</span><span class="n">metrics</span><span class="p">.</span><span class="n">set_meter_provider</span><span class="p">(</span><span class="n">MeterProvider</span><span class="p">())</span>
+<span class="n">meter</span> <span class="o">=</span> <span class="n">metrics</span><span class="p">.</span><span class="n">get_meter</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">metrics_exporter</span> <span class="o">=</span> <span class="n">metrics_exporter</span><span class="p">.</span><span class="n">OTLPMetricExporter</span><span class="p">(</span>
+    <span class="n">endpoint</span><span class="o">=</span><span class="s">"otel-collector:4317"</span>
+<span class="p">)</span>
+
+<span class="c1"># Create metrics
+</span><span class="n">request_counter</span> <span class="o">=</span> <span class="n">meter</span><span class="p">.</span><span class="n">create_counter</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"http_requests_total"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s">"Total HTTP requests"</span><span class="p">,</span>
+    <span class="n">unit</span><span class="o">=</span><span class="s">"1"</span>
+<span class="p">)</span>
+
+<span class="n">request_duration</span> <span class="o">=</span> <span class="n">meter</span><span class="p">.</span><span class="n">create_histogram</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">"http_request_duration_seconds"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s">"HTTP request duration"</span><span class="p">,</span>
+    <span class="n">unit</span><span class="o">=</span><span class="s">"s"</span>
+<span class="p">)</span>
+
+<span class="c1"># Instrument Flask app
+</span><span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">FlaskInstrumentor</span><span class="p">().</span><span class="n">instrument_app</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">'/api/orders/&lt;order_id&gt;'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_order</span><span class="p">(</span><span class="n">order_id</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">tracer</span><span class="p">.</span><span class="n">start_as_current_span</span><span class="p">(</span><span class="s">"get_order"</span><span class="p">)</span> <span class="k">as</span> <span class="n">span</span><span class="p">:</span>
+        <span class="c1"># Add span attributes
+</span>        <span class="n">span</span><span class="p">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s">"order.id"</span><span class="p">,</span> <span class="n">order_id</span><span class="p">)</span>
+        <span class="n">span</span><span class="p">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s">"user.id"</span><span class="p">,</span> <span class="n">current_user</span><span class="p">.</span><span class="nb">id</span><span class="p">)</span>
+        
+        <span class="c1"># Record metrics
+</span>        <span class="n">request_counter</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s">"method"</span><span class="p">:</span> <span class="s">"GET"</span><span class="p">,</span>
+            <span class="s">"endpoint"</span><span class="p">:</span> <span class="s">"/api/orders"</span><span class="p">,</span>
+            <span class="s">"status"</span><span class="p">:</span> <span class="s">"success"</span>
+        <span class="p">})</span>
+        
+        <span class="c1"># Structured logging with trace context
+</span>        <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">"Fetching order"</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="p">{</span>
+            <span class="s">"order_id"</span><span class="p">:</span> <span class="n">order_id</span><span class="p">,</span>
+            <span class="s">"trace_id"</span><span class="p">:</span> <span class="n">span</span><span class="p">.</span><span class="n">get_span_context</span><span class="p">().</span><span class="n">trace_id</span><span class="p">,</span>
+            <span class="s">"span_id"</span><span class="p">:</span> <span class="n">span</span><span class="p">.</span><span class="n">get_span_context</span><span class="p">().</span><span class="n">span_id</span><span class="p">,</span>
+            <span class="s">"user_id"</span><span class="p">:</span> <span class="n">current_user</span><span class="p">.</span><span class="nb">id</span>
+        <span class="p">})</span>
+        
+        <span class="k">return</span> <span class="n">fetch_order</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="slis-slos-and-error-budgets">SLIs, SLOs, and Error Budgets</h4>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Prometheus rules for SLO monitoring</span>
+<span class="na">groups</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">slo_rules</span>
+    <span class="na">interval</span><span class="pi">:</span> <span class="s">30s</span>
+    <span class="na">rules</span><span class="pi">:</span>
+      <span class="c1"># Availability SLI</span>
+      <span class="pi">-</span> <span class="na">record</span><span class="pi">:</span> <span class="s">service:availability:ratio_rate5m</span>
+        <span class="na">expr</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">sum(rate(http_requests_total{status!~"5.."}[5m])) by (service)</span>
+          <span class="s">/</span>
+          <span class="s">sum(rate(http_requests_total[5m])) by (service)</span>
+      
+      <span class="c1"># Latency SLI (95th percentile under 200ms)</span>
+      <span class="pi">-</span> <span class="na">record</span><span class="pi">:</span> <span class="s">service:latency:p95_rate5m</span>
+        <span class="na">expr</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">histogram_quantile(0.95,</span>
+            <span class="s">sum(rate(http_request_duration_seconds_bucket[5m])) by (service, le)</span>
+          <span class="s">)</span>
+      
+      <span class="c1"># Error budget burn rate</span>
+      <span class="pi">-</span> <span class="na">alert</span><span class="pi">:</span> <span class="s">ErrorBudgetBurn</span>
+        <span class="na">expr</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">(</span>
+            <span class="s">1 - service:availability:ratio_rate5m</span>
+          <span class="s">) &gt; (1 - 0.999) * 14.4</span>
+        <span class="na">for</span><span class="pi">:</span> <span class="s">1h</span>
+        <span class="na">labels</span><span class="pi">:</span>
+          <span class="na">severity</span><span class="pi">:</span> <span class="s">page</span>
+        <span class="na">annotations</span><span class="pi">:</span>
+          <span class="na">summary</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Error</span><span class="nv"> </span><span class="s">budget</span><span class="nv"> </span><span class="s">burn</span><span class="nv"> </span><span class="s">rate</span><span class="nv"> </span><span class="s">too</span><span class="nv"> </span><span class="s">high"</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Service</span><span class="nv">  </span><span class="s">is</span><span class="nv"> </span><span class="s">burning</span><span class="nv"> </span><span class="s">error</span><span class="nv"> </span><span class="s">budget</span><span class="nv"> </span><span class="s">at</span><span class="nv"> </span><span class="s">x</span><span class="nv"> </span><span class="s">rate"</span>
+</code></pre></div></div>
+
+<h4 id="distributed-tracing">Distributed Tracing</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Node.js with OpenTelemetry</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">NodeTracerProvider</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@opentelemetry/sdk-trace-node</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">registerInstrumentations</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@opentelemetry/instrumentation</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">HttpInstrumentation</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@opentelemetry/instrumentation-http</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="p">{</span> <span class="nx">ExpressInstrumentation</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">@opentelemetry/instrumentation-express</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// Initialize tracing</span>
+<span class="kd">const</span> <span class="nx">provider</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NodeTracerProvider</span><span class="p">({</span>
+  <span class="na">resource</span><span class="p">:</span> <span class="k">new</span> <span class="nx">Resource</span><span class="p">({</span>
+    <span class="p">[</span><span class="nx">SemanticResourceAttributes</span><span class="p">.</span><span class="nx">SERVICE_NAME</span><span class="p">]:</span> <span class="dl">'</span><span class="s1">order-service</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">[</span><span class="nx">SemanticResourceAttributes</span><span class="p">.</span><span class="nx">SERVICE_VERSION</span><span class="p">]:</span> <span class="dl">'</span><span class="s1">1.2.3</span><span class="dl">'</span><span class="p">,</span>
+  <span class="p">}),</span>
+<span class="p">});</span>
+
+<span class="nx">provider</span><span class="p">.</span><span class="nx">addSpanProcessor</span><span class="p">(</span>
+  <span class="k">new</span> <span class="nx">BatchSpanProcessor</span><span class="p">(</span>
+    <span class="k">new</span> <span class="nx">OTLPTraceExporter</span><span class="p">({</span>
+      <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://otel-collector:4317</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">})</span>
+  <span class="p">)</span>
+<span class="p">);</span>
+
+<span class="nx">provider</span><span class="p">.</span><span class="nx">register</span><span class="p">();</span>
+
+<span class="c1">// Auto-instrument</span>
+<span class="nx">registerInstrumentations</span><span class="p">({</span>
+  <span class="na">instrumentations</span><span class="p">:</span> <span class="p">[</span>
+    <span class="k">new</span> <span class="nx">HttpInstrumentation</span><span class="p">({</span>
+      <span class="na">requestHook</span><span class="p">:</span> <span class="p">(</span><span class="nx">span</span><span class="p">,</span> <span class="nx">request</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="nx">span</span><span class="p">.</span><span class="nx">setAttributes</span><span class="p">({</span>
+          <span class="dl">'</span><span class="s1">http.request.body</span><span class="dl">'</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">),</span>
+          <span class="dl">'</span><span class="s1">user.id</span><span class="dl">'</span><span class="p">:</span> <span class="nx">request</span><span class="p">.</span><span class="nx">user</span><span class="p">?.</span><span class="nx">id</span><span class="p">,</span>
+        <span class="p">});</span>
+      <span class="p">},</span>
+    <span class="p">}),</span>
+    <span class="k">new</span> <span class="nx">ExpressInstrumentation</span><span class="p">(),</span>
+  <span class="p">],</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="implementation-guidelines">Implementation Guidelines</h3>
+
+<ol>
+  <li>
+    <p><strong>Structured Events</strong></p>
+
+    <div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c">// Go with structured logging</span>
+ <span class="k">import</span> <span class="p">(</span>
+     <span class="s">"github.com/sirupsen/logrus"</span>
+     <span class="s">"go.opentelemetry.io/otel"</span>
+ <span class="p">)</span>
+    
+ <span class="k">func</span> <span class="n">ProcessPayment</span><span class="p">(</span><span class="n">ctx</span> <span class="n">context</span><span class="o">.</span><span class="n">Context</span><span class="p">,</span> <span class="n">payment</span> <span class="n">Payment</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+     <span class="n">span</span> <span class="o">:=</span> <span class="n">trace</span><span class="o">.</span><span class="n">SpanFromContext</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+     <span class="n">logger</span> <span class="o">:=</span> <span class="n">logrus</span><span class="o">.</span><span class="n">WithFields</span><span class="p">(</span><span class="n">logrus</span><span class="o">.</span><span class="n">Fields</span><span class="p">{</span>
+         <span class="s">"trace_id"</span><span class="o">:</span> <span class="n">span</span><span class="o">.</span><span class="n">SpanContext</span><span class="p">()</span><span class="o">.</span><span class="n">TraceID</span><span class="p">()</span><span class="o">.</span><span class="n">String</span><span class="p">(),</span>
+         <span class="s">"payment_id"</span><span class="o">:</span> <span class="n">payment</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span>
+         <span class="s">"amount"</span><span class="o">:</span> <span class="n">payment</span><span class="o">.</span><span class="n">Amount</span><span class="p">,</span>
+         <span class="s">"currency"</span><span class="o">:</span> <span class="n">payment</span><span class="o">.</span><span class="n">Currency</span><span class="p">,</span>
+     <span class="p">})</span>
+        
+     <span class="n">logger</span><span class="o">.</span><span class="n">Info</span><span class="p">(</span><span class="s">"Processing payment"</span><span class="p">)</span>
+        
+     <span class="c">// Record business metrics</span>
+     <span class="n">paymentCounter</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span>
+         <span class="n">attribute</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"currency"</span><span class="p">,</span> <span class="n">payment</span><span class="o">.</span><span class="n">Currency</span><span class="p">),</span>
+         <span class="n">attribute</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="s">"method"</span><span class="p">,</span> <span class="n">payment</span><span class="o">.</span><span class="n">Method</span><span class="p">),</span>
+     <span class="p">)</span>
+        
+     <span class="n">start</span> <span class="o">:=</span> <span class="n">time</span><span class="o">.</span><span class="n">Now</span><span class="p">()</span>
+     <span class="n">err</span> <span class="o">:=</span> <span class="n">processPaymentInternal</span><span class="p">(</span><span class="n">payment</span><span class="p">)</span>
+     <span class="n">duration</span> <span class="o">:=</span> <span class="n">time</span><span class="o">.</span><span class="n">Since</span><span class="p">(</span><span class="n">start</span><span class="p">)</span>
+        
+     <span class="n">paymentDuration</span><span class="o">.</span><span class="n">Record</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">duration</span><span class="o">.</span><span class="n">Seconds</span><span class="p">())</span>
+        
+     <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+         <span class="n">logger</span><span class="o">.</span><span class="n">WithError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="o">.</span><span class="n">Error</span><span class="p">(</span><span class="s">"Payment failed"</span><span class="p">)</span>
+         <span class="n">span</span><span class="o">.</span><span class="n">RecordError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+         <span class="n">span</span><span class="o">.</span><span class="n">SetStatus</span><span class="p">(</span><span class="n">codes</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">Error</span><span class="p">())</span>
+         <span class="k">return</span> <span class="n">err</span>
+     <span class="p">}</span>
+        
+     <span class="n">logger</span><span class="o">.</span><span class="n">Info</span><span class="p">(</span><span class="s">"Payment processed successfully"</span><span class="p">)</span>
+     <span class="k">return</span> <span class="no">nil</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Health and Readiness</strong></p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">'/healthz'</span><span class="p">)</span>
+ <span class="k">def</span> <span class="nf">health</span><span class="p">():</span>
+     <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s">"status"</span><span class="p">:</span> <span class="s">"healthy"</span><span class="p">}),</span> <span class="mi">200</span>
+    
+ <span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">'/readyz'</span><span class="p">)</span>
+ <span class="k">def</span> <span class="nf">ready</span><span class="p">():</span>
+     <span class="n">checks</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="s">"database"</span><span class="p">:</span> <span class="n">check_database</span><span class="p">(),</span>
+         <span class="s">"cache"</span><span class="p">:</span> <span class="n">check_redis</span><span class="p">(),</span>
+         <span class="s">"dependencies"</span><span class="p">:</span> <span class="n">check_external_apis</span><span class="p">()</span>
+     <span class="p">}</span>
+        
+     <span class="n">ready</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span><span class="n">checks</span><span class="p">.</span><span class="n">values</span><span class="p">())</span>
+     <span class="n">status_code</span> <span class="o">=</span> <span class="mi">200</span> <span class="k">if</span> <span class="n">ready</span> <span class="k">else</span> <span class="mi">503</span>
+        
+     <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span>
+         <span class="s">"ready"</span><span class="p">:</span> <span class="n">ready</span><span class="p">,</span>
+         <span class="s">"checks"</span><span class="p">:</span> <span class="n">checks</span><span class="p">,</span>
+         <span class="s">"timestamp"</span><span class="p">:</span> <span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">().</span><span class="n">isoformat</span><span class="p">()</span>
+     <span class="p">}),</span> <span class="n">status_code</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="best-practices">Best Practices</h3>
+
+<ol>
+  <li><strong>Cardinality Control</strong> - Limit label combinations</li>
+  <li><strong>Sampling Strategy</strong> - Balance detail vs overhead</li>
+  <li><strong>Context Propagation</strong> - Maintain trace context</li>
+  <li><strong>Semantic Conventions</strong> - Use standard attribute names</li>
+  <li><strong>Dashboard Design</strong> - Focus on user journeys</li>
+</ol>
+
+<h3 id="key-takeaways">Key Takeaways</h3>
+
+<ol>
+  <li>Telemetry is not optional in modern systems</li>
+  <li>Three pillars provide different perspectives</li>
+  <li>SLOs drive reliability decisions</li>
+  <li>Distributed tracing is essential for microservices</li>
+  <li>Build observability in from the start</li>
+</ol>
+
+<hr />
+
+<h3 id="sources">Sources</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://opentelemetry.io/docs/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://sre.google/sre-book/monitoring-distributed-systems/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://www.oreilly.com/library/view/distributed-tracing-in/9781492056621/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://prometheus.io/docs/practices/</code></li>
+</ul>
+
+                    
+                    <!-- Factor Navigation Footer -->
+                    <div class="factor-footer-nav">
+                        
+                            
+                                <a href="/12-factor-app-website/factor-13-api-first" class="footer-nav-btn prev">
+                                    <div class="nav-direction">Previous Factor</div>
+                                    <div class="nav-title">Factor 13: API First</div>
+                                </a>
+                            
+                        
+                        
+                        
+                            
+                                <a href="/12-factor-app-website/factor-15-auth" class="footer-nav-btn next">
+                                    <div class="nav-direction">Next Factor</div>
+                                    <div class="nav-title">Factor 15: Auth</div>
+                                </a>
+                            
+                        
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Progress Indicator -->
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+</div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Modern 17-Factor App</h3>
+                    <p>An evolution of the twelve-factor methodology for modern cloud-native applications</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/12-factor-app-website/">Home</a></li>
+                        <li><a href="/12-factor-app-website/factor-01-codebase">Original 12 Factors</a></li>
+                        <li><a href="/12-factor-app-website/factor-13-api-first">New 5 Factors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://12factor.net" target="_blank">Original 12-Factor App</a></li>
+                        <li><a href="https://github.com/ifeatu/12-factor-app-website" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Modern 17-Factor App. Built with Jekyll.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/12-factor-app-website/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factor 16: Auth | The Modern 17-Factor App</title>
+    <meta name="description" content="Authentication and authorization as a service">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/12-factor-app-website/assets/css/main.css">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SEO -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Factor 16: Auth | The Modern 17-Factor App</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Factor 16: Auth" />
+<meta name="author" content="Pierre Brunelle" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Authentication and authorization as a service" />
+<meta property="og:description" content="Authentication and authorization as a service" />
+<link rel="canonical" href="https://pierrebrunelle.github.io/12-factor-app-website/factor-16-auth.html" />
+<meta property="og:url" content="https://pierrebrunelle.github.io/12-factor-app-website/factor-16-auth.html" />
+<meta property="og:site_name" content="The Modern 17-Factor App" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Factor 16: Auth" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Pierre Brunelle"},"description":"Authentication and authorization as a service","headline":"Factor 16: Auth","url":"https://pierrebrunelle.github.io/12-factor-app-website/factor-16-auth.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    <!-- Feed -->
+    <link type="application/atom+xml" rel="alternate" href="https://pierrebrunelle.github.io/12-factor-app-website/feed.xml" title="The Modern 17-Factor App" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/12-factor-app-website/" class="brand-link">
+                    <i class="fas fa-cube brand-icon"></i>
+                    <span class="brand-text">The Modern 17-Factor App</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="/12-factor-app-website/" class="nav-link ">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-toggle">
+                        <i class="fas fa-list"></i> Factors <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-section">
+                            <h4>Original 12 Factors</h4>
+                            <a href="/12-factor-app-website/factor-01-codebase">1. Codebase</a>
+                            <a href="/12-factor-app-website/factor-02-dependencies">2. Dependencies</a>
+                            <a href="/12-factor-app-website/factor-03-config">3. Config</a>
+                            <a href="/12-factor-app-website/factor-04-backing-services">4. Backing Services</a>
+                            <a href="/12-factor-app-website/factor-05-build-release-run">5. Build, Release, Run</a>
+                            <a href="/12-factor-app-website/factor-06-processes">6. Processes</a>
+                            <a href="/12-factor-app-website/factor-07-port-binding">7. Port Binding</a>
+                            <a href="/12-factor-app-website/factor-08-concurrency">8. Concurrency</a>
+                            <a href="/12-factor-app-website/factor-09-disposability">9. Disposability</a>
+                            <a href="/12-factor-app-website/factor-10-dev-prod-parity">10. Dev/Prod Parity</a>
+                            <a href="/12-factor-app-website/factor-11-logs">11. Logs</a>
+                            <a href="/12-factor-app-website/factor-12-admin-processes">12. Admin Processes</a>
+                        </div>
+                        <div class="dropdown-section">
+                            <h4>New 5 Factors</h4>
+                            <a href="/12-factor-app-website/factor-13-api-first">13. API First</a>
+                            <a href="/12-factor-app-website/factor-14-graphql-grpc">14. GraphQL & gRPC</a>
+                            <a href="/12-factor-app-website/factor-15-auth">15. Authentication & Authorization</a>
+                            <a href="/12-factor-app-website/factor-16-event-driven">16. Event-Driven Architecture</a>
+                            <a href="/12-factor-app-website/factor-17-failure-isolation">17. Failure Isolation</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://github.com/ifeatu/12-factor-app-website" target="_blank" class="nav-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="factor-page">
+    <!-- Factor Header -->
+    <div class="factor-header">
+        <div class="container">
+            <div class="factor-nav">
+                <a href="/12-factor-app-website/" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </a>
+                
+                <div class="factor-navigation">
+                    
+                        <a href="/12-factor-app-website/factor-15-graphql-grpc" class="nav-btn prev-btn">
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </a>
+                    
+                    
+                    
+                        <a href="/12-factor-app-website/factor-17-event-driven" class="nav-btn next-btn">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </a>
+                    
+                </div>
+            </div>
+            
+            <div class="factor-title">
+                
+                
+                    <div class="factor-number-circle"></div>
+                    <h1 class="factor-name">Auth</h1>
+                
+                
+                
+                    <p class="factor-description">Authentication and authorization as a service</p>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Factor Content -->
+    <div class="factor-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Table of Contents -->
+                <aside class="toc-sidebar">
+                    <div class="toc-container">
+                        <h3>Table of Contents</h3>
+                        <div id="toc"></div>
+                    </div>
+                </aside>
+                
+                <!-- Main Content -->
+                <article class="factor-article">
+                    <h1 id="factor-16-auth">Factor 16: Auth</h1>
+
+<h2 id="secure-identity-and-access-management">Secure identity and access management</h2>
+
+<h3 id="modern-principle">Modern Principle</h3>
+
+<p>Security is not optional in modern applications. Proper authentication (who you are) and authorization (what you can do) must be built into the application architecture from day one, not bolted on later.</p>
+
+<h4 id="key-components">Key Components</h4>
+
+<ul>
+  <li><strong>Identity Providers</strong>: Centralized authentication services</li>
+  <li><strong>Token-based Authentication</strong>: JWT, OAuth 2.0, OpenID Connect</li>
+  <li><strong>Role-based Access Control (RBAC)</strong>: Permissions based on roles</li>
+  <li><strong>Attribute-based Access Control (ABAC)</strong>: Fine-grained permissions</li>
+  <li><strong>Zero Trust Architecture</strong>: Never trust, always verify</li>
+</ul>
+
+<h3 id="implementation-guidelines">Implementation Guidelines</h3>
+
+<ol>
+  <li><strong>Use established protocols</strong> like OAuth 2.0 and OpenID Connect</li>
+  <li><strong>Implement JWT tokens</strong> with proper expiration and refresh</li>
+  <li><strong>Centralize authentication</strong> using identity providers</li>
+  <li><strong>Apply principle of least privilege</strong> for all access controls</li>
+  <li><strong>Audit all access attempts</strong> for security monitoring</li>
+  <li><strong>Use HTTPS everywhere</strong> for all communications</li>
+  <li><strong>Implement proper session management</strong> with secure cookies</li>
+</ol>
+
+<h3 id="modern-tools">Modern Tools</h3>
+
+<ul>
+  <li><strong>Identity Providers</strong>: Auth0, Okta, AWS Cognito, Azure AD</li>
+  <li><strong>API Security</strong>: Kong, Ambassador, Istio Service Mesh</li>
+  <li><strong>Secret Management</strong>: HashiCorp Vault, AWS Secrets Manager</li>
+  <li><strong>Certificate Management</strong>: Let’s Encrypt, cert-manager</li>
+</ul>
+
+<h3 id="security-best-practices">Security Best Practices</h3>
+
+<ul>
+  <li><strong>Multi-factor Authentication (MFA)</strong> for sensitive operations</li>
+  <li><strong>Rate limiting</strong> to prevent abuse</li>
+  <li><strong>Input validation</strong> and sanitization</li>
+  <li><strong>Security headers</strong> (HSTS, CSP, etc.)</li>
+  <li><strong>Regular security audits</strong> and penetration testing</li>
+</ul>
+
+<h3 id="code-examples">Code Examples</h3>
+
+<h4 id="jwt-with-scopes-pythonfastapi">JWT with Scopes (Python/FastAPI)</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">HTTPException</span><span class="p">,</span> <span class="n">Security</span>
+<span class="kn">from</span> <span class="nn">fastapi.security</span> <span class="kn">import</span> <span class="n">OAuth2PasswordBearer</span><span class="p">,</span> <span class="n">SecurityScopes</span>
+<span class="kn">from</span> <span class="nn">jose</span> <span class="kn">import</span> <span class="n">JWTError</span><span class="p">,</span> <span class="n">jwt</span>
+<span class="kn">import</span> <span class="nn">httpx</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">ValidationError</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="n">oauth2_scheme</span> <span class="o">=</span> <span class="n">OAuth2PasswordBearer</span><span class="p">(</span>
+    <span class="n">tokenUrl</span><span class="o">=</span><span class="s">"token"</span><span class="p">,</span>
+    <span class="n">scopes</span><span class="o">=</span><span class="p">{</span>
+        <span class="s">"users:read"</span><span class="p">:</span> <span class="s">"Read user information"</span><span class="p">,</span>
+        <span class="s">"users:write"</span><span class="p">:</span> <span class="s">"Modify user information"</span><span class="p">,</span>
+        <span class="s">"admin"</span><span class="p">:</span> <span class="s">"Administrative access"</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># JWKS endpoint for token validation
+</span><span class="n">JWKS_URL</span> <span class="o">=</span> <span class="s">"https://auth.example.com/.well-known/jwks.json"</span>
+<span class="n">ALGORITHM</span> <span class="o">=</span> <span class="s">"RS256"</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_current_user</span><span class="p">(</span>
+    <span class="n">security_scopes</span><span class="p">:</span> <span class="n">SecurityScopes</span><span class="p">,</span>
+    <span class="n">token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">oauth2_scheme</span><span class="p">)</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="n">security_scopes</span><span class="p">.</span><span class="n">scopes</span><span class="p">:</span>
+        <span class="n">authenticate_value</span> <span class="o">=</span> <span class="sa">f</span><span class="s">'Bearer scope="</span><span class="si">{</span><span class="n">security_scopes</span><span class="p">.</span><span class="n">scope_str</span><span class="si">}</span><span class="s">"'</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">authenticate_value</span> <span class="o">=</span> <span class="s">"Bearer"</span>
+    
+    <span class="n">credentials_exception</span> <span class="o">=</span> <span class="n">HTTPException</span><span class="p">(</span>
+        <span class="n">status_code</span><span class="o">=</span><span class="mi">401</span><span class="p">,</span>
+        <span class="n">detail</span><span class="o">=</span><span class="s">"Could not validate credentials"</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s">"WWW-Authenticate"</span><span class="p">:</span> <span class="n">authenticate_value</span><span class="p">},</span>
+    <span class="p">)</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Validate token with JWKS
+</span>        <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="p">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+            <span class="n">jwks</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">JWKS_URL</span><span class="p">)</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">get_signing_key</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">jwks</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+        
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">jwt</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">algorithms</span><span class="o">=</span><span class="p">[</span><span class="n">ALGORITHM</span><span class="p">])</span>
+        <span class="n">token_scopes</span> <span class="o">=</span> <span class="n">payload</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"scope"</span><span class="p">,</span> <span class="s">""</span><span class="p">).</span><span class="n">split</span><span class="p">()</span>
+        
+        <span class="c1"># Validate required scopes
+</span>        <span class="k">for</span> <span class="n">scope</span> <span class="ow">in</span> <span class="n">security_scopes</span><span class="p">.</span><span class="n">scopes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">scope</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">token_scopes</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span>
+                    <span class="n">status_code</span><span class="o">=</span><span class="mi">403</span><span class="p">,</span>
+                    <span class="n">detail</span><span class="o">=</span><span class="s">"Not enough permissions"</span><span class="p">,</span>
+                    <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s">"WWW-Authenticate"</span><span class="p">:</span> <span class="n">authenticate_value</span><span class="p">},</span>
+                <span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">User</span><span class="p">(</span><span class="o">**</span><span class="n">payload</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">JWTError</span><span class="p">,</span> <span class="n">ValidationError</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">credentials_exception</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/api/users/{user_id}"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">read_user</span><span class="p">(</span>
+    <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">current_user</span><span class="p">:</span> <span class="n">User</span> <span class="o">=</span> <span class="n">Security</span><span class="p">(</span><span class="n">get_current_user</span><span class="p">,</span> <span class="n">scopes</span><span class="o">=</span><span class="p">[</span><span class="s">"users:read"</span><span class="p">])</span>
+<span class="p">):</span>
+    <span class="c1"># Check if user can access this resource
+</span>    <span class="k">if</span> <span class="n">user_id</span> <span class="o">!=</span> <span class="n">current_user</span><span class="p">.</span><span class="nb">id</span> <span class="ow">and</span> <span class="s">"admin"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_user</span><span class="p">.</span><span class="n">scopes</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">403</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s">"Access denied"</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">get_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="policy-based-authorization">Policy-Based Authorization</h4>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Open Policy Agent (OPA) policy</span>
+<span class="s">package authz</span>
+
+<span class="s">default allow = </span><span class="no">false</span>
+
+<span class="c1"># Allow users to read their own data</span>
+<span class="s">allow {</span>
+    <span class="s">input.method == "GET"</span>
+    <span class="s">input.path == ["api", "users", user_id]</span>
+    <span class="s">input.user.id == user_id</span>
+<span class="err">}</span>
+
+<span class="c1"># Allow admins full access</span>
+<span class="s">allow {</span>
+    <span class="s">input.user.roles[_] == "admin"</span>
+<span class="err">}</span>
+
+<span class="c1"># Allow service-to-service communication</span>
+<span class="s">allow {</span>
+    <span class="s">input.source.service_account != ""</span>
+    <span class="s">input.source.namespace == input.destination.namespace</span>
+    <span class="s">allowed_service_communication[input.source.service_account][input.destination.service_account]</span>
+<span class="err">}</span>
+
+<span class="s">allowed_service_communication = {</span>
+    <span class="s">"frontend"</span><span class="err">:</span> <span class="pi">{</span><span class="s2">"</span><span class="s">api"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">auth"</span><span class="pi">}</span><span class="err">,</span>
+    <span class="s2">"</span><span class="s">api"</span><span class="err">:</span> <span class="pi">{</span><span class="s2">"</span><span class="s">database"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">cache"</span><span class="pi">}</span><span class="err">,</span>
+    <span class="s2">"</span><span class="s">worker"</span><span class="err">:</span> <span class="pi">{</span><span class="s2">"</span><span class="s">database"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">queue"</span><span class="pi">}</span>
+<span class="err">}</span>
+</code></pre></div></div>
+
+<h4 id="mtls-for-service-to-service">mTLS for Service-to-Service</h4>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Go service with mTLS</span>
+<span class="k">import</span> <span class="p">(</span>
+    <span class="s">"crypto/tls"</span>
+    <span class="s">"crypto/x509"</span>
+    <span class="s">"net/http"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">createTLSConfig</span><span class="p">()</span> <span class="p">(</span><span class="o">*</span><span class="n">tls</span><span class="o">.</span><span class="n">Config</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c">// Load client certificates</span>
+    <span class="n">cert</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">tls</span><span class="o">.</span><span class="n">LoadX509KeyPair</span><span class="p">(</span><span class="s">"client.crt"</span><span class="p">,</span> <span class="s">"client.key"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="no">nil</span><span class="p">,</span> <span class="n">err</span>
+    <span class="p">}</span>
+    
+    <span class="c">// Load CA cert</span>
+    <span class="n">caCert</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">ioutil</span><span class="o">.</span><span class="n">ReadFile</span><span class="p">(</span><span class="s">"ca.crt"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="no">nil</span><span class="p">,</span> <span class="n">err</span>
+    <span class="p">}</span>
+    
+    <span class="n">caCertPool</span> <span class="o">:=</span> <span class="n">x509</span><span class="o">.</span><span class="n">NewCertPool</span><span class="p">()</span>
+    <span class="n">caCertPool</span><span class="o">.</span><span class="n">AppendCertsFromPEM</span><span class="p">(</span><span class="n">caCert</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="o">&amp;</span><span class="n">tls</span><span class="o">.</span><span class="n">Config</span><span class="p">{</span>
+        <span class="n">Certificates</span><span class="o">:</span> <span class="p">[]</span><span class="n">tls</span><span class="o">.</span><span class="n">Certificate</span><span class="p">{</span><span class="n">cert</span><span class="p">},</span>
+        <span class="n">RootCAs</span><span class="o">:</span>      <span class="n">caCertPool</span><span class="p">,</span>
+        <span class="n">ClientAuth</span><span class="o">:</span>   <span class="n">tls</span><span class="o">.</span><span class="n">RequireAndVerifyClientCert</span><span class="p">,</span>
+        <span class="n">ClientCAs</span><span class="o">:</span>    <span class="n">caCertPool</span><span class="p">,</span>
+    <span class="p">},</span> <span class="no">nil</span>
+<span class="p">}</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">tlsConfig</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">createTLSConfig</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">err</span> <span class="o">!=</span> <span class="no">nil</span> <span class="p">{</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+    <span class="n">server</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Server</span><span class="p">{</span>
+        <span class="n">Addr</span><span class="o">:</span>      <span class="s">":8443"</span><span class="p">,</span>
+        <span class="n">TLSConfig</span><span class="o">:</span> <span class="n">tlsConfig</span><span class="p">,</span>
+        <span class="n">Handler</span><span class="o">:</span>   <span class="n">http</span><span class="o">.</span><span class="n">HandlerFunc</span><span class="p">(</span><span class="n">handler</span><span class="p">),</span>
+    <span class="p">}</span>
+    
+    <span class="n">log</span><span class="o">.</span><span class="n">Fatal</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">ListenAndServeTLS</span><span class="p">(</span><span class="s">""</span><span class="p">,</span> <span class="s">""</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="implementation-guidelines-1">Implementation Guidelines</h3>
+
+<ol>
+  <li>
+    <p><strong>API Gateway Pattern</strong></p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1"># Kong API Gateway with OIDC</span>
+ <span class="na">plugins</span><span class="pi">:</span>
+ <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">oidc</span>
+   <span class="na">config</span><span class="pi">:</span>
+     <span class="na">issuer</span><span class="pi">:</span> <span class="s">https://auth.example.com/</span>
+     <span class="na">client_id</span><span class="pi">:</span> <span class="s">api-gateway</span>
+     <span class="na">client_secret</span><span class="pi">:</span> <span class="s">${OIDC_CLIENT_SECRET}</span>
+     <span class="na">redirect_uri</span><span class="pi">:</span> <span class="s">https://api.example.com/callback</span>
+     <span class="na">scope</span><span class="pi">:</span> <span class="s">openid profile email</span>
+     <span class="na">session_secret</span><span class="pi">:</span> <span class="s">${SESSION_SECRET}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Token Lifecycle</strong></p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1"># Token refresh mechanism
+</span> <span class="k">async</span> <span class="k">def</span> <span class="nf">refresh_access_token</span><span class="p">(</span><span class="n">refresh_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+     <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="p">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+         <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="p">.</span><span class="n">post</span><span class="p">(</span>
+             <span class="s">"https://auth.example.com/token"</span><span class="p">,</span>
+             <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+                 <span class="s">"grant_type"</span><span class="p">:</span> <span class="s">"refresh_token"</span><span class="p">,</span>
+                 <span class="s">"refresh_token"</span><span class="p">:</span> <span class="n">refresh_token</span><span class="p">,</span>
+                 <span class="s">"client_id"</span><span class="p">:</span> <span class="n">CLIENT_ID</span><span class="p">,</span>
+                 <span class="s">"client_secret"</span><span class="p">:</span> <span class="n">CLIENT_SECRET</span>
+             <span class="p">}</span>
+         <span class="p">)</span>
+        
+     <span class="k">if</span> <span class="n">response</span><span class="p">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+         <span class="k">return</span> <span class="n">response</span><span class="p">.</span><span class="n">json</span><span class="p">()</span>
+        
+     <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">401</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s">"Invalid refresh token"</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="best-practices">Best Practices</h3>
+
+<ol>
+  <li><strong>Never roll your own crypto</strong> - Use established libraries</li>
+  <li><strong>Principle of least privilege</strong> - Minimal required permissions</li>
+  <li><strong>Defense in depth</strong> - Multiple security layers</li>
+  <li><strong>Regular rotation</strong> - Keys, certificates, and secrets</li>
+  <li><strong>Audit everything</strong> - Log all auth decisions</li>
+</ol>
+
+<h3 id="key-takeaways">Key Takeaways</h3>
+
+<ol>
+  <li>Security cannot be an afterthought</li>
+  <li>Zero-trust means authenticate everything</li>
+  <li>Use standard protocols (OAuth2, OIDC)</li>
+  <li>Service mesh provides mTLS transparently</li>
+  <li>Policy engines enable complex authorization</li>
+</ol>
+
+<hr />
+
+<h3 id="sources">Sources</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">https://www.nist.gov/publications/zero-trust-architecture</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://istio.io/latest/docs/concepts/security/</code></li>
+  <li><code class="language-plaintext highlighter-rouge">https://www.openpolicyagent.org/docs/latest/</code></li>
+</ul>
+
+<h3 id="anti-patterns">Anti-patterns</h3>
+
+<ul>
+  <li>Rolling your own authentication system</li>
+  <li>Storing passwords in plain text or weak hashing</li>
+  <li>Using long-lived tokens without refresh mechanisms</li>
+  <li>Implementing authorization logic in the frontend only</li>
+  <li>Not logging security events for monitoring</li>
+</ul>
+
+                    
+                    <!-- Factor Navigation Footer -->
+                    <div class="factor-footer-nav">
+                        
+                            
+                                <a href="/12-factor-app-website/factor-15-graphql-grpc" class="footer-nav-btn prev">
+                                    <div class="nav-direction">Previous Factor</div>
+                                    <div class="nav-title">Factor 15: GraphQL & gRPC</div>
+                                </a>
+                            
+                        
+                        
+                        
+                            
+                                <a href="/12-factor-app-website/factor-17-event-driven" class="footer-nav-btn next">
+                                    <div class="nav-direction">Next Factor</div>
+                                    <div class="nav-title">Factor 17: Event-Driven</div>
+                                </a>
+                            
+                        
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Progress Indicator -->
+<div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+</div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>The Modern 17-Factor App</h3>
+                    <p>An evolution of the twelve-factor methodology for modern cloud-native applications</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/12-factor-app-website/">Home</a></li>
+                        <li><a href="/12-factor-app-website/factor-01-codebase">Original 12 Factors</a></li>
+                        <li><a href="/12-factor-app-website/factor-13-api-first">New 5 Factors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://12factor.net" target="_blank">Original 12-Factor App</a></li>
+                        <li><a href="https://github.com/ifeatu/12-factor-app-website" target="_blank">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Modern 17-Factor App. Built with Jekyll.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/12-factor-app-website/assets/js/main.js"></script>
+</body>
+</html>
