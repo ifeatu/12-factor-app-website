@@ -10,8 +10,8 @@ prev_factor:
   url: "factor-15-graphql-grpc"
 next_factor:
   number: 17
-  name: "Event-Driven"
-  url: "factor-17-event-driven"
+  name: "Failure Isolation"
+  url: "factor-17-failure-isolation"
 ---
 
 # Factor 16: Auth

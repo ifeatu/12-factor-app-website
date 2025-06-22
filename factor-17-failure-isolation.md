@@ -1,17 +1,17 @@
 ---
 layout: factor
-title: "Factor 18: Failure Isolation"
-factor_number: 18
+title: "Factor 17: Failure Isolation"
+factor_number: 17
 factor_name: "Failure Isolation"
 description: "Contain failures and maintain system resilience"
 prev_factor:
-  number: 17
-  name: "Event-Driven"
-  url: "factor-17-event-driven"
+  number: 16
+  name: "Auth"
+  url: "factor-16-auth"
 next_factor: null
 ---
 
-# Factor 18: Failure Isolation
+# Factor 17: Failure Isolation
 
 ## Design for partial failure with circuit breakers and bulkheads
 

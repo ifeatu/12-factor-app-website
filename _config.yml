@@ -1,5 +1,5 @@
 # Site settings
-title: "The Modern 18-Factor App"
+title: "The Modern 17-Factor App"
 description: "An evolution of the twelve-factor methodology for modern cloud-native applications"
 baseurl: "/12-factor-app-website"
 url: "https://pierrebrunelle.github.io"
@@ -73,6 +73,6 @@ social:
 # SEO
 seo:
   type: "WebSite"
-  name: "The Modern 18-Factor App"
+  name: "The Modern 17-Factor App"
   links:
     - "https://github.com/pierrebrunelle/12-factor-app-website"

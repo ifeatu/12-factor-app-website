@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "The Modern 18-Factor App"
+title: "The Modern 17-Factor App"
 description: "An evolution of the twelve-factor methodology for modern cloud-native applications"
 ---
 
@@ -8,7 +8,7 @@ description: "An evolution of the twelve-factor methodology for modern cloud-nat
 <section class="hero-section">
   <div class="container">
     <div class="hero-content">
-      <h1 class="hero-title">The Modern 18-Factor App</h1>
+      <h1 class="hero-title">The Modern 17-Factor App</h1>
       <p class="hero-subtitle">Building Cloud-Native Applications in 2025</p>
       <a href="#factors" class="hero-cta">
         <i class="fas fa-rocket"></i>
@@ -24,14 +24,14 @@ description: "An evolution of the twelve-factor methodology for modern cloud-nat
     <h2>Evolution of Cloud-Native Development</h2>
     <p style="font-size: 1.125rem; margin-bottom: 2rem;">The twelve-factor methodology revolutionized cloud application development when it emerged in 2011. Today, thirteen years later, the landscape has transformed dramatically. Modern distributed systems, with their microservices architectures, sophisticated security requirements, and edge computing demands, require an evolved approach.</p>
     
-    <p style="font-size: 1.125rem;">This site presents <strong>The Modern 18-Factor App</strong> - an evolution of the original twelve factors plus six critical new factors that address today's cloud-native realities.</p>
+    <p style="font-size: 1.125rem;">This site presents <strong>The Modern 17-Factor App</strong> - an evolution of the original twelve factors plus five critical new factors that address today's cloud-native realities.</p>
   </div>
 </section>
 
 <!-- Why 18 Factors Section -->
 <section class="container" style="padding: 2rem 0;">
   <div style="max-width: 1000px; margin: 0 auto;">
-    <h3 style="text-align: center; margin-bottom: 2rem;">Why 18 Factors?</h3>
+    <h3 style="text-align: center; margin-bottom: 2rem;">Why 17 Factors?</h3>
     
     <p style="margin-bottom: 2rem;">The original twelve factors emerged from Heroku's experience running hundreds of apps on one of the first Platform-as-a-Service offerings. While these principles remain foundational, modern applications face challenges that didn't exist in 2011:</p>
     
@@ -66,7 +66,7 @@ description: "An evolution of the twelve-factor methodology for modern cloud-nat
 
 <!-- Factors Section -->
 <section id="factors" class="container" style="padding: 3rem 0;">
-  <h3 style="text-align: center; margin-bottom: 3rem;">The 18 Factors</h3>
+  <h3 style="text-align: center; margin-bottom: 3rem;">The 17 Factors</h3>
   
   <!-- Original Twelve - Evolved -->
   <div style="margin-bottom: 4rem;">
@@ -150,7 +150,7 @@ description: "An evolution of the twelve-factor methodology for modern cloud-nat
   
   <!-- Five New Essential Factors -->
   <div>
-    <h4 style="text-align: center; margin-bottom: 2rem; color: var(--secondary-color);">The Six New Essential Factors</h4>
+    <h4 style="text-align: center; margin-bottom: 2rem; color: var(--secondary-color);">The Five New Essential Factors</h4>
     <p style="text-align: center; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">These factors address modern cloud-native requirements:</p>
     
     <div class="factor-grid">
@@ -178,14 +178,8 @@ description: "An evolution of the twelve-factor methodology for modern cloud-nat
         <p>Security by design with zero-trust principles</p>
       </a>
       
-      <a href="{{ site.baseurl }}/factor-17-event-driven" class="factor-card new-factor">
+      <a href="{{ site.baseurl }}/factor-17-failure-isolation" class="factor-card new-factor">
         <div class="factor-number">17</div>
-        <h5>Event-Driven Architecture</h5>
-        <p>Asynchronous communication and event sourcing</p>
-      </a>
-      
-      <a href="{{ site.baseurl }}/factor-18-failure-isolation" class="factor-card new-factor">
-        <div class="factor-number">18</div>
         <h5>Failure Isolation</h5>
         <p>Design for partial failure with circuit breakers and bulkheads</p>
       </a>
@@ -235,5 +229,5 @@ description: "An evolution of the twelve-factor methodology for modern cloud-nat
 
 <!-- Footer Attribution -->
 <section class="container" style="padding: 2rem 0; text-align: center; border-top: 1px solid var(--gray-200); margin-top: 3rem;">
-  <p style="color: var(--gray-600); font-style: italic;">The Modern 18-Factor App is an evolution of <a href="https://12factor.net/" target="_blank" style="color: var(--primary-color);">The Twelve-Factor App</a> methodology, updated for the realities of cloud-native development in 2025.</p>
+  <p style="color: var(--gray-600); font-style: italic;">The Modern 17-Factor App is an evolution of <a href="https://12factor.net/" target="_blank" style="color: var(--primary-color);">The Twelve-Factor App</a> methodology, updated for the realities of cloud-native development in 2025.</p>
 </section>
