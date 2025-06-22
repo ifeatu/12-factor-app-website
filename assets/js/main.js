@@ -352,22 +352,7 @@ function throttle(func, limit) {
     }
 }
 
-// ===== THEME TOGGLE (Optional) =====
-function initThemeToggle() {
-    const themeToggle = document.getElementById('theme-toggle');
-    if (!themeToggle) return;
-    
-    const currentTheme = localStorage.getItem('theme') || 'auto';
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    
-    themeToggle.addEventListener('click', function() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-    });
-}
+
 
 // ===== CODE SYNTAX HIGHLIGHTING =====
 function initCodeHighlighting() {
