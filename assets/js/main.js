@@ -24,9 +24,9 @@ function initMobileNavigation() {
             const bars = navToggle.querySelectorAll('.bar');
             bars.forEach((bar, index) => {
                 if (navToggle.classList.contains('active')) {
-                    if (index === 0) bar.style.transform = 'rotate(45deg) translate(5px, 5px)';
+                    if (index === 0) bar.style.transform = 'rotate(45deg) translate(var(--space-1), var(--space-1))';
                     if (index === 1) bar.style.opacity = '0';
-                    if (index === 2) bar.style.transform = 'rotate(-45deg) translate(7px, -6px)';
+                    if (index === 2) bar.style.transform = 'rotate(-45deg) translate(var(--space-2), calc(-1 * var(--space-2)))';
                 } else {
                     bar.style.transform = 'none';
                     bar.style.opacity = '1';
@@ -235,7 +235,7 @@ function initAnimations() {
     // Intersection Observer for fade-in animations
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: `0px 0px -${getComputedStyle(document.documentElement).getPropertyValue('--space-12')} 0px`
     };
     
     const observer = new IntersectionObserver((entries) => {
