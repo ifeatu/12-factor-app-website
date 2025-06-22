@@ -537,6 +537,39 @@ li {
 
 
 
+/* Theme Toggle */
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--text-secondary, var(--gray-600));
+  font-size: var(--font-size-lg);
+  padding: var(--space-2);
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: var(--space-2);
+}
+
+.theme-toggle:hover {
+  background-color: var(--surface-elevated, var(--gray-100));
+  color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.theme-toggle:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
 /* Mobile Navigation */
 .nav-toggle {
   display: none;

@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollProgress();
     initSmoothScrolling();
     initAnimations();
+    initThemeToggle();
 });
 
 // ===== MOBILE NAVIGATION =====
@@ -239,6 +240,62 @@ function initSmoothScrolling() {
                 });
             }
         });
+    });
+}
+
+// ===== THEME TOGGLE =====
+function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const body = document.body;
+    
+    if (!themeToggle || !themeIcon) return;
+    
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Set initial theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        enableDarkMode();
+    } else {
+        enableLightMode();
+    }
+    
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', function() {
+        if (body.classList.contains('dark-mode')) {
+            enableLightMode();
+            localStorage.setItem('theme', 'light');
+        } else {
+            enableDarkMode();
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+    
+    function enableDarkMode() {
+        body.classList.add('dark-mode');
+        themeIcon.className = 'fas fa-sun';
+        themeToggle.setAttribute('aria-label', 'Switch to light mode');
+        themeToggle.setAttribute('title', 'Switch to light mode');
+    }
+    
+    function enableLightMode() {
+        body.classList.remove('dark-mode');
+        themeIcon.className = 'fas fa-moon';
+        themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+        themeToggle.setAttribute('title', 'Switch to dark mode');
+    }
+    
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        if (!localStorage.getItem('theme')) {
+            if (e.matches) {
+                enableDarkMode();
+            } else {
+                enableLightMode();
+            }
+        }
     });
 }
 
